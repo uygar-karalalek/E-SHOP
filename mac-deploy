@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# First we build the Back-End
+cd Back-End
+gradle clean build
+sleep 2
+gradle bootRun &
+
+function cleanupOnExit() {
+  killall -9 node
+  gradle -stop
+  echo "Ciao sono uscito"
+}
+
+trap cleanupOnExit INT
+
+# Then we create the bundle.js
+#  injecting it in build folder of rest module in Back-End
+cd ..
+cd CMS
+npm run-script watch
+
+echo "DEPLOY SUCCEEDED!"
