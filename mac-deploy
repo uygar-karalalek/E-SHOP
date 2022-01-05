@@ -9,7 +9,14 @@ gradle bootRun &
 function cleanupOnExit() {
   killall -9 node
   gradle -stop
-  echo "Ciao sono uscito"
+  wait
+
+  red=`tput setaf 1`
+  green=`tput setaf 2`
+  reset=`tput sgr0`
+  printf "\n${red}----------------------------------------------------\n"
+  printf "${red}------------- ${green}EXITED FROM THE PROGRAM!${red} -------------\n"
+  printf "${red}----------------------------------------------------${reset}\n"
 }
 
 trap cleanupOnExit INT
@@ -19,5 +26,3 @@ trap cleanupOnExit INT
 cd ..
 cd CMS
 npm run-script watch
-
-echo "DEPLOY SUCCEEDED!"

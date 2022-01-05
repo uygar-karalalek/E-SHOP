@@ -1,5 +1,5 @@
-import React from 'react';
-import '../css/App.css';
+import * as React from 'react';
+import '../res/css/App.css';
 import SVG_Y from "../res/components/Logo"
 
 function App() {
