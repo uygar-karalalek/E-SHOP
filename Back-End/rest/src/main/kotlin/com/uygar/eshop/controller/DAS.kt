@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RequestMapping("/ciao")
 @RestController
-class Test {
+class DAS {
 
     @GetMapping
     fun testFunction(): TestObject {
