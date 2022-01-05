@@ -2,17 +2,19 @@ package com.uygar.eshop.controller
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+@RequestMapping("/ciao")
 @RestController
 class Test {
 
-    @GetMapping(name = "other/api")
+    @GetMapping
     fun testFunction(): TestObject {
         return TestObject("Ciao")
     }
 
-    @PostMapping(name = "other/api")
+    @PostMapping
     fun testFunction1(): TestObject {
         return TestObject("Ciao")
     }
