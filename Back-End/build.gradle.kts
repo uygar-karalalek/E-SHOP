@@ -11,16 +11,12 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven { url = uri("https://repo.spring.io/milestone") }
-    maven { url = uri("https://plugins.gradle.org/m2/") }
 }
 
 subprojects {
 
     repositories {
         mavenCentral()
-        maven { url = uri("https://repo.spring.io/milestone") }
-        maven { url = uri("https://plugins.gradle.org/m2/") }
     }
 
     apply {
@@ -38,8 +34,6 @@ subprojects {
     }
 
     dependencies {
-// https://mvnrepository.com/artifact/org.springframework/spring-context
-        implementation("org.springframework:spring-context:5.3.14")
         implementation(kotlin("reflect"))
         implementation(kotlin("stdlib-jdk8"))
         kapt("org.springframework.boot:spring-boot-configuration-processor")

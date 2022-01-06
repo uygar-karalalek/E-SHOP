@@ -1,4 +1,4 @@
-package com.uygar.eshop.rest
+package com.uygar.eshop.rest.controller
 
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.info.Info

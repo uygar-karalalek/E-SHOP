@@ -2,6 +2,7 @@ package com.uygar.eshop.persistence.entities
 
 import javax.persistence.*
 
+@Table(name = "shopping_card")
 @Entity
 class ShoppingCard (
 

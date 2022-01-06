@@ -2,6 +2,7 @@ package com.uygar.eshop.persistence.entities
 
 import javax.persistence.*
 
+@Table(name="user")
 @Entity
 class User (
 
