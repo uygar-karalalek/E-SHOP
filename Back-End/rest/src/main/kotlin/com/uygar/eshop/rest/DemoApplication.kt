@@ -1,4 +1,4 @@
-package com.uygar.eshop
+package com.uygar.eshop.rest
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
