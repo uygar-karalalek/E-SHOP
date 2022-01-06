@@ -1,6 +1,6 @@
 var path = require('path');
 module.exports = {
-    entry: './main/ts/index.tsx',
+    entry: './src/main/ts/index.tsx',
     devtool: 'sourcemaps',
     cache: true,
     mode: 'development',

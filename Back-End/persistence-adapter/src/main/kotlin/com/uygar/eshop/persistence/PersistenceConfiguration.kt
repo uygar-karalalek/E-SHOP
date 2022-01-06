@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration
 open class PersistenceConfiguration {
 
     @Bean
-    open fun uS(userRepo: UserRepository): UserService {
+    open fun userService(userRepo: UserRepository): UserService {
         return UserService(userRepo)
     }
 
