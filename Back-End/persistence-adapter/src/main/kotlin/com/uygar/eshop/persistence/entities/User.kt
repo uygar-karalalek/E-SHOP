@@ -11,22 +11,22 @@ class User (
     val id: Long = -1L,
 
     @Column(name = "name")
-    private val name: String = "",
+    val name: String,
 
     @Column(name = "surname")
-    private val surname: String = "",
+    val surname: String,
 
     @Column(name = "address")
-    private val address: String = "",
+    val address: String,
 
     @Column(name = "email")
-    private val email: String = "",
+    val email: String,
 
     @Column(name = "password")
-    private val password: String = "",
+    val password: String,
 
     @OneToOne
     @JoinColumn(name="user_shopping")
-    private val shoppingCard: ShoppingCard? = null
+    val shoppingCard: ShoppingCard
 
 )

@@ -4,13 +4,16 @@ import javax.persistence.*
 
 @Table(name = "shopping_card")
 @Entity
-class ShoppingCard (
+class ShoppingCard(
 
     @Id @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long = -1L,
 
     @OneToOne(mappedBy = "shoppingCard")
-    private val user: User? = null
+    private val user: User,
+
+    @OneToMany(mappedBy = "shoppingCard")
+    private val productsInCard: Set<CardProduct>
 
 )
