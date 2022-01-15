@@ -8,12 +8,29 @@ import {LeftBar} from "./sub_components/LeftBar";
 export class Home extends React.Component<{}, {}> {
 
     render() {
-        return <div>
-            <UpperBar />
-            <RightBar />
-            <Center />
-            <BottomBar />
-            <LeftBar />
+        return <div className={"container-fluid"}>
+            <div className="row">
+                <div className="col-12">
+                    <UpperBar/>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-2">
+                    <LeftBar/>
+                </div>
+                <div className="col-8">
+                    <Center/>
+                </div>
+                <div className="col-2">
+                    <RightBar/>
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col-12">
+                    <BottomBar/>
+                </div>
+            </div>
         </div>;
     }
 
