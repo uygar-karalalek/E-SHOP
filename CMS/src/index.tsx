@@ -1,10 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import FirstComponent from './components/FirstComponent'
+import {HashRouter} from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {App} from "./App";
 
 ReactDOM.render(
-    <div>
-        <FirstComponent/>
-    </div>,
+    <HashRouter>
+        <App/>
+    </HashRouter>,
     document.getElementById("root")
 );
