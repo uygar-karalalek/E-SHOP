@@ -4,7 +4,6 @@ export class UpperBar extends React.Component<{}, {}> {
 
     render() {
         return <div style={{backgroundColor: "red"}}>
-            Upper
         </div>;
     }
 

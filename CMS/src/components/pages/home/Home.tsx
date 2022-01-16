@@ -25,7 +25,6 @@ export class Home extends React.Component<{}, {}> {
                     <RightBar/>
                 </div>
             </div>
-
             <div className="row">
                 <div className="col-12">
                     <BottomBar/>
