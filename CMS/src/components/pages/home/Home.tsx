@@ -8,7 +8,9 @@ import {LeftBar} from "./sub_components/LeftBar";
 export class Home extends React.Component<{}, {}> {
 
     render() {
-        return <div className={"container-fluid"}>
+        return <div className={"container-fluid"} style={{
+            backgroundColor: "blue"
+        }}>
             <div className="row">
                 <div className="col-12">
                     <UpperBar/>
