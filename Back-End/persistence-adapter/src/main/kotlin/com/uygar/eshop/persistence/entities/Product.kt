@@ -8,21 +8,21 @@ class Product(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: Long,
+    val id: Long,
 
     @Column(name = "title")
-    private val title: String = "",
+    val title: String = "",
 
     @Column(name = "price")
-    private val price: Double = 0.0,
+    val price: Double = 0.0,
 
     @Column(name = "description")
-    private val description: String = "",
+    val description: String = "",
 
     @OneToMany(mappedBy = "product")
-    private val productsInCard: Set<CardProduct>,
+    val productsInCard: Set<CardProduct>,
 
     @OneToMany(mappedBy = "product")
-    private val productOrders: Set<ProductOrder>
+    val productOrders: Set<ProductOrder>
 
     )

@@ -5,48 +5,26 @@ export class RightBar extends React.Component<{}, {}> {
 
     render() {
         return <div className={"container"} style={{backgroundColor: "darkslateblue"}}>
-            right
-            <Link to={"/login"} >Login</Link>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
+            <h3><Link to={"/login"}>Login</Link></h3>
+            <br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
         </div>;
     }
 

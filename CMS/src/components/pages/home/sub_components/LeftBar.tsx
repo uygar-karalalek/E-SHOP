@@ -4,46 +4,25 @@ export class LeftBar extends React.Component<{}, {}> {
 
     render() {
         return <div className={"container"} style={{backgroundColor: "beige"}}>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
-            Ciao<br/>
+            <h3>Left Bar...</h3><br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
+            Item<br/>
         </div>;
     }
 
