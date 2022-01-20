@@ -1,10 +1,12 @@
 import * as React from "react";
 import axios from 'axios';
+import {Card} from "react-bootstrap";
+import {Product} from "../../../../interfaces/Product";
 
 export class Center extends React.Component<{}, {}> {
 
     state = {
-        persons: Array<any>()
+        products: Array<Product>()
     }
 
     componentDidMount() {
@@ -17,10 +19,11 @@ export class Center extends React.Component<{}, {}> {
     }
 
     render() {
-        return <div className={"container"} style={{backgroundColor: "blueviolet"}}>
+        return <div className={"container"} style={{backgroundColor: "lightblue"}}>
             <div className="d-flex flex-wrap">
-                {this.state.persons.map((item) => {
-                    return <div className="p-2 bd-highlight">Flex item with price {item.price}</div>
+
+                {this.state.products.map((item) => {
+                    return
                 })}
             </div>
         </div>;
