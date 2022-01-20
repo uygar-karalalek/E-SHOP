@@ -2,8 +2,6 @@
 
 # First we build the Back-End
 cd Back-End
-gradle clean build
-sleep 3
 gradle bootRun &
 
 function cleanupOnExit() {
