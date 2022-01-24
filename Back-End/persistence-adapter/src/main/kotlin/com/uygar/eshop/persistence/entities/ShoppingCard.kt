@@ -8,12 +8,12 @@ class ShoppingCard(
 
     @Id @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: Long = -1L,
+    var id: Long = -1L,
 
     @OneToOne(mappedBy = "shoppingCard")
-    private val user: User,
+    var user: User,
 
     @OneToMany(mappedBy = "shoppingCard")
-    private val productsInCard: Set<CardProduct>
+    var productsInCard: Set<CardProduct>
 
 )
