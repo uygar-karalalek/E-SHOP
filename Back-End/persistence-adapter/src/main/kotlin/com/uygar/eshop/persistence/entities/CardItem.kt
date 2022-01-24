@@ -3,9 +3,9 @@ package com.uygar.eshop.persistence.entities
 import java.time.ZonedDateTime
 import javax.persistence.*
 
-@Table(name = "card_product")
+@Table(name = "card_item")
 @Entity
-class CardProduct(
+class CardItem(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

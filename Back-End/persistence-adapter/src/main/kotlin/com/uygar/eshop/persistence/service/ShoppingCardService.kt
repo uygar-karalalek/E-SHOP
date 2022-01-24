@@ -20,6 +20,7 @@ class ShoppingCardService(private val shoppingCardRepository: ShoppingCardReposi
 
     fun insertProductById(id: Long, product: Product) {
         save(shoppingCardRepository.findById(id).also {
+
         })
         shoppingCardRepository.saveProductById(id, product)
     }

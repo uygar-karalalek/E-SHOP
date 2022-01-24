@@ -20,9 +20,9 @@ class Product(
     val description: String = "",
 
     @OneToMany(mappedBy = "product")
-    val productsInCard: Set<CardProduct>,
+    val productsInCard: Set<CardItem>,
 
     @OneToMany(mappedBy = "product")
     val productOrders: Set<ProductOrder>
 
-    )
+)

@@ -1,17 +1,25 @@
 package com.uygar.eshop.rest.controller.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.uygar.eshop.persistence.entities.ShoppingCard
 
-class ProductDto (
+class ProductDto(
+
+    @JsonProperty("id")
+    val id: Long,
 
     @JsonProperty("description")
-    private val description: String,
+    val description: String?,
 
     @JsonProperty("price")
-    private val price: Double,
+    val price: Double?,
 
     @JsonProperty("title")
-    private val title: String?
+    val title: String?,
+
+    @JsonProperty("productsInCard")
+    val productsInCard: Set<CardItemDto>,
+
+    @JsonProperty("productOrders")
+    val productOrders: Set<ProductOrderDto>
 
 )
