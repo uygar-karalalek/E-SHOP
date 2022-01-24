@@ -9,4 +9,8 @@ class ProductService(private val productRepository: ProductRepository) {
         return productRepository.findAll().toList()
     }
 
+    fun insertProduct(product: Product) {
+        productRepository.save(product)
+    }
+
 }

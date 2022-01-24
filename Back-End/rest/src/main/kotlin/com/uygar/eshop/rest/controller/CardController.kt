@@ -8,16 +8,15 @@ import com.uygar.eshop.rest.controller.dto.ProductDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
-@RequestMapping("/products")
+@RequestMapping("/cards")
 @RestController
-class ProductController {
+class CardController {
 
     @Autowired
     private lateinit var productService: ProductService
 
-    @GetMapping
-    fun getProducts(): List<Product> {
-        return productService.getAllProducts()
+    @PostMapping("/{cardId}")
+    fun insertProduct(@PathVariable cardId: Long, @RequestBody product: Product) {
     }
 
 }

@@ -4,4 +4,5 @@ import com.uygar.eshop.persistence.entities.Product
 
 interface ProductRepository {
     fun findAll(): List<Product>
+    fun save(product: Product)
 }
