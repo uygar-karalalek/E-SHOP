@@ -8,14 +8,14 @@ class ProductOrder(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: Long,
+    val id: Long,
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private val product: Product,
+    val product: Product,
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private val order: Order
+    val order: Order
 
 )

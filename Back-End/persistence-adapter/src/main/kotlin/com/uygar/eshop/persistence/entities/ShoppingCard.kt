@@ -14,6 +14,6 @@ class ShoppingCard(
     var user: User,
 
     @OneToMany(mappedBy = "shoppingCard")
-    var cardItems: Set<CardItem>
+    var cardItems: List<CardItem>
 
 )

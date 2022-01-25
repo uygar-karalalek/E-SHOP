@@ -8,12 +8,12 @@ class Order(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: Long,
+    val id: Long,
 
     @Column(name = "status")
-    private val status: Boolean,
+    val status: Boolean,
 
     @OneToMany(mappedBy = "order")
-    private val productOrders: Set<ProductOrder>
+    val productOrders: List<ProductOrder>
 
 )

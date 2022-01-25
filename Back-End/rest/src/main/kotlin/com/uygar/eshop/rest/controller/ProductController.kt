@@ -18,9 +18,7 @@ class ProductController {
 
     @GetMapping
     fun getProducts(): List<ProductDto> {
-        return productService.getAllProducts().map {
-
-        }
+        return productService.getAllProducts().map(ProductMapper::mapToDto)
     }
 
 }
