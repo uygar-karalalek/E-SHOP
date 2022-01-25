@@ -5,12 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty
 class ProductOrderDto(
 
     @JsonProperty("id")
-    private val id: Long,
+    val id: Long,
 
     @JsonProperty("product")
-    private val product: ProductDto,
+    val product: ProductDto,
 
     @JsonProperty("order")
-    private val order: OrderDto
+    val order: OrderDto
 
 )

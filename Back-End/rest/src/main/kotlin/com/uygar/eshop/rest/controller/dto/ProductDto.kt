@@ -17,9 +17,9 @@ class ProductDto(
     val title: String?,
 
     @JsonProperty("productsInCard")
-    val productsInCard: Set<CardItemDto>,
+    val cardItems: List<CardItemDto>,
 
     @JsonProperty("productOrders")
-    val productOrders: Set<ProductOrderDto>
+    val productOrders: List<ProductOrderDto>
 
 )

@@ -4,22 +4,25 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 class UserDto (
 
+    @JsonProperty("id")
+    val id: Long?,
+
     @JsonProperty("name")
-    private val name: String?,
+    val name: String?,
 
     @JsonProperty("surnname")
-    private val surname: String?,
+    val surname: String?,
 
     @JsonProperty("address")
-    private val address: String?,
+    val address: String?,
 
     @JsonProperty("email")
-    private val email: String?,
+    val email: String?,
 
     @JsonProperty("password")
-    private val password: String?,
+    val password: String?,
 
     @JsonProperty("shoppingCard")
-    private val shoppingCard: ShoppingCardDto?
+    val shoppingCard: ShoppingCardDto?
 
 )

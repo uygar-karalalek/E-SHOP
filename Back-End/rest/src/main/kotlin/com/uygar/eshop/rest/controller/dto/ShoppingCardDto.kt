@@ -11,6 +11,6 @@ class ShoppingCardDto (
     var user: UserDto,
 
     @JsonProperty("cardItems")
-    var cardItems: Set<CardItemDto>
+    var cardItems: List<CardItemDto>
 
 )

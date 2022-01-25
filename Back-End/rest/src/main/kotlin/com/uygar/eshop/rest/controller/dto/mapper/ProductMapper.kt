@@ -1,6 +1,6 @@
 package com.uygar.eshop.rest.controller.dto.mapper
 
-import com.uygar.eshop.persistence.entities.Product
+import com.uygar.eshop.core.Product
 import com.uygar.eshop.rest.controller.dto.ProductDto
 
 object ProductMapper {
@@ -11,8 +11,8 @@ object ProductMapper {
             product.description,
             product.price,
             product.title,
-            product.productsInCard,
-            product.productOrders
+            product.cardItems.map(CardItemMapper::mapToDto),
+            product.productOrders.map(ProductOrderMapper::mapToDto)
         )
     }
 
@@ -22,8 +22,8 @@ object ProductMapper {
             productDto.title!!,
             productDto.price!!,
             productDto.description!!,
-            productDto.productOrders,
-            productDto.productsInCard
+            productDto.cardItems.map(CardItemMapper::mapToDomain),
+            productDto.productOrders.map(ProductOrderMapper::mapToDomain)
         )
     }
 

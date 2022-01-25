@@ -10,8 +10,8 @@ data class Product(
 
     val description: String = "",
 
-    val productsInCard: Set<CardItem>,
+    val cardItems: List<CardItem>,
 
-    val productOrders: Set<ProductOrder>
+    val productOrders: List<ProductOrder>
 
 )

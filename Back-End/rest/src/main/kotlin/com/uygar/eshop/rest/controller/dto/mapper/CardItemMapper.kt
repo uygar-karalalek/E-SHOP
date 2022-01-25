@@ -10,7 +10,7 @@ object CardItemMapper {
             cardItem.id,
             cardItem.dateAdded,
             ShoppingCardMapper.mapToDto(cardItem.shoppingCard),
-            cardItem.product,
+            ProductMapper.mapToDto(cardItem.product),
         )
     }
 
@@ -18,8 +18,8 @@ object CardItemMapper {
         return CardItem(
             cardItemDto.id,
             cardItemDto.dateAdded,
-            cardItemDto.shoppingCard,
-            cardItemDto.product
+            ShoppingCardMapper.mapToDomain(cardItemDto.shoppingCard),
+            ProductMapper.mapToDomain(cardItemDto.product)
         )
     }
 
