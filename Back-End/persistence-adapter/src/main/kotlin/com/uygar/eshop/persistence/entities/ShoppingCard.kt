@@ -10,10 +10,8 @@ class ShoppingCard(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = -1L,
 
-    @OneToOne(mappedBy = "shoppingCard")
-    var user: User,
-
-    @OneToMany(mappedBy = "shoppingCard")
-    var cardItems: List<CardItem>
+    @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
+    @JoinColumn(name = "card_id")
+    var cardItems: MutableList<CardItem> = arrayListOf()
 
 )

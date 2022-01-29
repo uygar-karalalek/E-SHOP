@@ -2,9 +2,9 @@ package com.uygar.eshop.persistence.entities
 
 import javax.persistence.*
 
-@Table(name = "product_order")
 @Entity
-class ProductOrder(
+@Table(name = "order_product")
+class OrderProduct(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,8 +14,7 @@ class ProductOrder(
     @JoinColumn(name = "product_id")
     val product: Product,
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    val order: Order
+    @Column(name = "quantity")
+    val product_quantity: Int
 
 )

@@ -2,9 +2,9 @@ package com.uygar.eshop.persistence.entities
 
 import javax.persistence.*
 
-@Table(name="user")
+@Table(name = "user")
 @Entity
-class User (
+class User(
 
     @Id @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,11 @@ class User (
     val password: String,
 
     @OneToOne
-    @JoinColumn(name="user_shopping")
-    val shoppingCard: ShoppingCard
+    @JoinColumn(name = "user_shopping")
+    val shoppingCard: ShoppingCard,
+
+    @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    var orders: MutableList<Order> = arrayListOf()
 
 )

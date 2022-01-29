@@ -2,7 +2,7 @@ package com.uygar.eshop.rest.controller.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-class ProductOrderDto(
+class OrderProduct(
 
     @JsonProperty("id")
     val id: Long,
@@ -11,6 +11,9 @@ class ProductOrderDto(
     val product: ProductDto,
 
     @JsonProperty("order")
-    val order: OrderDto
+    val order: OrderDto,
+
+    @JsonProperty("productQuantity")
+    val productQuantity: Int
 
 )

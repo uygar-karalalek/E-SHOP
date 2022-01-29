@@ -13,7 +13,9 @@ class Order(
     @Column(name = "status")
     val status: Boolean,
 
-    @OneToMany(mappedBy = "order")
-    val productOrders: List<ProductOrder>
+    @Column(name = "product_orders")
+    @OneToMany
+    @JoinColumn(name = "order_id")
+    val orderProducts: List<OrderProduct>
 
 )

@@ -1,5 +1,6 @@
 package com.uygar.eshop.persistence.entities
 
+import com.uygar.eshop.persistence.keys.CardItemKey
 import java.time.ZonedDateTime
 import javax.persistence.*
 
@@ -7,19 +8,18 @@ import javax.persistence.*
 @Entity
 class CardItem(
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = -1L,
+    @EmbeddedId
+    val id: CardItemKey,
+
+    @ManyToOne
+    @MapsId("productId")
+    @JoinColumn(name = "product_id")
+    val product: Product,
+
+    @Column(name = "quantity")
+    val quantity: Int,
 
     @Column(name = "dateAdded")
-    val dateAdded: ZonedDateTime,
-
-    @ManyToOne
-    @JoinColumn(name = "shopping_id")
-    val shoppingCard: ShoppingCard,
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    val product: Product
+    val dateAdded: ZonedDateTime
 
 )

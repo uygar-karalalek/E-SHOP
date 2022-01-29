@@ -8,9 +8,7 @@ object CardItemMapper {
     fun mapToDto(cardItem: CardItem): CardItemDto {
         return CardItemDto(
             cardItem.id,
-            cardItem.dateAdded,
-            ShoppingCardMapper.mapToDto(cardItem.shoppingCard),
-            ProductMapper.mapToDto(cardItem.product),
+            cardItem.dateAdded
         )
     }
 
@@ -18,8 +16,6 @@ object CardItemMapper {
         return CardItem(
             cardItemDto.id,
             cardItemDto.dateAdded,
-            ShoppingCardMapper.mapToDomain(cardItemDto.shoppingCard),
-            ProductMapper.mapToDomain(cardItemDto.product)
         )
     }
 

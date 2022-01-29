@@ -9,12 +9,6 @@ class CardItemDto(
     val id: Long = -1L,
 
     @JsonProperty("dateAdded")
-    val dateAdded: ZonedDateTime,
-
-    @JsonProperty("shoppingCard")
-    val shoppingCard: ShoppingCardDto,
-
-    @JsonProperty("product")
-    val product: ProductDto
+    val dateAdded: ZonedDateTime
 
 )

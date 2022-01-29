@@ -11,6 +11,6 @@ class OrderDto (
     val status: Boolean,
 
     @JsonProperty("productOrders")
-    val productOrders: List<ProductOrderDto>
+    val productOrders: List<OrderProduct>
 
 )

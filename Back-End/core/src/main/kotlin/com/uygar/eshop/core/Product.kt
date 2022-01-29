@@ -8,10 +8,6 @@ data class Product(
 
     val price: Double = 0.0,
 
-    val description: String = "",
-
-    val cardItems: List<CardItem>,
-
-    val productOrders: List<ProductOrder>
+    val description: String = ""
 
 )

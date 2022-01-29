@@ -1,32 +1,32 @@
 package com.uygar.eshop.persistence.entities.mapper
 
-import com.uygar.eshop.core.User
-import com.uygar.eshop.rest.controller.dto.UserDto
+import com.uygar.eshop.core.User as UserDomain
+import com.uygar.eshop.persistence.entities.User
 
 object UserMapper {
 
-    fun mapToDto(user: User): UserDto {
-        return UserDto(
-            user.id,
-            user.name,
-            user.surname,
-            user.address,
-            user.email,
-            user.password,
-            ShoppingCardMapper.mapToEntity(user.shoppingCard)
-        )
-    }
-
-    fun mapToDomain(userDto: UserDto): User {
-        return User(
-            userDto.id!!,
-            userDto.name!!,
-            userDto.surname!!,
-            userDto.address!!,
-            userDto.email!!,
-            userDto.password!!,
-            ShoppingCardMapper.mapToDomain(userDto.shoppingCard!!)
-        )
-    }
+//    fun mapToDto(user: UserDomain): User {
+//        return User(
+//            user.id,
+//            user.name,
+//            user.surname,
+//            user.address,
+//            user.email,
+//            user.password,
+//            ShoppingCardMapper.mapToEntity(user.shoppingCard)
+//        )
+//    }
+//
+//    fun mapToDomain(userDto: User): UserDomain {
+//        return UserDomain(
+//            userDto.id,
+//            userDto.name,
+//            userDto.surname,
+//            userDto.address,
+//            userDto.email,
+//            userDto.password,
+//            ShoppingCardMapper.mapToDomain(userDto.shoppingCard)
+//        )
+//    }
 
 }

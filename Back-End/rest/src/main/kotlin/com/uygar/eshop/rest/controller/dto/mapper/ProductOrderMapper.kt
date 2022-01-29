@@ -1,23 +1,25 @@
 package com.uygar.eshop.rest.controller.dto.mapper
 
 import com.uygar.eshop.core.ProductOrder
-import com.uygar.eshop.rest.controller.dto.ProductOrderDto
+import com.uygar.eshop.rest.controller.dto.OrderProduct
 
 object ProductOrderMapper {
 
-    fun mapToDto(productOrder: ProductOrder): ProductOrderDto {
-        return ProductOrderDto(
+    fun mapToDto(productOrder: ProductOrder): OrderProduct {
+        return OrderProduct(
             productOrder.id,
             ProductMapper.mapToDto(productOrder.product),
             OrderMapper.mapToDto(productOrder.order),
+            productOrder.quantity
         )
     }
 
-    fun mapToDomain(productOrderDto: ProductOrderDto): ProductOrder {
+    fun mapToDomain(orderProduct: OrderProduct): ProductOrder {
         return ProductOrder(
-            productOrderDto.id,
-            ProductMapper.mapToDomain(productOrderDto.product),
-            OrderMapper.mapToDomain(productOrderDto.order)
+            orderProduct.id,
+            ProductMapper.mapToDomain(orderProduct.product),
+            OrderMapper.mapToDomain(orderProduct.order),
+            orderProduct.productQuantity
         )
     }
 

@@ -1,8 +1,11 @@
 package com.uygar.eshop.persistence.service
 
-import com.uygar.eshop.persistence.entities.Product
+import com.uygar.eshop.core.Product
+import com.uygar.eshop.persistence.entities.CardItem
 import com.uygar.eshop.persistence.entities.ShoppingCard
+import com.uygar.eshop.persistence.entities.mapper.ProductMapper
 import com.uygar.eshop.persistence.repositories.ShoppingCardRepository
+import java.time.ZonedDateTime
 
 class ShoppingCardService(private val shoppingCardRepository: ShoppingCardRepository) {
 
@@ -19,10 +22,12 @@ class ShoppingCardService(private val shoppingCardRepository: ShoppingCardReposi
     }
 
     fun insertProductById(id: Long, product: Product) {
-        save(shoppingCardRepository.findById(id).also {
-
-        })
-        shoppingCardRepository.saveProductById(id, product)
+//        val cardItemToAdd = CardItem(
+//            null,
+//            ZonedDateTime.now(),
+//
+//        )
+//        save(shoppingCardRepository.findById(id).also { it.cardItems.add() })
     }
 
 }
