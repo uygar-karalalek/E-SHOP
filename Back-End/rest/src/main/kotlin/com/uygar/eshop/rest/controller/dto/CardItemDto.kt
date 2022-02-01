@@ -5,8 +5,14 @@ import java.time.ZonedDateTime
 
 class CardItemDto(
 
-    @JsonProperty("id")
-    val id: Long = -1L,
+    @JsonProperty("cardId")
+    val cardId: Long = -1L,
+
+    @JsonProperty("productId")
+    val productId: Long = -1L,
+
+    @JsonProperty("quantity")
+    val quantity: Int = -1,
 
     @JsonProperty("dateAdded")
     val dateAdded: ZonedDateTime

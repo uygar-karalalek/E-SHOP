@@ -15,7 +15,7 @@ class Order(
 
     @Column(name = "product_orders")
     @OneToMany
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "fk_order")
     val orderProducts: List<OrderProduct>
 
 )

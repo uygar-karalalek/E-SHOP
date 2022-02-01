@@ -11,7 +11,6 @@ object ProductMapper {
             product.description,
             product.price,
             product.title,
-            //product.cardItems.map(CardItemMapper::mapToDto),
         )
     }
 
@@ -20,8 +19,7 @@ object ProductMapper {
             productDto.id,
             productDto.title!!,
             productDto.price!!,
-            productDto.description!!,
-            //productDto.cardItems.map(CardItemMapper::mapToDomain)
+            productDto.description!!
         )
     }
 

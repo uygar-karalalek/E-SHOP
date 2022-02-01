@@ -9,7 +9,6 @@ object ProductOrderMapper {
         return OrderProduct(
             productOrder.id,
             ProductMapper.mapToDto(productOrder.product),
-            OrderMapper.mapToDto(productOrder.order),
             productOrder.quantity
         )
     }
@@ -18,7 +17,6 @@ object ProductOrderMapper {
         return ProductOrder(
             orderProduct.id,
             ProductMapper.mapToDomain(orderProduct.product),
-            OrderMapper.mapToDomain(orderProduct.order),
             orderProduct.productQuantity
         )
     }

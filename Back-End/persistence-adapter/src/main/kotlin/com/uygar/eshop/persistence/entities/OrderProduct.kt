@@ -11,7 +11,7 @@ class OrderProduct(
     val id: Long,
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "fk_product")
     val product: Product,
 
     @Column(name = "quantity")

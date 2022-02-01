@@ -7,15 +7,19 @@ object CardItemMapper {
 
     fun mapToDto(cardItem: CardItem): CardItemDto {
         return CardItemDto(
-            cardItem.id,
+            cardItem.cardId,
+            cardItem.productId,
+            cardItem.quantity,
             cardItem.dateAdded
         )
     }
 
     fun mapToDomain(cardItemDto: CardItemDto): CardItem {
         return CardItem(
-            cardItemDto.id,
-            cardItemDto.dateAdded,
+            cardItemDto.cardId,
+            cardItemDto.productId,
+            cardItemDto.quantity,
+            cardItemDto.dateAdded
         )
     }
 

@@ -10,9 +10,6 @@ class OrderProduct(
     @JsonProperty("product")
     val product: ProductDto,
 
-    @JsonProperty("order")
-    val order: OrderDto,
-
     @JsonProperty("productQuantity")
     val productQuantity: Int
 

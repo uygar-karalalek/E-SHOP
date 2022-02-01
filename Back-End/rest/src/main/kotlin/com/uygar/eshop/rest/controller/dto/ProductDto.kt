@@ -14,9 +14,6 @@ class ProductDto(
     val price: Double?,
 
     @JsonProperty("title")
-    val title: String?,
+    val title: String?
 
-    /*@JsonProperty("productsInCard")
-    val cardItems: List<CardItemDto>
-*/
 )

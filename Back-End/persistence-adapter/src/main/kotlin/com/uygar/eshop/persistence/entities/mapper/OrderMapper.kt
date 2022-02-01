@@ -5,20 +5,20 @@ import com.uygar.eshop.core.Order as OrderDomain
 
 object OrderMapper {
 
-//    fun mapToEntity(order: OrderDomain): Order {
-//        return Order(
-//            order.id,
-//            order.status,
-//            order.productOrders.map(ProductOrderMapper::mapToEntity)
-//        )
-//    }
-//
-//    fun mapToDomain(orderEntity: Order): OrderDomain {
-//        return OrderDomain(
-//            orderEntity.id,
-//            orderEntity.status,
-//            orderEntity.orderProducts.map(ProductOrderMapper::mapToDomain)
-//        )
-//    }
+    fun mapToEntity(order: OrderDomain): Order {
+        return Order(
+            order.id,
+            order.status,
+            order.productOrders.map(ProductOrderMapper::mapToEntity)
+        )
+    }
+
+    fun mapToDomain(orderEntity: Order): OrderDomain {
+        return OrderDomain(
+            orderEntity.id,
+            orderEntity.status,
+            orderEntity.orderProducts.map(ProductOrderMapper::mapToDomain)
+        )
+    }
 
 }

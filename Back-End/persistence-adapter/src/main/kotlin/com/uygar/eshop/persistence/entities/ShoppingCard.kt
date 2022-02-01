@@ -11,7 +11,7 @@ class ShoppingCard(
     var id: Long = -1L,
 
     @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
-    @JoinColumn(name = "card_id")
+    @JoinColumn(name = "fk_card")
     var cardItems: MutableList<CardItem> = arrayListOf()
 
 )

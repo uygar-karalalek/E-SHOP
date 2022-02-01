@@ -26,11 +26,11 @@ class User(
     val password: String,
 
     @OneToOne
-    @JoinColumn(name = "user_shopping")
+    @JoinColumn(name = "fk_card")
     val shoppingCard: ShoppingCard,
 
     @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "fk_user")
     var orders: MutableList<Order> = arrayListOf()
 
 )

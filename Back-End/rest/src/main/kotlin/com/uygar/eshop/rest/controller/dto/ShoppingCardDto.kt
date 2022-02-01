@@ -7,9 +7,6 @@ class ShoppingCardDto (
     @JsonProperty("product")
     var id: Long = -1L,
 
-    @JsonProperty("user")
-    var user: UserDto,
-
     @JsonProperty("cardItems")
     var cardItems: List<CardItemDto>
 
