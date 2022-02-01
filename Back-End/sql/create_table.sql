@@ -17,11 +17,10 @@ create table if not exists `e-shop`.card_item
 (
     card_id    bigint      not null,
     fk_product bigint      not null,
-    result     bigint      not null,
     date_added datetime(6) null,
     quantity   int         null,
     fk_card    bigint      null,
-    primary key (card_id, fk_product, result),
+    primary key (card_id, fk_product),
     foreign key (fk_card) references `e-shop`.shopping_card (id),
     foreign key (fk_product) references `e-shop`.product (id)
 );

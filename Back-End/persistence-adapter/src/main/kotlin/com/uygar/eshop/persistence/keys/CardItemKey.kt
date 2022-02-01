@@ -15,6 +15,8 @@ class CardItemKey(
 
 ) : Serializable {
 
-    val result = "$cardId$productId".toLong()
+    fun getResultId(): Long {
+        return "$cardId$productId".toLong()
+    }
 
 }
