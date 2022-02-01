@@ -2,7 +2,7 @@ import * as React from "react";
 import axios from 'axios';
 import {Card} from "react-bootstrap";
 import {Product} from "../../../../interfaces/Product";
-import {ProductComponent} from "../../../ProductComponent";
+import {ProductComponent} from "../../../product/ProductComponent";
 
 export class Center extends React.Component<{}, {}> {
 

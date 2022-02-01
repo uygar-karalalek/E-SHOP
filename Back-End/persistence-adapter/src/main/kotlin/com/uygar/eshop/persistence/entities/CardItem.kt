@@ -14,7 +14,7 @@ class CardItem(
     @ManyToOne
     @MapsId("productId")
     @JoinColumn(name = "fk_product")
-    val product: Product? = null,
+    val product: Product? = Product(-1L),
 
     @Column(name = "quantity")
     val quantity: Int,

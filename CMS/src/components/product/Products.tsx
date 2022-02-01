@@ -1,6 +1,5 @@
 import * as React from "react";
-import UserInterface from '../interfaces/UserInterface'
-import {Product} from "../interfaces/Product";
+import {Product} from "../../interfaces/Product";
 import axios from "axios";
 import {ProductComponent} from "./ProductComponent";
 

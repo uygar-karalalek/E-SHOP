@@ -1,6 +1,7 @@
 import * as React from "react";
 import {Card} from "react-bootstrap";
-import {Product} from "../interfaces/Product";
+import {Product} from "../../interfaces/Product";
+import axios from "axios";
 
 export class ProductComponent extends React.Component<Product, {}> {
 
@@ -23,7 +24,13 @@ export class ProductComponent extends React.Component<Product, {}> {
     }
 
     callApi(event: React.MouseEvent<HTMLElement>) {
-
+        let url = '/card/' + 1 + '/products/add/' + 1;
+        axios.post(url)
+            .then(res => {
+                const persons = res.data;
+                console.log(persons)
+                this.setState({persons});
+            })
     }
 
 }
