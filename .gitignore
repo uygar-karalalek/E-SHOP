@@ -1,3 +1,17 @@
+.idea
+
+Back-End/build
+Back-End/core/build
+Back-End/rest/build
+Back-End/persistence-adapter/build
+Back-End/gradle
+Back-End/gradlew
+Back-End/gradlew.bat
+Back-End/.gradle
+
+CMS/node_modules
+CMS/package-lock.json
+
 # Compiled class file
 *.class
 

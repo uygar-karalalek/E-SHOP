@@ -7,7 +7,7 @@ import javax.persistence.Embeddable
 @Embeddable
 class CardItemKey(
 
-    @Column(name = "card_id")
+    @Column(name = "fk_card")
     val cardId: Long = 0,
 
     @Column(name = "product_id")

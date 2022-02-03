@@ -28,7 +28,6 @@ export class ProductComponent extends React.Component<Product, {}> {
         axios.post(url)
             .then(res => {
                 const persons = res.data;
-                console.log(persons)
                 this.setState({persons});
             })
     }
