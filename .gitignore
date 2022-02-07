@@ -1,3 +1,5 @@
+/.gitignore
+
 .idea
 
 Back-End/build
@@ -7,10 +9,10 @@ Back-End/persistence-adapter/build
 Back-End/gradle
 Back-End/gradlew
 Back-End/gradlew.bat
-Back-End/.gradle
+.gradle
 
-CMS/node_modules
-CMS/package-lock.json
+node_modules
+package-lock.json
 
 # Compiled class file
 *.class
