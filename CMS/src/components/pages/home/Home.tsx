@@ -1,9 +1,9 @@
 import * as React from "react";
-import {UpperBar} from "./sub_components/UpperBar";
-import {RightBar} from "./sub_components/RightBar";
-import {Center} from "./sub_components/Center";
-import {BottomBar} from "./sub_components/BottomBar";
-import {LeftBar} from "./sub_components/LeftBar";
+import {UpperBar} from "./sub_components/up/UpperBar";
+import {RightBar} from "./sub_components/right/RightBar";
+import {Center} from "./sub_components/center/Center";
+import {BottomBar} from "./sub_components/bottom/BottomBar";
+import {LeftBar} from "./sub_components/left/LeftBar";
 
 export class Home extends React.Component<{}, {}> {
 

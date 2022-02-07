@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Card} from "react-bootstrap";
-import {Product} from "../../interfaces/Product";
+import {Product} from "../../../../../../interfaces/Product";
 import axios from "axios";
 
 export class ProductComponent extends React.Component<Product, {}> {
@@ -11,13 +11,11 @@ export class ProductComponent extends React.Component<Product, {}> {
 
     render() {
         return (
-            <Card style={{ width: '10rem' }}>
+            <Card style={{ width: '15rem' }}>
                 <Card.Body>
-                    <Card.Title>{this.props.title}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">Item Subtitle</Card.Subtitle>
-                    <Card.Text>Price: {this.props.price}</Card.Text>
-                    <Card.Text>Description: {this.props.description}</Card.Text>
-                    <Card.Link onClick={ this.callApi }>Add to card</Card.Link>
+                    <Card.Img style={{marginBottom: '2rem'}} src={"sample.png"} />
+                    <label style={{ textAlign: "left", color: "blue", marginBottom: "2rem" }}>{this.props.title}</label>
+                    <Card.Text style={{fontWeight: "bold", color: "red"}}>{this.props.price} $</Card.Text>
                 </Card.Body>
             </Card>
         );

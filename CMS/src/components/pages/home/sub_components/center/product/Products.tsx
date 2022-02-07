@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Product} from "../../interfaces/Product";
+import {Product} from "../../../../../../interfaces/Product";
 import axios from "axios";
 import {ProductComponent} from "./ProductComponent";
 
