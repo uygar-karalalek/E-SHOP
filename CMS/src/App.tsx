@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Component} from "react";
-import {Link, Routes} from "react-router-dom";
+import {Routes} from "react-router-dom";
 import {Route} from "react-router";
 import {Home} from "./components/pages/home/Home";
 import {Login} from "./components/pages/login/Login";
@@ -13,11 +13,16 @@ export class App extends Component<{}> {
             <div>
                 <Routes>
                     <Route path={"/"} element={ <Home /> } />
-                    <Route path={"/login"} element={ <Login /> } />
+                    <Route path={"/login"} element={ <Login  setToken={ this.setToken }/> } />
                     <Route path={"/shopping"} element={ <Shopping /> } />
                 </Routes>
             </div>
         );
     }
+
+    setToken(userToken: any) {
+
+    }
+
 
 }
