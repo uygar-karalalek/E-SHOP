@@ -1,19 +1,14 @@
 import * as React from "react";
 import {ChangeEvent, Component} from "react";
 import axios from "axios";
-import {Simulate} from "react-dom/test-utils";
-import volumeChange = Simulate.volumeChange;
+import {NavigateFunction, useNavigate} from "react-router-dom";
 
 export interface Credentials {
     username: string,
     password: string
 }
 
-export interface Props {
-    setToken: (token: string) => void
-}
-
-export class Login extends Component<Props, {}> {
+export class Login extends Component<{}, {}> {
 
     /**
      *
@@ -24,7 +19,7 @@ export class Login extends Component<Props, {}> {
      * that will no more refer to the class' `this, buth the onclick library `this (JS Global)`
      * but because the code is stricted,
      */
-    constructor(props: Props) {
+    constructor(props: any) {
         super(props);
         this.onChangeUsername = this.onChangeUsername.bind(this)
         this.onChangePassword = this.onChangePassword.bind(this)
@@ -59,6 +54,7 @@ export class Login extends Component<Props, {}> {
     }
 
     render() {
+
         return (
             <div style={{
                 fontFamily: "Arial",
@@ -69,7 +65,7 @@ export class Login extends Component<Props, {}> {
             }}>
                 <div>
                     <label style={{marginBottom: 20, fontSize: "14pt", fontWeight: "bold"}}>Login</label>
-                    <form onSubmit={this.onSubmitForm}>
+                    <form onSubmit={this.onSubmitForm} >
                         <table style={{textAlign: "right", borderSpacing: "20px"}}>
                             <tr>
                                 <td style={{marginRight: 10, paddingBottom: 10}}><label>Username:</label></td>
@@ -86,7 +82,7 @@ export class Login extends Component<Props, {}> {
                             <tr>
                                 <td></td>
                                 <td>
-                                    <button>Login</button>
+                                    <input type={"submit"} value={"submit"} />
                                 </td>
                             </tr>
                         </table>
@@ -96,4 +92,9 @@ export class Login extends Component<Props, {}> {
         );
     }
 
+}
+
+export default function LoginWithRouter(props: any) {
+    const navigation = useNavigate()
+    return <Login navigation={navigation}  {...props}/>
 }
