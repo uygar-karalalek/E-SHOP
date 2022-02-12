@@ -20,11 +20,32 @@ export class Shopping extends Component<{}, {}> {
 
     render() {
         return <div>
-            <div className="d-flex flex-wrap">
-                {this.state.cardItems.map((item) => {
-                    console.log(item)
-                    return <CardItemComponent cardId={item.cardId} quantity={item.quantity} dateAdded={item.dateAdded} productId={item.productId} />
-                })}
+            <table style={{ margin: 10 }} className="table table-hover">
+                <thead>
+                <tr>
+                    <th style={{width: "16.66%"}} scope="col">Title</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+                </thead>
+                <tbody>
+                {
+                    this.state.cardItems.map((item) => {
+                        return <CardItemComponent productPrice={item.productPrice} productTitle={item.productTitle}
+                                                  cardId={item.cardId} quantity={item.quantity}
+                                                  dateAdded={item.dateAdded}
+                                                  productId={item.productId}/>
+                    })}
+                </tbody>
+            </table>
+            <div style={{borderColor: "#3397c7", borderStyle: "solid", padding: 10, color: "green", margin: 10, marginTop: 100}}>
+                <span>Totale: {" "}</span> <span style={{color: "red"}}>{
+                this.state.cardItems.length > 0 ?
+                    this.state.cardItems.map((item) => {
+                        return (item.productPrice * Number(item.quantity))
+                    }).reduce((previousValue, currentValue) => previousValue + currentValue) : ""
+            } .-</span>
+                <button style={{marginLeft: 50, width: 100}} type="button" className="btn btn-primary">buy</button>
             </div>
         </div>;
     }

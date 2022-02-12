@@ -8,6 +8,12 @@ class CardItemDto(
     @JsonProperty("cardId")
     val cardId: Long = -1L,
 
+    @JsonProperty("productPrice")
+    val productPrice: Double = 0.0,
+
+    @JsonProperty("productTitle")
+    val productTitle: String = "",
+
     @JsonProperty("productId")
     val productId: Long = -1L,
 
@@ -15,6 +21,6 @@ class CardItemDto(
     val quantity: Int = -1,
 
     @JsonProperty("dateAdded")
-    val dateAdded: ZonedDateTime
+    val dateAdded: ZonedDateTime? = null
 
 )

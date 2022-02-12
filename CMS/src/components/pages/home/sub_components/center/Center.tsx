@@ -21,7 +21,7 @@ export class Center extends React.Component<{}, {}> {
         return <div className={"container"} style={{backgroundColor: "lightblue"}}>
             <div className="d-flex flex-wrap">
                 {this.state.products.map((item) => {
-                    return <ProductComponent title={item.title} description={item.description} price={item.price} />
+                    return <ProductComponent id={item.id} title={item.title} description={item.description} price={item.price} />
                 })}
             </div>
         </div>;

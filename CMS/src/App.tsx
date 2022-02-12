@@ -10,7 +10,6 @@ export class App extends Component<{}> {
 
     render() {
         const token: any = this.getToken()
-        if (token == null) return
         return (
             <div>
                 <Routes>
@@ -34,5 +33,3 @@ export class App extends Component<{}> {
     }
 
 }
-
-function navigation() {return useNavigate()}

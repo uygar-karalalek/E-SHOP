@@ -19,6 +19,8 @@ object CardItemMapper {
     fun mapToDomain(cardItemEntity: CardItem): CardItemDomain {
         return CardItemDomain(
             cardItemEntity.id.cardId,
+            cardItemEntity.product!!.price,
+            cardItemEntity.product.title,
             cardItemEntity.id.productId,
             cardItemEntity.quantity,
             cardItemEntity.dateAdded

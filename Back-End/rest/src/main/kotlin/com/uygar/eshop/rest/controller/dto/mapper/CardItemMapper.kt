@@ -8,6 +8,8 @@ object CardItemMapper {
     fun mapToDto(cardItem: CardItem): CardItemDto {
         return CardItemDto(
             cardItem.cardId,
+            cardItem.productPrice,
+            cardItem.productTitle,
             cardItem.productId,
             cardItem.quantity,
             cardItem.dateAdded
@@ -17,9 +19,11 @@ object CardItemMapper {
     fun mapToDomain(cardItemDto: CardItemDto): CardItem {
         return CardItem(
             cardItemDto.cardId,
+            cardItemDto.productPrice,
+            cardItemDto.productTitle,
             cardItemDto.productId,
             cardItemDto.quantity,
-            cardItemDto.dateAdded
+            //cardItemDto.dateAdded
         )
     }
 

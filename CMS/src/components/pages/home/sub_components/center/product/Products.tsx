@@ -22,7 +22,7 @@ export class Products extends React.Component<{}, {}> {
         return (
             <div className="p-2 bd-highlight">
                 {this.state.products.map((item) =>
-                    <ProductComponent title={item.title} description={item.description} price={item.price} />
+                    <ProductComponent id={item.id} title={item.title} description={item.description} price={item.price} />
                 )}
             </div>
         );

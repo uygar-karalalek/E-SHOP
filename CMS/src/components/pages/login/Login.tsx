@@ -41,7 +41,6 @@ export class Login extends Component<Props, {}> {
     }
 
     onChangeUsername(event: ChangeEvent<HTMLInputElement>) {
-        console.log(this.state.username);
         this.setState({username: event.target.value});
     }
 
