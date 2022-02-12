@@ -5,6 +5,7 @@ import {Route} from "react-router";
 import {Home} from "./components/pages/home/Home";
 import {Shopping} from "./components/pages/shopping/Shopping";
 import LoginWithRouter from "./components/pages/login/Login";
+import {Checkout} from "./components/pages/shopping/Checkout";
 
 export class App extends Component<{}> {
 
@@ -13,7 +14,7 @@ export class App extends Component<{}> {
         return (
             <div>
                 <Routes>
-                    <Route path={"/"} element={ <Home /> } />
+                    <Route path={"/"} element={ <Checkout /> } />
                     <Route path={"/login"} element={ <LoginWithRouter setToken={ this.setToken } /> } />
                     <Route path={"/shopping"} element={ <Shopping /> } />
                 </Routes>
