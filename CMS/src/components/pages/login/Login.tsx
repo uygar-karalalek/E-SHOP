@@ -8,7 +8,12 @@ export interface Credentials {
     password: string
 }
 
-export class Login extends Component<{}, {}> {
+export interface Props {
+    navigation: NavigateFunction,
+    setToken: (param: string) => void
+}
+
+export class Login extends Component<Props, {}> {
 
     /**
      *
@@ -46,7 +51,10 @@ export class Login extends Component<{}, {}> {
 
     onSubmitForm(event: React.SyntheticEvent) {
         event.preventDefault();
-        var value = this.loginUser({email: this.state.username, password: this.state.password})
+        this.loginUser({email: this.state.username, password: this.state.password}).then( value => {
+            this.props.navigation("/")
+            this.props.setToken(value.data.toString())
+        })
     }
 
     async loginUser(credentials: { email: string, password: string }) {
@@ -96,5 +104,5 @@ export class Login extends Component<{}, {}> {
 
 export default function LoginWithRouter(props: any) {
     const navigation = useNavigate()
-    return <Login navigation={navigation}  {...props}/>
+    return <Login navigation={navigation} {...props}  />
 }
