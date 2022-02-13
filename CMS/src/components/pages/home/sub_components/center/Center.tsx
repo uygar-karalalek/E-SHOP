@@ -1,8 +1,7 @@
 import * as React from "react";
 import axios from 'axios';
-import {Card} from "react-bootstrap";
-import {Product} from "../../../../interfaces/Product";
-import {ProductComponent} from "../../../product/ProductComponent";
+import {ProductComponent} from "./product/ProductComponent";
+import {Product} from "../../../../../interfaces/Product";
 
 export class Center extends React.Component<{}, {}> {
 
@@ -22,7 +21,7 @@ export class Center extends React.Component<{}, {}> {
         return <div className={"container"} style={{backgroundColor: "lightblue"}}>
             <div className="d-flex flex-wrap">
                 {this.state.products.map((item) => {
-                    return <ProductComponent title={item.title} description={item.description} price={item.price} />
+                    return <ProductComponent id={item.id} title={item.title} description={item.description} price={item.price} />
                 })}
             </div>
         </div>;
