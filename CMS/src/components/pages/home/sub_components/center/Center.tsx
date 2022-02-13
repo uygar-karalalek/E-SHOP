@@ -37,7 +37,7 @@ export class Center extends React.Component<{}, { products: Array<Product>, prod
 
     render() {
         const prodDetails = this.state.product
-        return <div className={"container"} style={{backgroundColor: "lightblue"}}>
+        return <div className={"container"} style={{backgroundColor: "rgb(33, 33, 37)", padding: 10}}>
             {this.productsOrDetails(prodDetails)}
         </div>;
     }

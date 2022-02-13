@@ -18,7 +18,7 @@ export class ProductComponent extends React.Component<{ product: Product, setVie
 
     render() {
         return (
-            <Card style={{ width: '15rem' }} >
+            <Card style={{ width: '15rem', marginRight: 10, marginTop: 10 }} >
                 <Card.Body>
                     <Card.Img onClick={this.setProductForViewDetails} style={{marginBottom: '2rem'}} src={"sample.png"} />
                     <label style={{ textAlign: "left", color: "blue", marginBottom: "2rem" }}>{this.props.product.title}</label>

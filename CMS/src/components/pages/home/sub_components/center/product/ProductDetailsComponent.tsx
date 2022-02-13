@@ -21,7 +21,7 @@ export class ProductDetailsComponent extends React.Component<Props, {}> {
 
     render() {
         return (
-            <div style={{width: "60%"}}>
+            <div style={{padding: 30, width: "60%", color: "white"}}>
                 <h3>Product Details</h3>
                 <div style={{color: "#c6ce86"}}>Title:</div>
                 <div>{this.props.product.title}</div>
