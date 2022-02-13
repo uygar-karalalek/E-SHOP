@@ -3,7 +3,7 @@ E-Commerce Virtual shop project
 ## Project Description
 The goal is to realize a Web Application
 that works as a virtual shop. This application will be evaluated by my professor of E-Commerce for the homonym module at CPT Locarno school.
-## Getting started (MacOS and other Linux distros)
+## Getting started (MacOS and Linux distros)
 1) Open the terminal and change directory to root folder
 2) run the command "chmod +x ./linux-mac-deploy"
 3) run the command "chmod +x ./linux-mac-run"
