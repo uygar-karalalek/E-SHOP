@@ -10,17 +10,16 @@ interface Props {
     setPrice: (price: number) => void
 }
 
-export class Shopping extends Component<Props, {}> {
-
-    private totalPrice: number
+export class Shopping extends Component<Props, { totalPrice: number, cardItems: Array<CardItem> }> {
 
     constructor(props: Props) {
         super(props);
         this.goToPaymentPage = this.goToPaymentPage.bind(this)
-    }
-
-    state = {
-        cardItems: Array<CardItem>()
+        this.addTotalPrice = this.addTotalPrice.bind(this);
+        this.state = {
+            totalPrice: 0,
+            cardItems: Array<CardItem>()
+        }
     }
 
     componentDidMount() {
@@ -28,16 +27,24 @@ export class Shopping extends Component<Props, {}> {
             .then(res => {
                 const items = res.data;
                 this.setState({cardItems: items});
+                this.setState({totalPrice: this.computeTotalPrice()});
             })
     }
 
     goToPaymentPage() {
-        this.props.setPrice(this.totalPrice)
+        this.props.setPrice(this.state.totalPrice)
+        console.log(Math.round(this.state.totalPrice * 100) / 100)
         this.props.navigator("/shopping/payment")
     }
 
+    addTotalPrice(price: number) {
+        this.setState({totalPrice: this.state.totalPrice + price})
+    }
+
     render() {
-        this.totalPrice = this.computeTotalPrice()
+        console.log(this.state.totalPrice)
+        var totalPrice = this.state.totalPrice == 0 ? this.computeTotalPrice() : this.state.totalPrice
+        totalPrice = Math.round(totalPrice * 100) / 100
 
         return <div>
             <table style={{margin: 10}} className="table table-hover">
@@ -50,11 +57,8 @@ export class Shopping extends Component<Props, {}> {
                 </thead>
                 <tbody>
                 {
-                    this.state.cardItems.map((item) => {
-                        return <CardItemComponent productPrice={item.productPrice} productTitle={item.productTitle}
-                                                  cardId={item.cardId} quantity={item.quantity}
-                                                  dateAdded={item.dateAdded}
-                                                  productId={item.productId}/>
+                    this.state.cardItems.filter(item=>item.quantity > 0).map((item) => {
+                        return <CardItemComponent addToPrice={this.addTotalPrice} item={item}/>
                     })}
                 </tbody>
             </table>
@@ -67,7 +71,7 @@ export class Shopping extends Component<Props, {}> {
                 marginTop: 100
             }}>
                 <span>Totale: {" "}</span> <span style={{color: "red"}}>{
-                    this.totalPrice
+                    totalPrice
             } .-</span>
                 <button onClick={this.goToPaymentPage} style={{marginLeft: 50, width: 100}} type="button"
                         className="btn btn-primary">buy

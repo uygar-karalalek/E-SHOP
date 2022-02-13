@@ -24,4 +24,9 @@ class CardItemController {
         cardItemService.addItem(CardItemMapper.mapToDomain(cardItemDto))
     }
 
+    @PostMapping("/remove")
+    fun removeProductFromCard(@RequestBody cardItemDto: CardItemDto) {
+        cardItemService.removeItem(CardItemMapper.mapToDomain(cardItemDto))
+    }
+
 }

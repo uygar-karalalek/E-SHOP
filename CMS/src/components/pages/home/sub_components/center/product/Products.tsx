@@ -21,9 +21,7 @@ export class Products extends React.Component<{}, {}> {
     render() {
         return (
             <div className="p-2 bd-highlight">
-                {this.state.products.map((item) =>
-                    <ProductComponent id={item.id} title={item.title} description={item.description} price={item.price} />
-                )}
+
             </div>
         );
     }
