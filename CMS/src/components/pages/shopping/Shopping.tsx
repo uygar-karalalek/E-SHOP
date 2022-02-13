@@ -3,8 +3,21 @@ import {Component} from "react";
 import axios from "axios";
 import {CardItem} from "../../../interfaces/CardItem";
 import {CardItemComponent} from "./CardItemComponent";
+import {NavigateFunction, useNavigate} from "react-router-dom";
 
-export class Shopping extends Component<{}, {}> {
+interface Props {
+    navigator: NavigateFunction,
+    setPrice: (price: number) => void
+}
+
+export class Shopping extends Component<Props, {}> {
+
+    private totalPrice: number
+
+    constructor(props: Props) {
+        super(props);
+        this.goToPaymentPage = this.goToPaymentPage.bind(this)
+    }
 
     state = {
         cardItems: Array<CardItem>()
@@ -18,9 +31,16 @@ export class Shopping extends Component<{}, {}> {
             })
     }
 
+    goToPaymentPage() {
+        this.props.setPrice(this.totalPrice)
+        this.props.navigator("/shopping/payment")
+    }
+
     render() {
+        this.totalPrice = this.computeTotalPrice()
+
         return <div>
-            <table style={{ margin: 10 }} className="table table-hover">
+            <table style={{margin: 10}} className="table table-hover">
                 <thead>
                 <tr>
                     <th style={{width: "16.66%"}} scope="col">Title</th>
@@ -38,15 +58,33 @@ export class Shopping extends Component<{}, {}> {
                     })}
                 </tbody>
             </table>
-            <div style={{borderColor: "#3397c7", borderStyle: "solid", padding: 10, color: "green", margin: 10, marginTop: 100}}>
+            <div style={{
+                borderColor: "#3397c7",
+                borderStyle: "solid",
+                padding: 10,
+                color: "green",
+                margin: 10,
+                marginTop: 100
+            }}>
                 <span>Totale: {" "}</span> <span style={{color: "red"}}>{
-                this.state.cardItems.length > 0 ?
-                    this.state.cardItems.map((item) => {
-                        return (item.productPrice * Number(item.quantity))
-                    }).reduce((previousValue, currentValue) => previousValue + currentValue) : ""
+                    this.totalPrice
             } .-</span>
-                <button style={{marginLeft: 50, width: 100}} type="button" className="btn btn-primary">buy</button>
+                <button onClick={this.goToPaymentPage} style={{marginLeft: 50, width: 100}} type="button"
+                        className="btn btn-primary">buy
+                </button>
             </div>
         </div>;
     }
+
+    private computeTotalPrice(): number {
+        return this.state.cardItems.length > 0 ?
+            this.state.cardItems.map((item) => {
+                return (item.productPrice * Number(item.quantity))
+            }).reduce((previousValue, currentValue) => previousValue + currentValue) : 0;
+    }
+}
+
+export function ShoppingWithRouter(props: { setPrice: (amount: number) => void }) {
+    let navigator = useNavigate();
+    return <Shopping setPrice={props.setPrice} navigator={navigator}/>
 }
