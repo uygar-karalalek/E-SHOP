@@ -22,4 +22,12 @@ class CardItemService(private val cardItemRepository: CardItemRepository) {
         }
     }
 
+    fun removeItem(cardItem: CardItem) {
+        val searchedCardItem = cardItemRepository.findByCardIdAndProductId(cardItem.cardId, cardItem.productId)
+        if (searchedCardItem.isPresent) {
+            searchedCardItem.get().quantity--
+            cardItemRepository.save(searchedCardItem.get())
+        }
+    }
+
 }
