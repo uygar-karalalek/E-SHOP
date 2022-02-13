@@ -33,11 +33,13 @@ export class Shopping extends Component<Props, {}> {
 
     goToPaymentPage() {
         this.props.setPrice(this.totalPrice)
+        console.log(Math.round(this.totalPrice * 100) / 100)
         this.props.navigator("/shopping/payment")
     }
 
     render() {
         this.totalPrice = this.computeTotalPrice()
+        this.totalPrice = Math.round(this.totalPrice * 100) / 100
 
         return <div>
             <table style={{margin: 10}} className="table table-hover">
