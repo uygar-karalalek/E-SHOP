@@ -21,7 +21,6 @@ export class Home extends React.Component<{}, {}> {
                 <div className="col-10" style={{padding: 10, paddingBottom: 30}}>
                     <Center/>
                 </div>
-
             </div>
             <div className="row">
                 <div className="col-12">

@@ -17,15 +17,15 @@ object UserMapper {
         )
     }
 
-    fun mapToDomain(userDto: User): UserDomain {
+    fun mapToDomain(userEntity: User): UserDomain {
         return UserDomain(
-            userDto.id,
-            userDto.name,
-            userDto.surname,
-            userDto.address,
-            userDto.email,
-            userDto.password,
-            ShoppingCardMapper.mapToDomain(userDto.shoppingCard)
+            userEntity.id,
+            userEntity.name,
+            userEntity.surname,
+            userEntity.address,
+            userEntity.email,
+            userEntity.password,
+            ShoppingCardMapper.mapToDomain(userEntity.shoppingCard)
         )
     }
 

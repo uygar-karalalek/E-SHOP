@@ -18,11 +18,11 @@ export class ProductComponent extends React.Component<{ product: Product, setVie
 
     render() {
         return (
-            <Card style={{ width: '15rem', marginRight: 10, marginTop: 10 }} >
+            <Card style={{ width: '15rem', marginRight: 10, marginTop: 10, backgroundColor: "#545f6b", color: "white" }} >
                 <Card.Body>
                     <Card.Img onClick={this.setProductForViewDetails} style={{marginBottom: '2rem'}} src={"sample.png"} />
-                    <label style={{ textAlign: "left", color: "blue", marginBottom: "2rem" }}>{this.props.product.title}</label>
-                    <Card.Text style={{fontWeight: "bold", color: "red"}}>{this.props.product.price} $</Card.Text>
+                    <label style={{ textAlign: "left", marginBottom: "2rem" }}>{this.props.product.title}</label>
+                    <Card.Text style={{fontWeight: "bold", color: "#5db453"}}>{this.props.product.price} .-</Card.Text>
                     <button onClick={this.callApi}>Buy</button>
                 </Card.Body>
             </Card>

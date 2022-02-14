@@ -46,4 +46,8 @@ subprojects {
     group = "com.uygar.eshop"
     version = "1.0-SNAPSHOT"
 
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
+
 }
