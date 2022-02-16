@@ -15,6 +15,7 @@ import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import java.time.ZonedDateTime
 import com.uygar.eshop.persistence.entities.CardItem as CardItemEntity
@@ -91,12 +92,30 @@ class UserServiceTest {
     }
 
     @Test
-    fun userServiceChanges() {
-        every { underTest.deleteUserById(1) } returns Unit
+    fun repositoryDoNotFindAllUsers() {
+        every { userRepository.findAll() }.returns(listOf())
+
+        val result = underTest.getAllUsers()
+
+        verify { userRepository.findAll() }
+
+        MatcherAssert.assertThat(result.size, Matchers.`is`(0))
+    }
+
+    @Test
+    fun userIsDeleted() {
+        every { userRepository.deleteById(1) } returns Unit
 
         underTest.deleteUserById(1)
 
         verify { userRepository.deleteById(any()) }
+    }
+
+    @Test
+    fun userIsNotDeleted() {
+        every { userRepository.deleteById(1) } throws NoSuchElementException("Exception")
+
+        assertThrows<NoSuchElementException>(message = "Exception") { underTest.deleteUserById(1) }
     }
 
 }
