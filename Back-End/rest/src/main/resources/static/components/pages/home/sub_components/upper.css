@@ -1,0 +1,25 @@
+.upper-side {
+    background-color: rgb(33, 33, 37);
+    padding: 10px;
+}
+
+.search-label {
+    padding-top: 20px;
+    padding-left: 100px;
+}
+
+.search-bar {
+    background: grey;
+    color: #c6ce86;
+    margin-left: 20px;
+    width: 500px
+}
+
+.upper-ok-button {
+    margin-left: 20px;
+    width: 100px;
+}
+
+.upper-shopping-link {
+    margin-left: 20px
+}
