@@ -10,7 +10,7 @@ object CardItemMapper {
     fun mapToEntity(cardItem: CardItemDomain): CardItem {
         return CardItem(
             id = CardItemKey(cardItem.cardId, cardItem.productId),
-            product = Product(cardItem.productId),
+            product = Product(cardItem.productId, cardItem.productTitle, cardItem.productPrice),
             dateAdded = cardItem.dateAdded,
             quantity = cardItem.quantity
         )

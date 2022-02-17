@@ -1,14 +1,13 @@
 package com.uygar.eshop.persistence.service
 
 import com.uygar.eshop.core.CardItem
-
 import com.uygar.eshop.persistence.entities.mapper.CardItemMapper
 import com.uygar.eshop.persistence.repositories.CardItemRepository
-import com.uygar.eshop.persistence.entities.CardItem as CardItemEntity
+import java.util.*
 
 class CardItemService(private val cardItemRepository: CardItemRepository) {
 
-    fun getAllProducts(): List<CardItem> {
+    fun getAllCardItems(): List<CardItem> {
         return cardItemRepository.findAll().map(CardItemMapper::mapToDomain)
     }
 
@@ -28,6 +27,12 @@ class CardItemService(private val cardItemRepository: CardItemRepository) {
             searchedCardItem.get().quantity--
             cardItemRepository.save(searchedCardItem.get())
         }
+    }
+
+    fun findItemById(shoppingCardId: Long, productId: Long): CardItem {
+        val cardItemEntity = cardItemRepository.findByCardIdAndProductId(shoppingCardId, productId)
+        if (cardItemEntity.isPresent) return CardItemMapper.mapToDomain(cardItemEntity.get())
+        else throw NoSuchElementException("Card with id id $shoppingCardId and $productId not found")
     }
 
 }

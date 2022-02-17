@@ -19,4 +19,22 @@ class CardItemKey(
         return "$cardId$productId".toLong()
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as CardItemKey
+
+        if (cardId != other.cardId) return false
+        if (productId != other.productId) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = cardId.hashCode()
+        result = 31 * result + productId.hashCode()
+        return result
+    }
+
 }

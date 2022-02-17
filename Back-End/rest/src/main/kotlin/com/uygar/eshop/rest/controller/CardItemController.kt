@@ -16,7 +16,7 @@ class CardItemController {
 
     @GetMapping
     fun getAllCardProducts(@PathVariable cardId: Long): List<CardItem> {
-        return cardItemService.getAllProducts()
+        return cardItemService.getAllCardItems()
     }
 
     @PostMapping("/add")

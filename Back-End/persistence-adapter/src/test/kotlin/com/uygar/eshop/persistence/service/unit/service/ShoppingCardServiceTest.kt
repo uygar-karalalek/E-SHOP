@@ -14,9 +14,11 @@ import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import java.time.ZonedDateTime
 import java.util.*
+import kotlin.NoSuchElementException
 import com.uygar.eshop.persistence.entities.CardItem as CardItemEntity
 import com.uygar.eshop.persistence.entities.ShoppingCard as ShoppingCardEntity
 
@@ -113,7 +115,7 @@ class ShoppingCardServiceTest {
     }
 
     @Test
-    fun shoppingCardFound() {
+    fun shoppingCardByIdFound() {
         val dateAdded = ZonedDateTime.now()
         every { shoppingCardRepository.findById(1) } returns Optional.of(
             ShoppingCardEntity(
@@ -132,7 +134,8 @@ class ShoppingCardServiceTest {
 
         val result = underTest.getCardById(1)
 
-        MatcherAssert.assertThat(result, Matchers.`is`(
+        MatcherAssert.assertThat(
+            result, Matchers.`is`(
                 ShoppingCard(
                     1,
                     mutableListOf(
@@ -150,4 +153,9 @@ class ShoppingCardServiceTest {
         )
     }
 
+    @Test
+    fun shoppingCardWithIdNotFound() {
+        every { shoppingCardRepository.findById(1) } returns Optional.ofNullable(null)
+        assertThrows<NoSuchElementException>(message = "Card with id id 1 not found") { underTest.getCardById(1) }
+    }
 }
