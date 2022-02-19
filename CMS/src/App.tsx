@@ -3,8 +3,8 @@ import {Component} from "react";
 import {Routes} from "react-router-dom";
 import {Route} from "react-router";
 import {ShoppingWithRouter} from "./components/pages/shopping/Shopping";
-import LoginWithRouter from "./components/pages/login/Login";
-import {Home} from "./components/pages/home/Home";
+import LoginWithRouter, {Authentication} from "./components/pages/login/Login";
+import {HomeComponent} from "./components/pages/home/Home";
 import {Checkout} from "./components/pages/shopping/Checkout";
 
 export class App extends Component<{}, {}> {
@@ -15,29 +15,32 @@ export class App extends Component<{}, {}> {
         super(props);
         this.setPrice = this.setPrice.bind(this)
         this.getPrice = this.getPrice.bind(this)
+
+        this.setToken = this.setToken.bind(this);
+        this.getToken = this.getToken.bind(this);
     }
 
     render() {
-        const token: any = this.getToken()
         return (
             <div>
                 <Routes>
-                    <Route path={"/"} element={<Home/>}/>
-                    <Route path={"/login"} element={<LoginWithRouter setToken={this.setToken}/>}/>
+                    <Route path={"/"} element={<HomeComponent setToken={this.setToken}  getToken={this.getToken}/>}/>
+                    <Route path={"/login"} element={<LoginWithRouter setToken={this.setToken} getToken={this.getToken}/>}/>
                     <Route path={"/shopping"} element={<ShoppingWithRouter setPrice={this.setPrice}/>}/>
-                    <Route path={"/shopping/payment"}
-                           element={<Checkout getPrice={this.getPrice} currency={"CHF"}/>}/>
+                    <Route path={"/shopping/payment"} element={<Checkout getPrice={this.getPrice} currency={"CHF"}/>}/>
                 </Routes>
             </div>
         );
     }
 
     setToken(userToken: any) {
+        console.log("Setting token " + userToken)
         sessionStorage.setItem("token", JSON.stringify(userToken))
     }
 
-    getToken() {
+    getToken(): string {
         const tokenString = sessionStorage.getItem("token")
+        console.log("Getting token " + tokenString)
         const userToken = JSON.parse(tokenString)
         return userToken?.token
     }

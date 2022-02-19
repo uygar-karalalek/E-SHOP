@@ -1,19 +1,25 @@
 import * as React from "react";
 import {ChangeEvent, Component} from "react";
 import axios from "axios";
-import {NavigateFunction, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {Navigation} from "../home/Home";
 
-export interface Credentials {
-    username: string,
-    password: string
-}
-
-export interface Props {
-    navigation: NavigateFunction,
+export class Authentication {
     setToken: (param: string) => void
+    getToken: () => string
+
+    constructor(setToken: (param: string) => void, getToken: () => string) {
+        this.setToken = setToken
+        this.getToken = getToken
+    }
 }
 
-export class Login extends Component<Props, {}> {
+interface LoginProperties {
+    authentication: Authentication,
+    navigation: Navigation
+}
+
+export class Login extends Component<LoginProperties, {}> {
 
     /**
      *
@@ -51,8 +57,8 @@ export class Login extends Component<Props, {}> {
     onSubmitForm(event: React.SyntheticEvent) {
         event.preventDefault();
         this.loginUser({email: this.state.username, password: this.state.password}).then( value => {
-            this.props.navigation("/")
-            this.props.setToken(value.data.toString())
+            this.props.navigation.navigation("/")
+            this.props.authentication.setToken(value.data.toString())
         })
     }
 
@@ -101,7 +107,7 @@ export class Login extends Component<Props, {}> {
 
 }
 
-export default function LoginWithRouter(props: any) {
+export default function LoginWithRouter(authentication: Authentication) {
     const navigation = useNavigate()
-    return <Login navigation={navigation} {...props}  />
+    return <Login navigation={new Navigation(navigation)} authentication={authentication} />
 }
