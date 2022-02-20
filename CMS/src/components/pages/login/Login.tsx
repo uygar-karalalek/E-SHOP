@@ -4,7 +4,7 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {Navigation} from "../home/Home";
 
-export class Authentication {
+export class TokenAuthMethod {
     setToken: (param: string) => void
     getToken: () => string
 
@@ -15,11 +15,11 @@ export class Authentication {
 }
 
 interface LoginProperties {
-    authentication: Authentication,
+    authentication: TokenAuthMethod,
     navigation: Navigation
 }
 
-export class Login extends Component<LoginProperties, {}> {
+class Login extends Component<LoginProperties, {}> {
 
     /**
      *
@@ -56,9 +56,9 @@ export class Login extends Component<LoginProperties, {}> {
 
     onSubmitForm(event: React.SyntheticEvent) {
         event.preventDefault();
-        this.loginUser({email: this.state.username, password: this.state.password}).then( value => {
+        this.loginUser({email: this.state.username, password: this.state.password}).then(value => {
+            this.props.authentication.setToken(JSON.stringify(value.data))
             this.props.navigation.navigation("/")
-            this.props.authentication.setToken(value.data.toString())
         })
     }
 
@@ -107,7 +107,7 @@ export class Login extends Component<LoginProperties, {}> {
 
 }
 
-export default function LoginWithRouter(authentication: Authentication) {
+export default function LoginWithRouter(authentication: TokenAuthMethod) {
     const navigation = useNavigate()
     return <Login navigation={new Navigation(navigation)} authentication={authentication} />
 }

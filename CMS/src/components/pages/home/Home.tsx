@@ -3,7 +3,7 @@ import {UpperBar} from "./sub_components/up/UpperBar";
 import {Center} from "./sub_components/center/Center";
 import {BottomBar} from "./sub_components/bottom/BottomBar";
 import {LeftBar} from "./sub_components/left/LeftBar";
-import {Authentication, Login} from "../login/Login";
+import LoginWithRouter, {TokenAuthMethod} from "../login/Login";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 
 export class Navigation {
@@ -16,18 +16,21 @@ export class Navigation {
 
 interface HomeProps {
     navigation: Navigation,
-    authentication: Authentication
+    authentication: TokenAuthMethod
 }
 
-export class Home extends React.Component<HomeProps, {}> {
+export class Home extends React.Component<HomeProps, {token: string}> {
 
     constructor(props: HomeProps) {
         super(props);
+        this.state = {
+            token: ""
+        }
     }
 
     render() {
         if (this.props.authentication.getToken() == null || this.props.authentication.getToken() === "") {
-            return <Login authentication={this.props.authentication} navigation={this.props.navigation} />
+            return <LoginWithRouter setToken={this.props.authentication.setToken} getToken={this.props.authentication.getToken} />
         }
 
         return <div className={"home-general container-fluid"}>
@@ -54,8 +57,7 @@ export class Home extends React.Component<HomeProps, {}> {
 
 }
 
-export function HomeComponent(auth: Authentication) {
+export function HomeComponent(auth: TokenAuthMethod) {
     const navigation = useNavigate()
-    console.log(auth.getToken() + " << fake getting")
-    return <Home navigation={new Navigation(navigation)} authentication={auth} />;
+    return <Home navigation={new Navigation(navigation)} authentication={ auth } />;
 }

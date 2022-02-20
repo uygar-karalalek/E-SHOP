@@ -21,9 +21,14 @@ export class ProductComponent extends React.Component<{ product: Product, setVie
             <Card style={{ width: '15rem', marginRight: 10, marginTop: 10, backgroundColor: "#545f6b", color: "white" }} >
                 <Card.Body>
                     <div>
-                        <Card.Img onClick={this.setProductForViewDetails} style={{marginBottom: '2rem', width: "100%", height: "15vw", objectFit: "cover"}} src={"sample.png"} />
-                        <label style={{ textAlign: "left", marginBottom: "2rem", height: 50 }}>{this.props.product.title}</label>
-                        <Card.Text style={{fontWeight: "bold", color: "#5db453", height: 50 }}>{this.props.product.price} .-</Card.Text>
+                        <Card.Img onClick={this.setProductForViewDetails} style={{borderColor: "red",
+                            borderStyle: "solid",
+                            marginBottom: '2rem',
+                            width: "100%",
+                            height: "10vw",
+                            objectFit: "cover"}} src={"sample.png"} />
+                        <label style={{ overflow: "hidden", textAlign: "left", marginBottom: "2rem", height: 70 }}>{this.props.product.title}</label>
+                        <Card.Text style={{fontWeight: "bold", color: "#5db453", height: 10, marginBottom: 30 }}>{this.props.product.price} CHF</Card.Text>
                         <button onClick={this.callApi}>Buy</button>
                     </div>
                 </Card.Body>

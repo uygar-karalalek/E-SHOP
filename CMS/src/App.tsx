@@ -3,7 +3,7 @@ import {Component} from "react";
 import {Routes} from "react-router-dom";
 import {Route} from "react-router";
 import {ShoppingWithRouter} from "./components/pages/shopping/Shopping";
-import LoginWithRouter, {Authentication} from "./components/pages/login/Login";
+import LoginWithRouter from "./components/pages/login/Login";
 import {HomeComponent} from "./components/pages/home/Home";
 import {Checkout} from "./components/pages/shopping/Checkout";
 
@@ -24,8 +24,10 @@ export class App extends Component<{}, {}> {
         return (
             <div>
                 <Routes>
-                    <Route path={"/"} element={<HomeComponent setToken={this.setToken}  getToken={this.getToken}/>}/>
-                    <Route path={"/login"} element={<LoginWithRouter setToken={this.setToken} getToken={this.getToken}/>}/>
+                    <Route path={"/"} element={<HomeComponent setToken={this.setToken}
+                                                              getToken={this.getToken}/>}/>
+                    <Route path={"/login"}
+                           element={<LoginWithRouter setToken={this.setToken} getToken={this.getToken}/>}/>
                     <Route path={"/shopping"} element={<ShoppingWithRouter setPrice={this.setPrice}/>}/>
                     <Route path={"/shopping/payment"} element={<Checkout getPrice={this.getPrice} currency={"CHF"}/>}/>
                 </Routes>
@@ -40,9 +42,12 @@ export class App extends Component<{}, {}> {
 
     getToken(): string {
         const tokenString = sessionStorage.getItem("token")
-        console.log("Getting token " + tokenString)
-        const userToken = JSON.parse(tokenString)
-        return userToken?.token
+        if (tokenString != null && tokenString !== "") {
+            let stringTokenJSON = JSON.parse(tokenString);
+            const tokenObject = JSON.parse(stringTokenJSON)
+            return tokenObject.token;
+        }
+        return ""
     }
 
     private setPrice(price: number) {
