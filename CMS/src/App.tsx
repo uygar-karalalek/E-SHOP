@@ -37,11 +37,11 @@ export class App extends Component<{}, {}> {
 
     setToken(userToken: any) {
         console.log("Setting token " + userToken)
-        sessionStorage.setItem("token", JSON.stringify(userToken))
+        localStorage.setItem("token", JSON.stringify(userToken))
     }
 
     getToken(): string {
-        const tokenString = sessionStorage.getItem("token")
+        const tokenString = localStorage.getItem("token")
         if (tokenString != null && tokenString !== "") {
             let stringTokenJSON = JSON.parse(tokenString);
             const tokenObject = JSON.parse(stringTokenJSON)
