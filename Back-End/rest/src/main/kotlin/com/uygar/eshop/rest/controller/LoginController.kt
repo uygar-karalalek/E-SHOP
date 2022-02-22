@@ -19,7 +19,9 @@ class LoginController {
     @PostMapping
     fun login(@RequestBody loginDto: LoginDto): AuthenticationDto {
         return AuthenticationDto(userService.getAllUsers()
-            .find { it.email == loginDto.email && it.password == loginDto.password }!!.surname
+            .find { it.email == loginDto.email && it.password == loginDto.password }!!.let {
+                return@let it.id.toString() + "," + it.surname
+            }
         )
     }
 
