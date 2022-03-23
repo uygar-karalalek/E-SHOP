@@ -1,16 +1,18 @@
 import * as React from "react";
 import {useEffect, useRef} from "react";
 import {useNavigate} from "react-router-dom";
+import {TokenAuthMethod} from "../login/Login";
 
 interface Props {
     currency: string,
-    getPrice: () => number
+    auth: TokenAuthMethod
 }
 
 export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
 
-    // TODO : Knowing how to make getPrice more flexible
-    const price = props.getPrice()
+
+
+    const price = props.getPrice().toFixed(2)
     const paypal = useRef()
     useEffect(() => {
         // @ts-ignore

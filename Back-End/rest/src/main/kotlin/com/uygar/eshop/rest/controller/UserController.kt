@@ -5,6 +5,8 @@ import com.uygar.eshop.rest.controller.dto.UserDto
 import com.uygar.eshop.rest.controller.dto.mapper.UserMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -18,6 +20,11 @@ class UserController {
     @GetMapping
     fun getUsers(): List<UserDto> {
         return userService.getAllUsers().map(UserMapper::mapToDto)
+    }
+
+    @PostMapping("/add")
+    fun saveUser(@RequestBody user: UserDto) {
+        userService.saveUser(UserMapper.mapToDomain(user))
     }
 
 }

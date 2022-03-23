@@ -17,7 +17,10 @@ function cleanupOnExit() {
   printf "\n${red}----------------------------------------------------\n"
   printf "${red}------------- ${green}EXITED FROM THE PROGRAM!${red} -------------\n"
   printf "${red}----------------------------------------------------${reset}\n"
+
+  kill -- -0
 }
+echo "Ci1ao"
 
 trap cleanupOnExit INT
 
@@ -25,4 +28,11 @@ trap cleanupOnExit INT
 #  injecting it in build folder of rest module in Back-End
 cd ..
 cd CMS
-npm run-script magic
+npm run-script magic &
+
+while read -n1 -r v
+do
+  if [ $v = "r" ]; then
+    npm run classic
+  fi
+done

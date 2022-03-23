@@ -3,59 +3,53 @@ import {Component} from "react";
 import {Routes} from "react-router-dom";
 import {Route} from "react-router";
 import {ShoppingWithRouter} from "./components/pages/shopping/Shopping";
-import LoginWithRouter from "./components/pages/login/Login";
+import LoginWithRouter, {TokenAuthMethod} from "./components/pages/login/Login";
 import {HomeComponent} from "./components/pages/home/Home";
 import {Checkout} from "./components/pages/shopping/Checkout";
+import {ShoppingService} from "./services/ShoppingService";
 
 export class App extends Component<{}, {}> {
 
-    private priceToPay: number = 0
+    shoppingService: ShoppingService = new ShoppingService();
 
     constructor(props: any) {
         super(props);
-        this.setPrice = this.setPrice.bind(this)
-        this.getPrice = this.getPrice.bind(this)
-
-        this.setToken = this.setToken.bind(this);
-        this.getToken = this.getToken.bind(this);
     }
 
     render() {
+        if (this.shoppingService.getToken() == null || this.shoppingService.getToken().length == 0) {
+            let guestName = this.generateGuestName();
+
+        }
         return (
             <div>
                 <Routes>
-                    <Route path={"/"} element={<HomeComponent setToken={this.setToken}
-                                                              getToken={this.getToken}/>}/>
+                    <Route path={"/"} element={<HomeComponent/>}/>
                     <Route path={"/login"}
-                           element={<LoginWithRouter setToken={this.setToken} getToken={this.getToken}/>}/>
-                    <Route path={"/shopping"} element={<ShoppingWithRouter setPrice={this.setPrice}/>}/>
-                    <Route path={"/shopping/payment"} element={<Checkout getPrice={this.getPrice} currency={"CHF"}/>}/>
+                           element={<LoginWithRouter />}/>
+                    <Route path={"/shopping"} element={<ShoppingWithRouter />}/>
+                    <Route path={"/shopping/payment"}
+                           element={<Checkout currency={"CHF"}/>}/>
                 </Routes>
             </div>
         );
     }
 
-    setToken(userToken: any) {
-        console.log("Setting token " + userToken)
-        localStorage.setItem("token", JSON.stringify(userToken))
-    }
-
-    getToken(): string {
-        const tokenString = localStorage.getItem("token")
-        if (tokenString != null && tokenString !== "") {
-            let stringTokenJSON = JSON.parse(tokenString);
-            const tokenObject = JSON.parse(stringTokenJSON)
-            return tokenObject.token;
+    private generateGuestName(): string {
+        let length = Math.round((Math.random() * 12) + 5)
+        let randGuestName = "Guest";
+        for (let i = 0; i < length; i++) {
+            let maiusc = this.random(0, 2) == 0
+            let code = 0;
+            if (maiusc) code = this.random(65, 90)
+            else code = this.random(97, 122)
+            randGuestName += String.fromCharCode(code)
         }
-        return ""
+        return randGuestName
     }
 
-    private setPrice(price: number) {
-        this.priceToPay = price
-    }
-
-    private getPrice(): number {
-        return this.priceToPay
+    random(min: number, max: number): number {
+        return Math.round((Math.random() * (max - min)) + min)
     }
 
 }

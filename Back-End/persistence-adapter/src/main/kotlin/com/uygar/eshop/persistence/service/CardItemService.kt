@@ -13,20 +13,12 @@ class CardItemService(private val cardItemRepository: CardItemRepository) {
 
     fun addItem(cardItem: CardItem) {
         val searchedCardItem = cardItemRepository.findByCardIdAndProductId(cardItem.cardId, cardItem.productId)
-        if (searchedCardItem.isPresent) {
-            searchedCardItem.get().quantity++
-            cardItemRepository.save(searchedCardItem.get())
-        } else {
-            cardItemRepository.save(CardItemMapper.mapToEntity(cardItem))
-        }
+        if (searchedCardItem.isPresent) cardItemRepository.incrementItemQuantity(cardItem.cardId, cardItem.productId, 1)
+        else cardItemRepository.save(CardItemMapper.mapToEntity(cardItem))
     }
 
     fun removeItem(cardItem: CardItem) {
-        val searchedCardItem = cardItemRepository.findByCardIdAndProductId(cardItem.cardId, cardItem.productId)
-        if (searchedCardItem.isPresent) {
-            searchedCardItem.get().quantity--
-            cardItemRepository.save(searchedCardItem.get())
-        }
+        cardItemRepository.incrementItemQuantity(cardItem.cardId, cardItem.productId, -1)
     }
 
     fun findItemById(shoppingCardId: Long, productId: Long): CardItem {
