@@ -1,6 +1,5 @@
 import * as React from "react";
 import {Component} from "react";
-import axios from "axios";
 import {CardItem} from "../../../interfaces/CardItem";
 import {CardItemComponent} from "./CardItemComponent";
 import {NavigateFunction, useNavigate} from "react-router-dom";
@@ -24,12 +23,10 @@ export class Shopping extends Component<Props, { totalPrice: number, cardItems: 
     }
 
     componentDidMount() {
-        axios.get('/card/1/products')
-            .then(res => {
-                const items = res.data;
-                this.setState({cardItems: items});
-                this.setState({totalPrice: this.props.eShopService.computeTotalPrice()});
-            })
+        let userByStoredToken = this.props.eShopService.getUserByStoredToken();
+        let cardItems = userByStoredToken.shoppingCard.cardItems;
+        let price = this.props.eShopService.computeTotalPrice(cardItems);
+        this.setState({totalPrice: price})
     }
 
     goToPaymentPage() {

@@ -38,6 +38,8 @@ class ShoppingCardServiceTest {
     @Test
     fun shoppingCardAdded() {
         every { shoppingCardRepository.save(any()) } returns Unit
+        every { shoppingCardRepository.findAll() } returns listOf()
+
         underTest.saveCard(ShoppingCard(1, mutableListOf()))
 
         verify { shoppingCardRepository.save(ShoppingCardEntity(1, arrayListOf())) }

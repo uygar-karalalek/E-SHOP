@@ -1,54 +1,68 @@
 import axios from "axios";
 import {ShoppingCard} from "../interfaces/ShoppingCard";
 import {User} from "../interfaces/User";
+import {CardItem} from "../interfaces/CardItem";
 
 export class EShopService {
 
     getToken(): string {
-        const tokenString = localStorage.getItem("e_shop_token")
-        if (tokenString != null && tokenString !== "") {
-            let stringTokenJSON = JSON.parse(tokenString);
-            const tokenObject = JSON.parse(stringTokenJSON)
-            return tokenObject.token;
-        }
-        return ""
+        return localStorage.getItem("e_shop_token")
     }
 
     setToken(userToken: any) {
         localStorage.setItem("e_shop_token", JSON.stringify(userToken))
     }
 
-    computeTotalPrice(): number {
-        let userToken = this.getToken()
-        let user = this.getUserByToken(userToken)
-        return user.shoppingCard.cardItems.map(item => item.productPrice * Number(item.quantity))
+    computeTotalPrice(cardItems: Array<CardItem>): number {
+        return cardItems.map(item => item.productPrice * Number(item.quantity))
             .reduce((sum, curr) => sum + curr, 0)
     }
 
+    computeTotalUserPrice() {
+        let userToken = this.getToken()
+        let user = this.getUserByToken(userToken)
+        return this.computeTotalPrice(user.shoppingCard.cardItems)
+    }
+
     createGuest(guestName: string) {
-        let shopCard: ShoppingCard;
-        axios.post("/card/add", JSON.stringify({cardItems: []}),
-            {headers: {'content-type': "application/json"}})
-            .then(value => { shopCard = value.data })
-
-        axios.post("/users/add", JSON.stringify({
-                email: guestName + "@guest.com",
-                shoppingCard: {
-                    id: shopCard.id,
-                    cardItems: shopCard.cardItems
+        this.addShoppingCard().then(value => {
+            let shopCard: ShoppingCard = JSON.parse(JSON.stringify(value.data))
+            axios.post("/users/add", JSON.stringify({
+                    id: -1,
+                    name: "",
+                    surname: "",
+                    address: "",
+                    email: guestName + "@guest.com",
+                    password: "",
+                    shoppingCard: {
+                        id: shopCard.id,
+                        cardItems: shopCard.cardItems
+                    }
                 }
-            }
-        ), {headers: {'content-type': "application/json"}})
-
+            ), {headers: {'content-type': "application/json"}})
+        })
         this.setToken(guestName)
+    }
+
+    async addShoppingCard() {
+        return await axios.post("/card/add", JSON.stringify({cardItems: []}),
+            {headers: {'content-type': "application/json"}})
     }
 
     getUserByToken(token: string): User {
         let user: User;
-        axios.get("/users").then(value => {
+        axios.get("/users/by_token", {
+                headers: {'content-type': "application/json"},
+                params: {token: token}
+            }
+        ).then(value => {
             user = value.data
         })
         return user
+    }
+
+    getUserByStoredToken(): User {
+        return this.getUserByToken(this.getToken())
     }
 
 }

@@ -10,7 +10,7 @@ interface Props {
 
 export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
 
-    const price = props.eShopService.computeTotalPrice().toFixed(2)
+    const price = props.eShopService.computeTotalUserPrice().toFixed(2)
     const paypal = useRef()
     useEffect(() => {
         // @ts-ignore

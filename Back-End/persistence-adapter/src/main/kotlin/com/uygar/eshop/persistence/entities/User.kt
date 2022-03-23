@@ -1,5 +1,8 @@
 package com.uygar.eshop.persistence.entities
 
+import org.hibernate.annotations.Cascade
+import org.hibernate.engine.spi.CascadingActions.SAVE_UPDATE
+import org.hibernate.event.spi.EventType.SAVE_UPDATE
 import javax.persistence.*
 
 @Table(name = "user")
@@ -25,7 +28,7 @@ class User(
     @Column(name = "password")
     val password: String,
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "fk_card")
     val shoppingCard: ShoppingCard,
 

@@ -10,7 +10,7 @@ class UserDto (
     @JsonProperty("name")
     val name: String?,
 
-    @JsonProperty("surnname")
+    @JsonProperty("surname")
     val surname: String?,
 
     @JsonProperty("address")

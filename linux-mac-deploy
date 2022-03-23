@@ -20,7 +20,6 @@ function cleanupOnExit() {
 
   kill -- -0
 }
-echo "Ci1ao"
 
 trap cleanupOnExit INT
 
@@ -34,5 +33,10 @@ while read -n1 -r v
 do
   if [ $v = "r" ]; then
     npm run classic
+  fi
+  if [ $v = "s" ]; then
+    gradle build
+    sleep 3
+    gradle bootRun &
   fi
 done

@@ -23,7 +23,7 @@ class UserController {
         return userService.getAllUsers().map(UserMapper::mapToDto)
     }
 
-    @GetMapping
+    @GetMapping("/by_token")
     fun getUserByToken(@RequestBody auth: AuthenticationDto): UserDto {
         return userService.getAllUsers()
             .map(UserMapper::mapToDto)

@@ -24,9 +24,12 @@ export class App extends Component<{}, {}> {
             <div>
                 <Routes>
                     <Route path={"/"} element={<HomeComponent/>}/>
+
                     <Route path={"/login"}
                            element={<LoginWithRouter eShopService={this.eShopService} />}/>
+
                     <Route path={"/shopping"} element={<ShoppingWithRouter eShopService={this.eShopService} />}/>
+
                     <Route path={"/shopping/payment"}
                            element={<Checkout eShopService={this.eShopService} currency={"CHF"}/>}/>
                 </Routes>
