@@ -3,33 +3,32 @@ import {Component} from "react";
 import {Routes} from "react-router-dom";
 import {Route} from "react-router";
 import {ShoppingWithRouter} from "./components/pages/shopping/Shopping";
-import LoginWithRouter, {TokenAuthMethod} from "./components/pages/login/Login";
+import LoginWithRouter from "./components/pages/login/Login";
 import {HomeComponent} from "./components/pages/home/Home";
 import {Checkout} from "./components/pages/shopping/Checkout";
-import {ShoppingService} from "./services/ShoppingService";
+import {EShopService} from "./services/EShopService";
 
 export class App extends Component<{}, {}> {
 
-    shoppingService: ShoppingService = new ShoppingService();
+    eShopService: EShopService = new EShopService();
 
     constructor(props: any) {
         super(props);
     }
 
     render() {
-        if (this.shoppingService.getToken() == null || this.shoppingService.getToken().length == 0) {
-            let guestName = this.generateGuestName();
+        if (this.eShopService.getToken() == null || this.eShopService.getToken().length == 0)
+            this.eShopService.createGuest(this.generateGuestName());
 
-        }
         return (
             <div>
                 <Routes>
                     <Route path={"/"} element={<HomeComponent/>}/>
                     <Route path={"/login"}
-                           element={<LoginWithRouter />}/>
-                    <Route path={"/shopping"} element={<ShoppingWithRouter />}/>
+                           element={<LoginWithRouter eShopService={this.eShopService} />}/>
+                    <Route path={"/shopping"} element={<ShoppingWithRouter eShopService={this.eShopService} />}/>
                     <Route path={"/shopping/payment"}
-                           element={<Checkout currency={"CHF"}/>}/>
+                           element={<Checkout eShopService={this.eShopService} currency={"CHF"}/>}/>
                 </Routes>
             </div>
         );

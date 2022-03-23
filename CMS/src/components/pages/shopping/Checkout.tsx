@@ -1,24 +1,21 @@
 import * as React from "react";
 import {useEffect, useRef} from "react";
 import {useNavigate} from "react-router-dom";
-import {TokenAuthMethod} from "../login/Login";
+import {EShopService} from "../../../services/EShopService";
 
 interface Props {
     currency: string,
-    auth: TokenAuthMethod
+    eShopService: EShopService
 }
 
 export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
 
-
-
-    const price = props.getPrice().toFixed(2)
+    const price = props.eShopService.computeTotalPrice().toFixed(2)
     const paypal = useRef()
     useEffect(() => {
         // @ts-ignore
         window.paypal
             .Buttons({        // @ts-ignore
-
                     createOrder: function (data, actions) {
                         return actions.order.create({
                             intent: "CAPTURE",

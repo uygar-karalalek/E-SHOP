@@ -3,19 +3,10 @@ import {ChangeEvent, Component} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {Navigation} from "../home/Home";
-
-export class TokenAuthMethod {
-    setToken: (param: string) => void
-    getToken: () => string
-
-    constructor(setToken: (param: string) => void, getToken: () => string) {
-        this.setToken = setToken
-        this.getToken = getToken
-    }
-}
+import {EShopService} from "../../../services/EShopService";
 
 interface LoginProperties {
-    authentication: TokenAuthMethod,
+    eShopService: EShopService,
     navigation: Navigation
 }
 
@@ -57,7 +48,7 @@ class Login extends Component<LoginProperties, {}> {
     onSubmitForm(event: React.SyntheticEvent) {
         event.preventDefault();
         this.loginUser({email: this.state.username, password: this.state.password}).then(value => {
-            this.props.authentication.setToken(JSON.stringify(value.data))
+            this.props.eShopService.setToken(JSON.stringify(value.data))
             this.props.navigation.navigation("/")
         })
     }
@@ -107,7 +98,7 @@ class Login extends Component<LoginProperties, {}> {
 
 }
 
-export default function LoginWithRouter(authentication: TokenAuthMethod) {
+export default function LoginWithRouter(service: { eShopService: EShopService }) {
     const navigation = useNavigate()
-    return <Login navigation={new Navigation(navigation)} authentication={authentication} />
+    return <Login navigation={new Navigation(navigation)} eShopService={service.eShopService} />
 }

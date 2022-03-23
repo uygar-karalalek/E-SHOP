@@ -1,6 +1,7 @@
 package com.uygar.eshop.rest.controller
 
 import com.uygar.eshop.persistence.service.UserService
+import com.uygar.eshop.rest.controller.dto.AuthenticationDto
 import com.uygar.eshop.rest.controller.dto.UserDto
 import com.uygar.eshop.rest.controller.dto.mapper.UserMapper
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,6 +21,17 @@ class UserController {
     @GetMapping
     fun getUsers(): List<UserDto> {
         return userService.getAllUsers().map(UserMapper::mapToDto)
+    }
+
+    @GetMapping
+    fun getUserByToken(@RequestBody auth: AuthenticationDto): UserDto {
+        return userService.getAllUsers()
+            .map(UserMapper::mapToDto)
+            .filter { user ->
+                return@filter user.email != null &&
+                        user.email.startsWith(auth.token!!)
+            }
+            .first()
     }
 
     @PostMapping("/add")

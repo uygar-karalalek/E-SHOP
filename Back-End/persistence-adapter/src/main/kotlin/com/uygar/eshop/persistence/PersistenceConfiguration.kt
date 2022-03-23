@@ -1,9 +1,6 @@
 package com.uygar.eshop.persistence
 
-import com.uygar.eshop.persistence.repositories.CardItemRepository
-import com.uygar.eshop.persistence.repositories.ProductRepository
-import com.uygar.eshop.persistence.repositories.ShoppingCardRepository
-import com.uygar.eshop.persistence.repositories.UserRepository
+import com.uygar.eshop.persistence.repositories.*
 import com.uygar.eshop.persistence.service.CardItemService
 import com.uygar.eshop.persistence.service.ProductService
 import com.uygar.eshop.persistence.service.ShoppingCardService
@@ -15,22 +12,22 @@ import org.springframework.context.annotation.Configuration
 open class PersistenceConfiguration {
 
     @Bean
-    open fun userService(userRepo: UserRepository): UserService {
+    open fun userService(userRepo: UserJpaRepository): UserService {
         return UserService(userRepo)
     }
 
     @Bean
-    open fun productService(productRepository: ProductRepository): ProductService {
+    open fun productService(productRepository: ProductJpaRepository): ProductService {
         return ProductService(productRepository)
     }
 
     @Bean
-    open fun shoppingCardService(shoppingCardRepository: ShoppingCardRepository): ShoppingCardService {
+    open fun shoppingCardService(shoppingCardRepository: ShoppingCardJpaRepository): ShoppingCardService {
         return ShoppingCardService(shoppingCardRepository)
     }
 
     @Bean
-    open fun cardItemService(cardItemRepository: CardItemRepository): CardItemService {
+    open fun cardItemService(cardItemRepository: CardItemJpaRepository): CardItemService {
         return CardItemService(cardItemRepository)
     }
 
