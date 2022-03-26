@@ -1,15 +1,25 @@
 import * as React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {EShopService} from "../../../../../services/EShopService";
 
-export class LeftBar extends React.Component<{}, {}> {
+export interface Props {
+    eShopService: EShopService
+}
+
+export class LeftBar extends React.Component<Props, {}> {
 
     constructor(props: any) {
         super(props);
     }
 
     render() {
+        let login: JSX.Element = <span />;
+        console.log(this.props.eShopService.getUserByStoredToken())
+        if(this.props.eShopService.getUserByStoredToken().guest) {
+            login = <Link to={"/login"}>Login</Link>
+        }
         return <div className={"container"} style={{height: 600, backgroundColor: "rgb(33, 33, 37)", color: "white"}}>
-            <Link to={"/login"}>Login</Link>
+            { login }
             <br/>
             <h4>Web Shop article types</h4><br/>
             <ul>
@@ -50,4 +60,9 @@ export class LeftBar extends React.Component<{}, {}> {
         </div>;
     }
 
+}
+
+export function LeftBarComponent(props: { eShopService: EShopService }) {
+    const navigation = useNavigate()
+    return <LeftBar eShopService={props.eShopService} />;
 }

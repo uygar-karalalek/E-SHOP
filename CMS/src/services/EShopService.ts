@@ -2,6 +2,7 @@ import axios from "axios";
 import {ShoppingCard} from "../interfaces/ShoppingCard";
 import {User} from "../interfaces/User";
 import {CardItem} from "../interfaces/CardItem";
+import {fsReadFile} from "ts-loader/dist/utils";
 
 export class EShopService {
 
@@ -10,7 +11,8 @@ export class EShopService {
     }
 
     setToken(userToken: any) {
-        localStorage.setItem("e_shop_token", JSON.stringify(userToken))
+        localStorage.setItem("e_shop_token", JSON.stringify(userToken)
+            .replace(/"/gi, ''))
     }
 
     computeTotalPrice(cardItems: Array<CardItem>): number {
@@ -34,6 +36,7 @@ export class EShopService {
                     address: "",
                     email: guestName + "@guest.com",
                     password: "",
+                    guest: true,
                     shoppingCard: {
                         id: shopCard.id,
                         cardItems: shopCard.cardItems
@@ -51,14 +54,20 @@ export class EShopService {
 
     getUserByToken(token: string): User {
         let user: User;
-        axios.get("/users/by_token", {
+        this.getUser(token).then(value => {
+            console.log(value+"<<")
+            user = JSON.parse(JSON.stringify((value.data)))
+            return user
+        }).catch(reason => console.log(reason))
+        return user
+    }
+
+    async getUser(token: string) {
+        return await axios.get("/users/get", {
                 headers: {'content-type': "application/json"},
                 params: {token: token}
             }
-        ).then(value => {
-            user = value.data
-        })
-        return user
+        )
     }
 
     getUserByStoredToken(): User {

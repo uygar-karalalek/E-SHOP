@@ -47,6 +47,7 @@ class UserServiceTest {
                     "Via XXX",
                     "karalalek@gmail.com",
                     "password",
+                    guest = false,
                     ShoppingCardEntity(
                         1, mutableListOf(
                             CardItemEntity(
@@ -74,6 +75,7 @@ class UserServiceTest {
                     "Via XXX",
                     "karalalek@gmail.com",
                     "password",
+                    guest = false,
                     ShoppingCard(
                         1, mutableListOf(
                             CardItem(

@@ -7,5 +7,6 @@ export interface User {
     address: String,
     email: String,
     password: String,
+    guest: boolean,
     shoppingCard: ShoppingCard
 }

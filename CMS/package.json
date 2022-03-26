@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "classic": "webpack",
     "magic": "webpack --watch"
   },
   "author": "",

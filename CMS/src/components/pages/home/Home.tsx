@@ -4,6 +4,7 @@ import {Center} from "./sub_components/center/Center";
 import {BottomBar} from "./sub_components/bottom/BottomBar";
 import {LeftBar} from "./sub_components/left/LeftBar";
 import {NavigateFunction, useNavigate} from "react-router-dom";
+import {EShopService} from "../../../services/EShopService";
 
 export class Navigation {
     navigation: NavigateFunction
@@ -14,7 +15,8 @@ export class Navigation {
 }
 
 interface HomeProps {
-    navigation: Navigation
+    navigation: Navigation,
+    eShopService: EShopService
 }
 
 export class Home extends React.Component<HomeProps, {}> {
@@ -32,7 +34,7 @@ export class Home extends React.Component<HomeProps, {}> {
             </div>
             <div className="row">
                 <div className="col-2">
-                    <LeftBar />
+                    <LeftBar eShopService={this.props.eShopService}/>
                 </div>
                 <div className="home-center col-10">
                     <Center/>
@@ -48,7 +50,7 @@ export class Home extends React.Component<HomeProps, {}> {
 
 }
 
-export function HomeComponent() {
+export function HomeComponent(props: { eShopService: EShopService }) {
     const navigation = useNavigate()
-    return <Home navigation={new Navigation(navigation)} />;
+    return <Home eShopService={props.eShopService} navigation={new Navigation(navigation)}/>;
 }

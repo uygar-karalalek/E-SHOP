@@ -48,7 +48,8 @@ class Login extends Component<LoginProperties, {}> {
     onSubmitForm(event: React.SyntheticEvent) {
         event.preventDefault();
         this.loginUser({email: this.state.username, password: this.state.password}).then(value => {
-            this.props.eShopService.setToken(JSON.stringify(value.data))
+            let userToken = JSON.parse(JSON.stringify(value.data));
+            this.props.eShopService.setToken(userToken.token)
             this.props.navigation.navigation("/")
         })
     }

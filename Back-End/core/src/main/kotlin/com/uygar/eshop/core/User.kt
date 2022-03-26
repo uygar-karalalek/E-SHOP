@@ -7,5 +7,6 @@ data class User(
     val address: String,
     val email: String,
     val password: String,
+    val guest: Boolean,
     val shoppingCard: ShoppingCard
 )

@@ -23,7 +23,7 @@ export class App extends Component<{}, {}> {
         return (
             <div>
                 <Routes>
-                    <Route path={"/"} element={<HomeComponent/>}/>
+                    <Route path={"/"} element={<HomeComponent eShopService={this.eShopService} />}/>
 
                     <Route path={"/login"}
                            element={<LoginWithRouter eShopService={this.eShopService} />}/>

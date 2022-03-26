@@ -1,15 +1,11 @@
 package com.uygar.eshop.rest.controller
 
 import com.uygar.eshop.persistence.service.UserService
-import com.uygar.eshop.rest.controller.dto.AuthenticationDto
 import com.uygar.eshop.rest.controller.dto.UserDto
 import com.uygar.eshop.rest.controller.dto.mapper.UserMapper
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import javax.websocket.server.PathParam
 
 @RequestMapping("/users")
 @RestController
@@ -23,13 +19,13 @@ class UserController {
         return userService.getAllUsers().map(UserMapper::mapToDto)
     }
 
-    @GetMapping("/by_token")
-    fun getUserByToken(@RequestBody auth: AuthenticationDto): UserDto {
+    @GetMapping("/get/{token}")
+    fun getUserByToken(@PathVariable token: String): UserDto {
         return userService.getAllUsers()
             .map(UserMapper::mapToDto)
             .filter { user ->
                 return@filter user.email != null &&
-                        user.email.startsWith(auth.token!!)
+                        user.email.startsWith(token)
             }
             .first()
     }

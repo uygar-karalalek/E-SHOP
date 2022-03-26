@@ -13,6 +13,7 @@ object UserMapper {
             user.address,
             user.email,
             user.password,
+            user.guest,
             ShoppingCardMapper.mapToDto(user.shoppingCard)
         )
     }
@@ -25,6 +26,7 @@ object UserMapper {
             userDto.address!!,
             userDto.email!!,
             userDto.password!!,
+            userDto.guest!!,
             ShoppingCardMapper.mapToDomain(userDto.shoppingCard!!)
         )
     }
