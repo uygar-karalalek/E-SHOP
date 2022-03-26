@@ -4,6 +4,7 @@ import {CardItem} from "../../../interfaces/CardItem";
 import {CardItemComponent} from "./CardItemComponent";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import {EShopService} from "../../../services/EShopService";
+import {User} from "../../../interfaces/User";
 
 interface Props {
     navigator: NavigateFunction,
@@ -24,9 +25,12 @@ export class Shopping extends Component<Props, { totalPrice: number, cardItems: 
 
     componentDidMount() {
         let userByStoredToken = this.props.eShopService.getUserByStoredToken();
-        let cardItems = userByStoredToken.shoppingCard.cardItems;
-        let price = this.props.eShopService.computeTotalPrice(cardItems);
-        this.setState({totalPrice: price})
+        userByStoredToken.then(value => {
+            let us: User = JSON.parse(JSON.stringify(value.data))
+            let cardItems = us.shoppingCard.cardItems;
+            let price = this.props.eShopService.computeTotalPrice(cardItems);
+            this.setState({totalPrice: price})
+        })
     }
 
     goToPaymentPage() {

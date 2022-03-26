@@ -2,7 +2,7 @@ import * as React from "react";
 import {UpperBar} from "./sub_components/up/UpperBar";
 import {Center} from "./sub_components/center/Center";
 import {BottomBar} from "./sub_components/bottom/BottomBar";
-import {LeftBar} from "./sub_components/left/LeftBar";
+import {LeftBar, LeftBarComponent} from "./sub_components/left/LeftBar";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import {EShopService} from "../../../services/EShopService";
 
@@ -34,7 +34,7 @@ export class Home extends React.Component<HomeProps, {}> {
             </div>
             <div className="row">
                 <div className="col-2">
-                    <LeftBar eShopService={this.props.eShopService}/>
+                    <LeftBarComponent eShopService={this.props.eShopService}/>
                 </div>
                 <div className="home-center col-10">
                     <Center/>

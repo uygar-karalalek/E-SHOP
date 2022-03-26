@@ -17,9 +17,6 @@ export class App extends Component<{}, {}> {
     }
 
     render() {
-        if (this.eShopService.getToken() == null || this.eShopService.getToken().length == 0)
-            this.eShopService.createGuest(this.generateGuestName());
-
         return (
             <div>
                 <Routes>
@@ -35,23 +32,6 @@ export class App extends Component<{}, {}> {
                 </Routes>
             </div>
         );
-    }
-
-    private generateGuestName(): string {
-        let length = Math.round((Math.random() * 12) + 5)
-        let randGuestName = "Guest";
-        for (let i = 0; i < length; i++) {
-            let maiusc = this.random(0, 2) == 0
-            let code = 0;
-            if (maiusc) code = this.random(65, 90)
-            else code = this.random(97, 122)
-            randGuestName += String.fromCharCode(code)
-        }
-        return randGuestName
-    }
-
-    random(min: number, max: number): number {
-        return Math.round((Math.random() * (max - min)) + min)
     }
 
 }

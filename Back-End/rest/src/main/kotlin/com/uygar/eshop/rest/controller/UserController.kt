@@ -5,7 +5,6 @@ import com.uygar.eshop.rest.controller.dto.UserDto
 import com.uygar.eshop.rest.controller.dto.mapper.UserMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
-import javax.websocket.server.PathParam
 
 @RequestMapping("/users")
 @RestController
@@ -24,6 +23,7 @@ class UserController {
         return userService.getAllUsers()
             .map(UserMapper::mapToDto)
             .filter { user ->
+                println(user.email+"<<<" + token);
                 return@filter user.email != null &&
                         user.email.startsWith(token)
             }
@@ -31,8 +31,9 @@ class UserController {
     }
 
     @PostMapping("/add")
-    fun saveUser(@RequestBody user: UserDto) {
+    fun saveUser(@RequestBody user: UserDto): UserDto {
         userService.saveUser(UserMapper.mapToDomain(user))
+        return user
     }
 
 }

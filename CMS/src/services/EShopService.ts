@@ -3,6 +3,7 @@ import {ShoppingCard} from "../interfaces/ShoppingCard";
 import {User} from "../interfaces/User";
 import {CardItem} from "../interfaces/CardItem";
 import {fsReadFile} from "ts-loader/dist/utils";
+import {useDebugValue} from "react";
 
 export class EShopService {
 
@@ -20,16 +21,20 @@ export class EShopService {
             .reduce((sum, curr) => sum + curr, 0)
     }
 
-    computeTotalUserPrice() {
-        let userToken = this.getToken()
-        let user = this.getUserByToken(userToken)
-        return this.computeTotalPrice(user.shoppingCard.cardItems)
+    async computeTotalUserPrice() {
+        return await this.getUserByStoredToken().then(value => {
+                let user: User = JSON.parse(JSON.stringify(value.data))
+                return this.computeTotalPrice(user.shoppingCard.cardItems)
+            }
+        )
     }
 
-    createGuest(guestName: string) {
-        this.addShoppingCard().then(value => {
+    async createGuest(guestName: string) {
+        return await this.addShoppingCard().then(value => {
+            this.setToken(guestName)
+
             let shopCard: ShoppingCard = JSON.parse(JSON.stringify(value.data))
-            axios.post("/users/add", JSON.stringify({
+            return axios.post("/users/add", JSON.stringify({
                     id: -1,
                     name: "",
                     surname: "",
@@ -44,7 +49,6 @@ export class EShopService {
                 }
             ), {headers: {'content-type': "application/json"}})
         })
-        this.setToken(guestName)
     }
 
     async addShoppingCard() {
@@ -52,26 +56,15 @@ export class EShopService {
             {headers: {'content-type': "application/json"}})
     }
 
-    getUserByToken(token: string): User {
-        let user: User;
-        this.getUser(token).then(value => {
-            console.log(value+"<<")
-            user = JSON.parse(JSON.stringify((value.data)))
-            return user
-        }).catch(reason => console.log(reason))
-        return user
-    }
-
     async getUser(token: string) {
-        return await axios.get("/users/get", {
-                headers: {'content-type': "application/json"},
-                params: {token: token}
+        return await axios.get("/users/get/" + token, {
+                headers: {'Accept': "application/json"}
             }
         )
     }
 
-    getUserByStoredToken(): User {
-        return this.getUserByToken(this.getToken())
+    async getUserByStoredToken() {
+        return await this.getUser(this.getToken())
     }
 
 }
