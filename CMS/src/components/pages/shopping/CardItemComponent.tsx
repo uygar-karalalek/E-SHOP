@@ -40,8 +40,8 @@ export class CardItemComponent extends React.Component<{
         const final = Number(this.state.quantity) + 1
 
         this.props.appServices.shoppingCardService.addExistingItemToCard(
-            this.props.item.cardId,
-            this.props.item.productId).then(_ => {
+            this.props.item.productId,
+            this.props.item.cardId).then(_ => {
             this.setState({quantity: BigInt(final)});
             this.props.addToPrice(this.props.item.productPrice)
         })

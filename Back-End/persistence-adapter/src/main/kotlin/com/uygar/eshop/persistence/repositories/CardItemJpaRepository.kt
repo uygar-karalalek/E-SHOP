@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import java.util.*
+import javax.transaction.Transactional
 
 interface CardItemJpaRepository : JpaRepository<CardItem, CardItemKey>, CardItemRepository {
     @Query(
@@ -14,6 +15,7 @@ interface CardItemJpaRepository : JpaRepository<CardItem, CardItemKey>, CardItem
     )
     override fun findByCardIdAndProductId(cardId: Long, productId: Long): Optional<CardItem>
 
+    @Transactional
     @Modifying
     @Query(
         value = "UPDATE `e-shop`.card_item SET quantity = quantity+:quantity WHERE fk_card=:cardId AND fk_product=:productId",

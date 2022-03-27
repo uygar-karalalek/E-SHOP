@@ -10,7 +10,6 @@ export class ShoppingCardService {
 
     async addProductToCard(cardId: number, product: Product) {
         let url = `/card/addProduct`;
-        console.log(cardId+"<<< card id")
         return await axios.post(url, {
             cardId: cardId,
             productPrice: product.price,
@@ -24,12 +23,12 @@ export class ShoppingCardService {
     }
 
     async addExistingItemToCard(productId: bigint, cardId: bigint) {
-        let url = `/${cardId}/addProduct/${productId}`;
+        let url = `/card/${cardId}/addProduct/${productId}`;
         return await axios.post(url)
     }
 
     async remove(cardId: bigint, productId: bigint) {
-        let url = `/card/${cardId}/products/removeProduct/${productId}`;
+        let url = `/card/${cardId}/removeProduct/${productId}`;
         return await axios.post(url)
     }
 
