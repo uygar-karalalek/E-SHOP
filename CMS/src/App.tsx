@@ -6,11 +6,11 @@ import {ShoppingWithRouter} from "./components/pages/shopping/Shopping";
 import LoginWithRouter from "./components/pages/login/Login";
 import {HomeComponent} from "./components/pages/home/Home";
 import {Checkout} from "./components/pages/shopping/Checkout";
-import {EShopService} from "./services/EShopService";
+import {ApplicationServices} from "./services/ApplicationServices";
 
 export class App extends Component<{}, {}> {
 
-    eShopService: EShopService = new EShopService();
+    applicationServices: ApplicationServices = new ApplicationServices();
 
     constructor(props: any) {
         super(props);
@@ -20,15 +20,15 @@ export class App extends Component<{}, {}> {
         return (
             <div>
                 <Routes>
-                    <Route path={"/"} element={<HomeComponent eShopService={this.eShopService} />}/>
+                    <Route path={"/"} element={<HomeComponent appServices={this.applicationServices} />}/>
 
                     <Route path={"/login"}
-                           element={<LoginWithRouter eShopService={this.eShopService} />}/>
+                           element={<LoginWithRouter appServices={this.applicationServices} />}/>
 
-                    <Route path={"/shopping"} element={<ShoppingWithRouter eShopService={this.eShopService} />}/>
+                    <Route path={"/shopping"} element={<ShoppingWithRouter appServices={this.applicationServices} />}/>
 
                     <Route path={"/shopping/payment"}
-                           element={<Checkout eShopService={this.eShopService} currency={"CHF"}/>}/>
+                           element={<Checkout appServices={this.applicationServices} currency={"CHF"}/>}/>
                 </Routes>
             </div>
         );

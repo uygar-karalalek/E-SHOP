@@ -23,7 +23,6 @@ class UserController {
         return userService.getAllUsers()
             .map(UserMapper::mapToDto)
             .filter { user ->
-                println(user.email+"<<<" + token);
                 return@filter user.email != null &&
                         user.email.startsWith(token)
             }

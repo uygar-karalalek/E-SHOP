@@ -17,8 +17,12 @@ class CardItemService(private val cardItemRepository: CardItemRepository) {
         else cardItemRepository.save(CardItemMapper.mapToEntity(cardItem))
     }
 
-    fun removeItem(cardItem: CardItem) {
-        cardItemRepository.incrementItemQuantity(cardItem.cardId, cardItem.productId, -1)
+    fun removeItemByIds(cardId: Long, productId: Long) {
+        cardItemRepository.incrementItemQuantity(cardId, productId, -1)
+    }
+
+    fun insertItemByIds(cardId: Long, productId: Long) {
+        cardItemRepository.incrementItemQuantity(cardId, productId, 1)
     }
 
     fun findItemById(shoppingCardId: Long, productId: Long): CardItem {

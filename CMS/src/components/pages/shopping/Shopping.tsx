@@ -1,14 +1,14 @@
 import * as React from "react";
-import {Component} from "react";
+import {Component, useRef} from "react";
 import {CardItem} from "../../../interfaces/CardItem";
 import {CardItemComponent} from "./CardItemComponent";
 import {NavigateFunction, useNavigate} from "react-router-dom";
-import {EShopService} from "../../../services/EShopService";
+import {ApplicationServices} from "../../../services/ApplicationServices";
 import {User} from "../../../interfaces/User";
 
 interface Props {
     navigator: NavigateFunction,
-    eShopService: EShopService
+    appServices: ApplicationServices
 }
 
 export class Shopping extends Component<Props, { totalPrice: number, cardItems: Array<CardItem> }> {
@@ -24,17 +24,15 @@ export class Shopping extends Component<Props, { totalPrice: number, cardItems: 
     }
 
     componentDidMount() {
-        let userByStoredToken = this.props.eShopService.getUserByStoredToken();
-        userByStoredToken.then(value => {
-            let us: User = JSON.parse(JSON.stringify(value.data))
-            let cardItems = us.shoppingCard.cardItems;
-            let price = this.props.eShopService.computeTotalPrice(cardItems);
-            this.setState({totalPrice: price})
+        this.props.appServices.userService.getUserByStoredToken().then((user: User) => {
+            this.setState({cardItems: user.shoppingCard.cardItems})
         })
+        this.props.appServices.userService.computeTotalUserPrice().then(price => {
+            this.setState({totalPrice: price})
+        });
     }
 
     goToPaymentPage() {
-        console.log(Math.round(this.state.totalPrice * 100) / 100)
         this.props.navigator("/shopping/payment")
     }
 
@@ -55,7 +53,7 @@ export class Shopping extends Component<Props, { totalPrice: number, cardItems: 
                 <tbody>
                 {
                     this.state.cardItems.filter(item=>item.quantity > 0).map((item) => {
-                        return <CardItemComponent addToPrice={this.addTotalPrice} item={item}/>
+                        return <CardItemComponent appServices={this.props.appServices} addToPrice={this.addTotalPrice} item={item}/>
                     })}
                 </tbody>
             </table>
@@ -79,7 +77,7 @@ export class Shopping extends Component<Props, { totalPrice: number, cardItems: 
 
 }
 
-export function ShoppingWithRouter(service: { eShopService: EShopService }) {
+export function ShoppingWithRouter(service: { appServices: ApplicationServices }) {
     let navigator = useNavigate();
-    return <Shopping eShopService={service.eShopService} navigator={navigator}/>
+    return <Shopping appServices={service.appServices} navigator={navigator}/>
 }

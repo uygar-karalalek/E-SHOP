@@ -3,10 +3,10 @@ import {ChangeEvent, Component} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {Navigation} from "../home/Home";
-import {EShopService} from "../../../services/EShopService";
+import {ApplicationServices} from "../../../services/ApplicationServices";
 
 interface LoginProperties {
-    eShopService: EShopService,
+    appServices: ApplicationServices,
     navigation: Navigation
 }
 
@@ -49,7 +49,7 @@ class Login extends Component<LoginProperties, {}> {
         event.preventDefault();
         this.loginUser({email: this.state.username, password: this.state.password}).then(value => {
             let userToken = JSON.parse(JSON.stringify(value.data));
-            this.props.eShopService.setToken(userToken.token)
+            this.props.appServices.cookieService.setToken(userToken.token)
             this.props.navigation.navigation("/")
         })
     }
@@ -99,7 +99,7 @@ class Login extends Component<LoginProperties, {}> {
 
 }
 
-export default function LoginWithRouter(service: { eShopService: EShopService }) {
+export default function LoginWithRouter(service: { appServices: ApplicationServices }) {
     const navigation = useNavigate()
-    return <Login navigation={new Navigation(navigation)} eShopService={service.eShopService} />
+    return <Login navigation={new Navigation(navigation)} appServices={service.appServices} />
 }

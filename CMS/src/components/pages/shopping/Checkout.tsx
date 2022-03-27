@@ -1,18 +1,18 @@
 import * as React from "react";
 import {useEffect, useRef} from "react";
 import {useNavigate} from "react-router-dom";
-import {EShopService} from "../../../services/EShopService";
+import {ApplicationServices} from "../../../services/ApplicationServices";
 
 interface Props {
     currency: string,
-    eShopService: EShopService
+    appServices: ApplicationServices
 }
 
 export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
 
     let price: string;
-    props.eShopService.computeTotalUserPrice().then(value => {
-        price = value.toFixed(2);
+    props.appServices.userService.computeTotalUserPrice().then(computed => {
+        price = computed.toFixed(2);
     })
 
     const paypal = useRef()

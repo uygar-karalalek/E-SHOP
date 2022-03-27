@@ -1,16 +1,17 @@
 import * as React from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {EShopService} from "../../../../../services/EShopService";
+import {UserService} from "../../../../../services/UserService";
 import {User} from "../../../../../interfaces/User";
+import {ApplicationServices} from "../../../../../services/ApplicationServices";
 
 export interface Props {
-    eShopService: EShopService
+    appServices: ApplicationServices
 }
 
-export class LeftBar extends React.Component<Props, { loginComponent: JSX.Element }> {
+export class LeftBar extends React.Component<Props, { loginElement: JSX.Element }> {
 
     state = {
-        loginComponent: <span/>
+        loginElement: <span/>
     }
 
     constructor(props: any) {
@@ -18,22 +19,22 @@ export class LeftBar extends React.Component<Props, { loginComponent: JSX.Elemen
     }
 
     componentDidMount() {
-        if (this.props.eShopService.getToken() == null || this.props.eShopService.getToken().length == 0) {
-            this.props.eShopService.createGuest(this.generateGuestName()).finally()
-            this.setState({loginComponent: <Link to={"/login"}>Login</Link>})
+        if (this.props.appServices.cookieService.getToken() == null || this.props.appServices.cookieService.getToken().length == 0) {
+            this.props.appServices.userService.createGuest(this.generateGuestName()).finally(() => {
+                this.setState({loginElement: <Link to={"/login"}>Login</Link>})
+            })
         } else {
-            this.props.eShopService.getUserByStoredToken().then(value => {
-                    let user: User = JSON.parse(JSON.stringify(value.data))
-                    if (user.guest) this.setState({loginComponent: <Link to={"/login"}>Login</Link>})
+            this.props.appServices.userService.getUserByStoredToken().then(user => {
+                    if (user.guest)
+                        this.setState({loginElement: <Link to={"/login"}>Login</Link>})
                 }
             );
         }
     }
 
     render() {
-
         return <div className={"container"} style={{height: 600, backgroundColor: "rgb(33, 33, 37)", color: "white"}}>
-            {this.state.loginComponent}
+            {this.state.loginElement}
             <br/>
             <h4>Web Shop article types</h4><br/>
             <ul>
@@ -75,6 +76,6 @@ export class LeftBar extends React.Component<Props, { loginComponent: JSX.Elemen
 
 }
 
-export function LeftBarComponent(props: { eShopService: EShopService }) {
-    return <LeftBar eShopService={props.eShopService}/>;
+export function LeftBarComponent(props: { appServices: ApplicationServices }) {
+    return <LeftBar appServices={props.appServices}/>;
 }

@@ -4,34 +4,35 @@ import {User} from "../interfaces/User";
 import {CardItem} from "../interfaces/CardItem";
 import {fsReadFile} from "ts-loader/dist/utils";
 import {useDebugValue} from "react";
+import {ShoppingCardService} from "./ShoppingCardService";
+import {CookieService} from "./CookieService";
+import {UtilService} from "./UtilService";
+import * as url from "url";
 
-export class EShopService {
+export class UserService {
 
-    getToken(): string {
-        return localStorage.getItem("e_shop_token")
-    }
+    private shoppingCardService: ShoppingCardService
+    private cookieService: CookieService
+    private utilService: UtilService
 
-    setToken(userToken: any) {
-        localStorage.setItem("e_shop_token", JSON.stringify(userToken)
-            .replace(/"/gi, ''))
-    }
-
-    computeTotalPrice(cardItems: Array<CardItem>): number {
-        return cardItems.map(item => item.productPrice * Number(item.quantity))
-            .reduce((sum, curr) => sum + curr, 0)
+    constructor(shoppingCardService: ShoppingCardService,
+                cookieService: CookieService,
+                utilService: UtilService) {
+        this.shoppingCardService = shoppingCardService;
+        this.cookieService = cookieService;
+        this.utilService = utilService;
     }
 
     async computeTotalUserPrice() {
-        return await this.getUserByStoredToken().then(value => {
-                let user: User = JSON.parse(JSON.stringify(value.data))
-                return this.computeTotalPrice(user.shoppingCard.cardItems)
+        return await this.getUserByStoredToken().then(user => {
+                return this.utilService.arraySum(user.shoppingCard.cardItems)
             }
         )
     }
 
     async createGuest(guestName: string) {
-        return await this.addShoppingCard().then(value => {
-            this.setToken(guestName)
+        return await this.shoppingCardService.addShoppingCard().then(value => {
+            this.cookieService.setToken(guestName)
 
             let shopCard: ShoppingCard = JSON.parse(JSON.stringify(value.data))
             return axios.post("/users/add", JSON.stringify({
@@ -51,11 +52,6 @@ export class EShopService {
         })
     }
 
-    async addShoppingCard() {
-        return await axios.post("/card/add", JSON.stringify({cardItems: []}),
-            {headers: {'content-type': "application/json"}})
-    }
-
     async getUser(token: string) {
         return await axios.get("/users/get/" + token, {
                 headers: {'Accept': "application/json"}
@@ -64,7 +60,9 @@ export class EShopService {
     }
 
     async getUserByStoredToken() {
-        return await this.getUser(this.getToken())
+        return await this.getUser(this.cookieService.getToken()).then(value => {
+            return JSON.parse(JSON.stringify(value.data))
+        })
     }
 
 }

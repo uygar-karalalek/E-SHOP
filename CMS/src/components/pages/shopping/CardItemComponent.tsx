@@ -1,8 +1,13 @@
 import * as React from "react";
 import {CardItem} from "../../../interfaces/CardItem";
 import axios from "axios";
+import {ApplicationServices} from "../../../services/ApplicationServices";
 
-export class CardItemComponent extends React.Component<{ item: CardItem, addToPrice: (price: number) => void }, { quantity: bigint }> {
+export class CardItemComponent extends React.Component<{
+    item: CardItem,
+    addToPrice: (price: number) => void,
+    appServices: ApplicationServices
+}, { quantity: bigint }> {
 
     constructor(props: any) {
         super(props);
@@ -21,46 +26,34 @@ export class CardItemComponent extends React.Component<{ item: CardItem, addToPr
                 <td>{this.props.item.productTitle}</td>
                 <td>{this.props.item.productPrice} .-</td>
                 <td>{quantity.toString()}</td>
-                <td><button onClick={this.add}>Add</button></td>
-                <td><button onClick={this.remove}>Remove</button></td>
+                <td>
+                    <button onClick={this.add}>Add</button>
+                </td>
+                <td>
+                    <button onClick={this.remove}>Remove</button>
+                </td>
             </tr>
         ); else return <span></span>;
     }
 
     add(event: React.MouseEvent<HTMLElement>) {
-        let url = '/card/1/products/add';
-        var factor = 1;
-        var final = Number(this.state.quantity) + factor
-        axios.post(url, {
-            cardId: 1,
-            productPrice: this.props.item.productPrice,
-            productTitle: this.props.item.productTitle,
-            productId: this.props.item.productId,
-            quantity: 1,
-            dateAdded: null
+        const final = Number(this.state.quantity) + 1
+
+        this.props.appServices.shoppingCardService.addExistingItemToCard(
+            this.props.item.cardId,
+            this.props.item.productId).then(_ => {
+            this.setState({quantity: BigInt(final)});
+            this.props.addToPrice(this.props.item.productPrice)
         })
-            .then(res => {
-                this.setState({quantity: BigInt(final)});
-                this.props.addToPrice(this.props.item.productPrice)
-            }).catch(reason => console.log(reason))
     }
 
     remove(event: React.MouseEvent<HTMLElement>) {
-        let url = '/card/1/products/remove';
         var factor = 1;
         var final = Number(this.state.quantity) - factor
-        axios.post(url, {
-            cardId: 1,
-            productPrice: this.props.item.productPrice,
-            productTitle: this.props.item.productTitle,
-            productId: this.props.item.productId,
-            quantity: 1,
-            dateAdded: null
-        })
-            .then(res => {
-                this.setState({quantity: BigInt(final)});
-                this.props.addToPrice(-this.props.item.productPrice)
-            }).catch(reason => console.log(reason))
+        this.props.appServices.shoppingCardService.remove(this.props.item.cardId, this.props.item.productId).then(_ => {
+            this.setState({quantity: BigInt(final)});
+            this.props.addToPrice(-this.props.item.productPrice)
+        }).catch(reason => console.log(reason))
     }
 
 }
