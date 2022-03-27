@@ -3,11 +3,12 @@ import axios from 'axios';
 import {ProductComponent} from "./product/ProductComponent";
 import {Product} from "../../../../../interfaces/Product";
 import {ProductDetailsComponent} from "./product/ProductDetailsComponent";
+import {ApplicationServices} from "../../../../../services/ApplicationServices";
 
 
-export class Center extends React.Component<{}, { products: Array<Product>, product?: Product }> {
+export class Center extends React.Component<{ appServices: ApplicationServices }, { products: Array<Product>, product?: Product }> {
 
-    constructor(props: {}) {
+    constructor(props: { appServices: ApplicationServices }) {
         super(props);
         this.productsOrDetails = this.productsOrDetails.bind(this);
         this.setViewProductDetails = this.setViewProductDetails.bind(this);
@@ -19,10 +20,10 @@ export class Center extends React.Component<{}, { products: Array<Product>, prod
 
     productsOrDetails(product: Product) {
         if (product != null)
-            return <ProductDetailsComponent setViewProductDetails={this.setViewProductDetails} product={product} />
+            return <ProductDetailsComponent appServices={this.props.appServices} setViewProductDetails={this.setViewProductDetails} product={product} />
         return <div className="d-flex flex-wrap">
             {this.state.products.map((item) => {
-                return <ProductComponent setViewProductDetails={this.setViewProductDetails} product={item}/>
+                return <ProductComponent appServices={ this.props.appServices } setViewProductDetails={this.setViewProductDetails} product={item}/>
             })}
         </div>
     }

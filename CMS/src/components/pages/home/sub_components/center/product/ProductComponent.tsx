@@ -1,14 +1,18 @@
 import * as React from "react";
 import {Card} from "react-bootstrap";
 import {Product} from "../../../../../../interfaces/Product";
-import axios from "axios";
-import {fsReadFile} from "ts-loader/dist/utils";
+import {ApplicationServices} from "../../../../../../services/ApplicationServices";
+import {User} from "../../../../../../interfaces/User";
 
-export class ProductComponent extends React.Component<{ product: Product, setViewProductDetails: (det: Product) => void }, {}> {
+export class ProductComponent extends React.Component<{
+    product: Product,
+    setViewProductDetails: (det: Product) => void,
+    appServices: ApplicationServices
+}, {}> {
 
     constructor(props: any) {
         super(props);
-        this.callApi = this.callApi.bind(this)
+        this.addProductToCard = this.addProductToCard.bind(this)
         this.setProductForViewDetails = this.setProductForViewDetails.bind(this);
     }
 
@@ -18,33 +22,48 @@ export class ProductComponent extends React.Component<{ product: Product, setVie
 
     render() {
         return (
-            <Card style={{ width: '15rem', marginRight: 10, marginTop: 10, backgroundColor: "#545f6b", color: "white" }} >
+            <Card style={{width: '15rem', marginRight: 10, marginTop: 10, backgroundColor: "#545f6b", color: "white"}}>
                 <Card.Body>
                     <div>
-                        <Card.Img onClick={this.setProductForViewDetails} style={{marginBottom: '2rem', width: "100%", height: "15vw", objectFit: "cover"}} src={"sample.png"} />
-                        <label style={{ textAlign: "left", marginBottom: "2rem", height: 50 }}>{this.props.product.title}</label>
-                        <Card.Text style={{fontWeight: "bold", color: "#5db453", height: 50 }}>{this.props.product.price} .-</Card.Text>
-                        <button onClick={this.callApi}>Buy</button>
+                        <Card.Img onClick={this.setProductForViewDetails} style={{
+                            borderColor: "red",
+                            borderStyle: "solid",
+                            marginBottom: '2rem',
+                            width: "100%",
+                            height: "10vw",
+                            objectFit: "cover"
+                        }} src={"sample.png"}/>
+                        <label style={{
+                            overflow: "hidden",
+                            textAlign: "left",
+                            marginBottom: "2rem",
+                            height: 70
+                        }}>{this.props.product.title}</label>
+                        <Card.Text style={{
+                            fontWeight: "bold",
+                            color: "#5db453",
+                            height: 10,
+                            marginBottom: 30
+                        }}>{this.props.product.price} CHF</Card.Text>
+                        <button onClick={this.addProductToCard}>Buy</button>
                     </div>
                 </Card.Body>
             </Card>
         );
     }
 
-    callApi(event: React.MouseEvent<HTMLElement>) {
-        let url = '/card/1/products/add';
-        axios.post(url, {
-            cardId: 1,
-            productPrice: this.props.product.price,
-            productTitle: this.props.product.title,
-            productId: this.props.product.id,
-            quantity: 1,
-            dateAdded: null
+    addProductToCard(event: React.MouseEvent<HTMLElement>) {
+        let userService = this.props.appServices.userService;
+        let shoppingCardService = this.props.appServices.shoppingCardService;
+
+        userService.getUserByStoredToken().then((user: User) => {
+            let productToAdd = this.props.product;
+            let cardId = user.shoppingCard.id;
+            console.log(JSON.stringify(user))
+            shoppingCardService.addProductToCard(cardId, productToAdd).then(product => {
+                this.setState({product})
+            });
         })
-            .then(res => {
-                const persons = res.data;
-                this.setState({persons});
-            }).catch(reason => console.log(reason))
     }
 
 }

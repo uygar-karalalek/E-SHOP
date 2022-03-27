@@ -1,19 +1,16 @@
 import * as React from "react";
 import {ChangeEvent, Component} from "react";
 import axios from "axios";
-import {NavigateFunction, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {Navigation} from "../home/Home";
+import {ApplicationServices} from "../../../services/ApplicationServices";
 
-export interface Credentials {
-    username: string,
-    password: string
+interface LoginProperties {
+    appServices: ApplicationServices,
+    navigation: Navigation
 }
 
-export interface Props {
-    navigation: NavigateFunction,
-    setToken: (param: string) => void
-}
-
-export class Login extends Component<Props, {}> {
+class Login extends Component<LoginProperties, {}> {
 
     /**
      *
@@ -50,9 +47,10 @@ export class Login extends Component<Props, {}> {
 
     onSubmitForm(event: React.SyntheticEvent) {
         event.preventDefault();
-        this.loginUser({email: this.state.username, password: this.state.password}).then( value => {
-            this.props.navigation("/")
-            this.props.setToken(value.data.toString())
+        this.loginUser({email: this.state.username, password: this.state.password}).then(value => {
+            let userToken = JSON.parse(JSON.stringify(value.data));
+            this.props.appServices.cookieService.setToken(userToken.token)
+            this.props.navigation.navigation("/")
         })
     }
 
@@ -101,7 +99,7 @@ export class Login extends Component<Props, {}> {
 
 }
 
-export default function LoginWithRouter(props: any) {
+export default function LoginWithRouter(service: { appServices: ApplicationServices }) {
     const navigation = useNavigate()
-    return <Login navigation={navigation} {...props}  />
+    return <Login navigation={new Navigation(navigation)} appServices={service.appServices} />
 }

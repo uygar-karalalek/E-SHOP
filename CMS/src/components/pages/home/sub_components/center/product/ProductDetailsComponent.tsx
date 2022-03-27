@@ -1,10 +1,13 @@
 import * as React from 'react';
 import {Product} from "../../../../../../interfaces/Product";
 import axios from "axios";
+import {ApplicationServices} from "../../../../../../services/ApplicationServices";
+import {User} from "../../../../../../interfaces/User";
 
 type Props = {
     product: Product,
-    setViewProductDetails: (det: Product) => void
+    setViewProductDetails: (det: Product) => void,
+    appServices: ApplicationServices
 };
 
 export class ProductDetailsComponent extends React.Component<Props, {}> {
@@ -12,7 +15,7 @@ export class ProductDetailsComponent extends React.Component<Props, {}> {
     constructor(props: Props) {
         super(props);
         this.setViewProductDetails = this.setViewProductDetails.bind(this);
-        this.callApi = this.callApi.bind(this);
+        this.addItem = this.addItem.bind(this);
     }
 
     setViewProductDetails() {
@@ -30,26 +33,17 @@ export class ProductDetailsComponent extends React.Component<Props, {}> {
                 <div style={{color: "#c6ce86"}}>Price:</div>
                 <div>{this.props.product.price} CHF</div>
                 <br/>
-                <button onClick={this.callApi}>Buy</button>
+                <button onClick={this.addItem}>Buy</button>
                 <button onClick={this.setViewProductDetails} style={{background: "red", color: "white"}}>Back</button>
             </div>
         );
     }
 
-    callApi(event: React.MouseEvent<HTMLElement>) {
-        let url = '/card/1/products/add';
-        axios.post(url, {
-            cardId: 1,
-            productPrice: this.props.product.price,
-            productTitle: this.props.product.title,
-            productId: this.props.product.id,
-            quantity: 1,
-            dateAdded: null
+    addItem(event: React.MouseEvent<HTMLElement>) {
+        this.props.appServices.userService.getUserByStoredToken().then((user: User) => {
+            return this.props.appServices.shoppingCardService
+                .addProductToCard(user.shoppingCard.id, this.props.product)
         })
-            .then(res => {
-                const persons = res.data;
-                this.setState({persons});
-            }).catch(reason => console.log(reason))
     }
 
 }

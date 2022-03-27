@@ -8,4 +8,5 @@ interface CardItemRepository {
     fun findByCardIdAndProductId(cardId: Long, productId: Long): Optional<CardItem>
     fun findAll(): List<CardItem>
     fun save(cardItem: CardItem)
+    fun incrementItemQuantity(cardId: Long, productId: Long, quantity: Int)
 }

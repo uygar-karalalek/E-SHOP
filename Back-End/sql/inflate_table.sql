@@ -1,5 +1,5 @@
 INSERT INTO `e-shop`.shopping_card VALUES(1);
-INSERT INTO `e-shop`.user VALUES(1, 'Via Gelusa 1', 'uy.kara@gmail.com', 'Uygar', 'password', 'Karalalek', 1);
+INSERT INTO `e-shop`.user VALUES(1, 'Via Gelusa 1', 'uy.kara@gmail.com', 0, 'Uygar', 'password', 'Karalalek', 1);
 INSERT INTO `e-shop`.product VALUES(1, 'Un must della filosofia', 30.05, 'La Formazione Filosofica');
 INSERT INTO `e-shop`.product VALUES(2, 'Compratelo se vuoi riuscire come matematico', 10.15, 'I numeri non sbagliano mai');
 INSERT INTO `e-shop`.product VALUES(3, 'Un romanzo russo imperdibile', 4.65, 'I fratelli Karamazov');

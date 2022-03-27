@@ -10,7 +10,7 @@ class UserDto (
     @JsonProperty("name")
     val name: String?,
 
-    @JsonProperty("surnname")
+    @JsonProperty("surname")
     val surname: String?,
 
     @JsonProperty("address")
@@ -21,6 +21,9 @@ class UserDto (
 
     @JsonProperty("password")
     val password: String?,
+
+    @JsonProperty("guest")
+    val guest: Boolean?,
 
     @JsonProperty("shoppingCard")
     val shoppingCard: ShoppingCardDto?

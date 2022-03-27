@@ -2,12 +2,31 @@ import * as React from "react";
 import {UpperBar} from "./sub_components/up/UpperBar";
 import {Center} from "./sub_components/center/Center";
 import {BottomBar} from "./sub_components/bottom/BottomBar";
-import {LeftBar} from "./sub_components/left/LeftBar";
+import {LeftBarComponent} from "./sub_components/left/LeftBar";
+import {NavigateFunction, useNavigate} from "react-router-dom";
+import {ApplicationServices} from "../../../services/ApplicationServices";
 
-export class Home extends React.Component<{}, {}> {
+export class Navigation {
+    navigation: NavigateFunction
+
+    constructor(navigation: NavigateFunction) {
+        this.navigation = navigation
+    }
+}
+
+interface HomeProps {
+    navigation: Navigation,
+    appServices: ApplicationServices
+}
+
+export class Home extends React.Component<HomeProps, {}> {
+
+    constructor(props: HomeProps) {
+        super(props);
+    }
 
     render() {
-        return <div className={"home-general container-fluid"} >
+        return <div className={"home-general container-fluid"}>
             <div className="row">
                 <div className="col-12">
                     <UpperBar/>
@@ -15,10 +34,10 @@ export class Home extends React.Component<{}, {}> {
             </div>
             <div className="row">
                 <div className="col-2">
-                    <LeftBar/>
+                    <LeftBarComponent appServices={this.props.appServices}/>
                 </div>
                 <div className="home-center col-10">
-                    <Center/>
+                    <Center appServices={this.props.appServices}/>
                 </div>
             </div>
             <div className="row">
@@ -29,4 +48,9 @@ export class Home extends React.Component<{}, {}> {
         </div>;
     }
 
+}
+
+export function HomeComponent(props: { appServices: ApplicationServices }) {
+    const navigation = useNavigate()
+    return <Home appServices={props.appServices} navigation={new Navigation(navigation)}/>;
 }

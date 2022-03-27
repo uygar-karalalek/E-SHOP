@@ -10,6 +10,10 @@ class UserService(private val userRepository: UserRepository) {
         return userRepository.findAll().map(UserMapper::mapToDomain).toList()
     }
 
+    fun saveUser(user: User) {
+        userRepository.save(UserMapper.mapToEntity(user))
+    }
+
     fun deleteUserById(userId: Long) {
         userRepository.deleteById(userId)
     }

@@ -25,7 +25,10 @@ class User(
     @Column(name = "password")
     val password: String,
 
-    @OneToOne
+    @Column(name = "guest")
+    val guest: Boolean,
+
+    @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "fk_card")
     val shoppingCard: ShoppingCard,
 

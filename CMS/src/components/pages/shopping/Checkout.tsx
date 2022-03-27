@@ -1,55 +1,70 @@
 import * as React from "react";
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {ApplicationServices} from "../../../services/ApplicationServices";
 
 interface Props {
     currency: string,
-    getPrice: () => number
+    appServices: ApplicationServices
 }
 
 export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
 
-    // TODO : Knowing how to make getPrice more flexible
-    const price = props.getPrice()
-    const paypal = useRef()
-    useEffect(() => {
-        // @ts-ignore
-        window.paypal
-            .Buttons({        // @ts-ignore
+    const [priceState, setPrice] = useState({price: 0, priceLoaded: false})
 
-                    createOrder: function (data, actions) {
-                        return actions.order.create({
-                            intent: "CAPTURE",
-                            purchase_units: [
-                                {
-                                    description: "E-Shop payment",
-                                    amount: {
-                                        currency_code: props.currency,
-                                        value: price,
-                                    },
-                                },
-                            ],
-                        });
-                    },
-                    // @ts-ignore
-                    onCancel: function (data) {
-                        alert("NOOOO")
-                    },
-                    // @ts-ignore
-                    onApprove: function (data, actions) {
-                        alert("PAGAMENTO AVVENUTO CON SUCCESSO!")
-                        window.location.href = "/";
-                        const navigate = useNavigate()
-                        navigate("/")
-                    },
-                    onError: (err: any) => {
-                        window.location.href = "/";
-                    },
-                }
-            ).render(paypal.current);
-    }, []);
-    useEffect(() => {
+    function updatePrice(computed: number) {
+        setPrice({price: computed, priceLoaded: true})
+    }
+
+    props.appServices.userService.computeTotalUserPrice().then(computed => {
+        let visualPrice = parseFloat(computed.toFixed(2));
+
+        if (visualPrice !== priceState.price)
+            updatePrice(visualPrice);
     })
+
+    const paypal = useRef()
+
+    useEffect(() => {
+        if (priceState.priceLoaded) {
+            // @ts-ignore
+            window.paypal
+                .Buttons({        // @ts-ignore
+                        createOrder: function (data, actions) {
+                            console.log("Creating-> " + priceState.price)
+                            return actions.order.create({
+                                intent: "CAPTURE",
+                                purchase_units: [
+                                    {
+                                        description: "E-Shop payment",
+                                        amount: {
+                                            currency_code: "CHF",
+                                            value: priceState.price,
+                                        },
+
+                                    },
+                                ],
+                            });
+                        },
+                        // @ts-ignore
+                        onCancel: function (data) {
+                            alert("NOOOO")
+                        },
+                        // @ts-ignore
+                        onApprove: function (data, actions) {
+                            alert("PAGAMENTO AVVENUTO CON SUCCESSO!")
+                            window.location.href = "/";
+                            const navigate = useNavigate()
+//                        navigate("/")
+                        },
+                        onError: (err: any) => {
+                            //   window.location.href = "/";
+                        },
+                    }
+                ).render(paypal.current);
+        }
+    }, [priceState]);
+
     return <div>
         <div style={{marginTop: 100, display: 'flex', justifyContent: 'center'}}>
             <div style={{
@@ -68,8 +83,8 @@ export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
                 borderStyle: "solid"
             }}>
                 Choose your payment method (
-                <text style={{color: "#00ff00"}}>{price}</text>
-                <span>&nbsp;</span>CHF)
+                <text style={{color: "#00ff00"}}>{priceState.price} {props.currency}</text>
+                )
             </div>
         </div>
         <div style={{display: 'flex', justifyContent: 'center'}}>

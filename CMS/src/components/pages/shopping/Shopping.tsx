@@ -1,13 +1,14 @@
 import * as React from "react";
-import {Component} from "react";
-import axios from "axios";
+import {Component, useRef} from "react";
 import {CardItem} from "../../../interfaces/CardItem";
 import {CardItemComponent} from "./CardItemComponent";
 import {NavigateFunction, useNavigate} from "react-router-dom";
+import {ApplicationServices} from "../../../services/ApplicationServices";
+import {User} from "../../../interfaces/User";
 
 interface Props {
     navigator: NavigateFunction,
-    setPrice: (price: number) => void
+    appServices: ApplicationServices
 }
 
 export class Shopping extends Component<Props, { totalPrice: number, cardItems: Array<CardItem> }> {
@@ -23,17 +24,15 @@ export class Shopping extends Component<Props, { totalPrice: number, cardItems: 
     }
 
     componentDidMount() {
-        axios.get('/card/1/products')
-            .then(res => {
-                const items = res.data;
-                this.setState({cardItems: items});
-                this.setState({totalPrice: this.computeTotalPrice()});
-            })
+        this.props.appServices.userService.getUserByStoredToken().then((user: User) => {
+            this.setState({cardItems: user.shoppingCard.cardItems})
+        })
+        this.props.appServices.userService.computeTotalUserPrice().then(price => {
+            this.setState({totalPrice: price})
+        });
     }
 
     goToPaymentPage() {
-        this.props.setPrice(this.state.totalPrice)
-        console.log(Math.round(this.state.totalPrice * 100) / 100)
         this.props.navigator("/shopping/payment")
     }
 
@@ -42,10 +41,6 @@ export class Shopping extends Component<Props, { totalPrice: number, cardItems: 
     }
 
     render() {
-        console.log(this.state.totalPrice)
-        var totalPrice = this.state.totalPrice == 0 ? this.computeTotalPrice() : this.state.totalPrice
-        totalPrice = Math.round(totalPrice * 100) / 100
-
         return <div>
             <table style={{margin: 10}} className="table table-hover">
                 <thead>
@@ -58,7 +53,7 @@ export class Shopping extends Component<Props, { totalPrice: number, cardItems: 
                 <tbody>
                 {
                     this.state.cardItems.filter(item=>item.quantity > 0).map((item) => {
-                        return <CardItemComponent addToPrice={this.addTotalPrice} item={item}/>
+                        return <CardItemComponent appServices={this.props.appServices} addToPrice={this.addTotalPrice} item={item}/>
                     })}
                 </tbody>
             </table>
@@ -71,7 +66,7 @@ export class Shopping extends Component<Props, { totalPrice: number, cardItems: 
                 marginTop: 100
             }}>
                 <span>Totale: {" "}</span> <span style={{color: "red"}}>{
-                    totalPrice
+                    this.state.totalPrice
             } .-</span>
                 <button onClick={this.goToPaymentPage} style={{marginLeft: 50, width: 100}} type="button"
                         className="btn btn-primary">buy
@@ -80,15 +75,9 @@ export class Shopping extends Component<Props, { totalPrice: number, cardItems: 
         </div>;
     }
 
-    private computeTotalPrice(): number {
-        return this.state.cardItems.length > 0 ?
-            this.state.cardItems.map((item) => {
-                return (item.productPrice * Number(item.quantity))
-            }).reduce((previousValue, currentValue) => previousValue + currentValue) : 0;
-    }
 }
 
-export function ShoppingWithRouter(props: { setPrice: (amount: number) => void }) {
+export function ShoppingWithRouter(service: { appServices: ApplicationServices }) {
     let navigator = useNavigate();
-    return <Shopping setPrice={props.setPrice} navigator={navigator}/>
+    return <Shopping appServices={service.appServices} navigator={navigator}/>
 }
