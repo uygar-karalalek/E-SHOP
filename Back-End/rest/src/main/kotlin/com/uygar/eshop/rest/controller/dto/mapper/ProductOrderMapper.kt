@@ -7,7 +7,8 @@ object ProductOrderMapper {
 
     fun mapToDto(productOrder: ProductOrder): OrderProduct {
         return OrderProduct(
-            productOrder.id,
+            productOrder.orderId,
+            productOrder.productId,
             ProductMapper.mapToDto(productOrder.product),
             productOrder.quantity
         )
@@ -15,7 +16,8 @@ object ProductOrderMapper {
 
     fun mapToDomain(orderProduct: OrderProduct): ProductOrder {
         return ProductOrder(
-            orderProduct.id,
+            orderProduct.orderId,
+            orderProduct.productId,
             ProductMapper.mapToDomain(orderProduct.product),
             orderProduct.productQuantity
         )

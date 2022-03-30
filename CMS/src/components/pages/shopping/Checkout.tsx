@@ -19,6 +19,8 @@ export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
     props.appServices.userService.computeTotalUserPrice().then(computed => {
         let visualPrice = parseFloat(computed.toFixed(2));
 
+        // So when we update the price and the state changes, the window reloads
+        // without rendering two times the paypal buttons
         if (visualPrice !== priceState.price)
             updatePrice(visualPrice);
     })
@@ -31,7 +33,7 @@ export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
             window.paypal
                 .Buttons({        // @ts-ignore
                         createOrder: function (data, actions) {
-                            console.log("Creating-> " + priceState.price)
+
                             return actions.order.create({
                                 intent: "CAPTURE",
                                 purchase_units: [
@@ -52,10 +54,9 @@ export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
                         },
                         // @ts-ignore
                         onApprove: function (data, actions) {
-                            alert("PAGAMENTO AVVENUTO CON SUCCESSO!")
-                            window.location.href = "/";
                             const navigate = useNavigate()
-//                        navigate("/")
+                            navigate("/")
+
                         },
                         onError: (err: any) => {
                             //   window.location.href = "/";
