@@ -7,9 +7,6 @@ class ProductDto(
     @JsonProperty("id")
     val id: Long,
 
-    @JsonProperty("description")
-    val description: String?,
-
     @JsonProperty("price")
     val price: Double?,
 

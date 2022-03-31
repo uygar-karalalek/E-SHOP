@@ -8,7 +8,6 @@ object ProductMapper {
     fun mapToDto(product: Product): ProductDto {
         return ProductDto(
             product.id,
-            product.description,
             product.price,
             product.title,
         )
@@ -18,8 +17,7 @@ object ProductMapper {
         return Product(
             productDto.id,
             productDto.title!!,
-            productDto.price!!,
-            productDto.description!!
+            productDto.price!!
         )
     }
 

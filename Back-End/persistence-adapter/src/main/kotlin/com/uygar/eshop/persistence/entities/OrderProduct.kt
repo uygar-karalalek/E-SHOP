@@ -16,10 +16,9 @@ class OrderProduct(
     val product: Product,
 
     @Column(name = "quantity")
-    val product_quantity: Int
+    val quantity: Int,
 
 ) {
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -28,7 +27,7 @@ class OrderProduct(
 
         if (id != other.id) return false
         if (product != other.product) return false
-        if (product_quantity != other.product_quantity) return false
+        if (quantity != other.quantity) return false
 
         return true
     }
@@ -36,8 +35,7 @@ class OrderProduct(
     override fun hashCode(): Int {
         var result = id.hashCode()
         result = 31 * result + product.hashCode()
-        result = 31 * result + product_quantity
+        result = 31 * result + quantity
         return result
     }
-
 }

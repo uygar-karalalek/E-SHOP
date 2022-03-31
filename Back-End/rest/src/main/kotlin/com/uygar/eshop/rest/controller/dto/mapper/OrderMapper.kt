@@ -8,16 +8,16 @@ object OrderMapper {
     fun mapToDto(order: Order): OrderDto {
         return OrderDto(
             order.id,
-            order.status,
-            order.productOrders.map(ProductOrderMapper::mapToDto)
+            order.status
         )
     }
 
     fun mapToDomain(orderDto: OrderDto): Order {
         return Order(
             orderDto.id,
-            orderDto.status,
-            orderDto.productOrders.map(ProductOrderMapper::mapToDomain)
+            orderDto.status ?: -1,
+            // TODO : INFLATE THE LIST?
+            listOf()
         )
     }
 

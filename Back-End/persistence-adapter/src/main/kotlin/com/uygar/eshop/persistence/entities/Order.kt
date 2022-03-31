@@ -11,7 +11,7 @@ class Order(
     val id: Long,
 
     @Column(name = "status")
-    val status: Boolean,
+    val status: Int,
 
     @Column(name = "product_orders")
     @OneToMany

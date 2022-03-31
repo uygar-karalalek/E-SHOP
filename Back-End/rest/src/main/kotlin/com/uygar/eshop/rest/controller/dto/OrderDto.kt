@@ -8,9 +8,6 @@ class OrderDto (
     val id: Long,
 
     @JsonProperty("status")
-    val status: Boolean,
-
-    @JsonProperty("productOrders")
-    val productOrders: List<OrderProduct>
+    val status: Int? = null
 
 )

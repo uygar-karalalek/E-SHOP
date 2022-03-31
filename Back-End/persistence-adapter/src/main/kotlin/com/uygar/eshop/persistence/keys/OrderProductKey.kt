@@ -7,25 +7,20 @@ import javax.persistence.Embeddable
 @Embeddable
 class OrderProductKey(
 
-    @Column(name = "order_id")
+    @Column(name = "fk_order")
     val orderId: Long = 0,
 
     @Column(name = "product_id")
     val productId: Long = 0
 
 ) : Serializable {
-
-    fun getResultId(): Long {
-        return "$orderId$productId".toLong()
-    }
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as CardItemKey
+        other as OrderProductKey
 
-        if (orderId != other.cardId) return false
+        if (orderId != other.orderId) return false
         if (productId != other.productId) return false
 
         return true
@@ -36,5 +31,4 @@ class OrderProductKey(
         result = 31 * result + productId.hashCode()
         return result
     }
-
 }
