@@ -1,15 +1,14 @@
 package com.uygar.eshop.rest.controller.dto.mapper
 
 import com.uygar.eshop.core.ProductOrder
-import com.uygar.eshop.rest.controller.dto.OrderDto
-import com.uygar.eshop.rest.controller.dto.OrderProduct
+import com.uygar.eshop.rest.controller.dto.OrderProductDtoRead
+import com.uygar.eshop.rest.controller.dto.OrderProductDtoWrite
 import com.uygar.eshop.rest.controller.dto.ProductDto
 
 object ProductOrderMapper {
 
-    fun mapToDto(productOrder: ProductOrder): OrderProduct {
-        return OrderProduct(
-            OrderDto(productOrder.orderId),
+    fun mapToDto(productOrder: ProductOrder): OrderProductDtoRead {
+        return OrderProductDtoRead(
             ProductDto(
                 productOrder.productId,
                 productOrder.productPrice, productOrder.productTitle
@@ -18,13 +17,13 @@ object ProductOrderMapper {
         )
     }
 
-    fun mapToDomain(orderProduct: OrderProduct): ProductOrder {
+    fun mapToDomain(orderProduct: OrderProductDtoWrite): ProductOrder {
         return ProductOrder(
-            orderId = orderProduct.order.id,
+            orderId = orderProduct.orderId,
             productId = orderProduct.product.id,
             productTitle = orderProduct.product.title!!,
             productPrice = orderProduct.product.price!!,
-            quantity = orderProduct.productQuantity,
+            quantity = orderProduct.quantity
         )
     }
 

@@ -1,6 +1,8 @@
 package com.uygar.eshop.persistence.entities
 
 import com.uygar.eshop.persistence.keys.OrderProductKey
+import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import javax.persistence.*
 
 @Entity
@@ -17,6 +19,9 @@ class OrderProduct(
 
     @Column(name = "quantity")
     val quantity: Int,
+
+    @Column(name = "date_added")
+    val dateAdded: ZonedDateTime,
 
 ) {
     override fun equals(other: Any?): Boolean {

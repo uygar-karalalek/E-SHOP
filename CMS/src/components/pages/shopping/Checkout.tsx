@@ -44,8 +44,8 @@ export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
                                             value: priceState.price,
                                         },
 
-                                    },
-                                ],
+                                    }
+                                ]
                             });
                         },
                         // @ts-ignore
@@ -54,9 +54,9 @@ export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
                         },
                         // @ts-ignore
                         onApprove: function (data, actions) {
+                            props.appServices.orderService
                             const navigate = useNavigate()
                             navigate("/")
-
                         },
                         onError: (err: any) => {
                             //   window.location.href = "/";

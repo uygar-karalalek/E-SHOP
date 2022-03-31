@@ -8,5 +8,4 @@ INSERT INTO `e-shop`.product VALUES(5, 'Un must della poesia', 40, 'Poetica Aris
 INSERT INTO `e-shop`.product VALUES(6, 'Esposizioni matematiche niente male. Grorge Boole non appartiene ai nostri tempi, ma al futuro!', 30, 'Analisi matematica della logica');
 INSERT INTO `e-shop`.product VALUES(7, 'Java programmers', 12.3, 'Java Language Features');
 INSERT INTO `e-shop`.`order` VALUES(1, true, 1);
-INSERT INTO `e-shop`.order_product VALUES(1, 1, 1, 1);
 INSERT INTO `e-shop`.card_item VALUES(1, 1, date('01.01.2020'), 1);
