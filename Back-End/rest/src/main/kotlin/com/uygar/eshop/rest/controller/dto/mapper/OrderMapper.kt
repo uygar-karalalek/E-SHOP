@@ -3,6 +3,7 @@ package com.uygar.eshop.rest.controller.dto.mapper
 import com.uygar.eshop.core.Order
 import com.uygar.eshop.rest.controller.dto.OrderDto
 import com.uygar.eshop.rest.controller.dto.OrderWithItemsDto
+import java.time.ZonedDateTime
 import kotlin.streams.toList
 
 object OrderMapper {
@@ -14,21 +15,13 @@ object OrderMapper {
         )
     }
 
-    fun mapWriteToDomain(orderWithItemsDto: OrderWithItemsDto): Order {
-        return Order(
-            orderWithItemsDto.id,
-            orderWithItemsDto.status!!,
-            orderWithItemsDto.orderProducts.stream()
-                .map(ProductOrderMapper::mapToDomain).toList()
-        )
-    }
-
     fun mapToDomain(orderDto: OrderDto): Order {
         return Order(
-            orderDto.id,
+            orderDto.id ?: 0,
             orderDto.status ?: -1,
             // TODO : INFLATE THE LIST?
-            listOf()
+            listOf(),
+            ZonedDateTime.now()
         )
     }
 

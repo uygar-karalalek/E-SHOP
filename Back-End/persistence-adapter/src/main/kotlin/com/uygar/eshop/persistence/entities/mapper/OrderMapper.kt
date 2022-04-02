@@ -9,7 +9,8 @@ object OrderMapper {
         return Order(
             order.id,
             order.status,
-            order.productOrders.map(ProductOrderMapper::mapToEntity)
+            order.orderProducts.map(ProductOrderMapper::mapToEntity),
+            order.dateAdded
         )
     }
 
@@ -17,7 +18,8 @@ object OrderMapper {
         return OrderDomain(
             orderEntity.id,
             orderEntity.status,
-            orderEntity.orderProducts.map(ProductOrderMapper::mapToDomain)
+            orderEntity.orderProducts.map(ProductOrderMapper::mapToDomain),
+            orderEntity.dateAdded
         )
     }
 

@@ -23,4 +23,12 @@ interface CardItemJpaRepository : JpaRepository<CardItem, CardItemKey>, CardItem
     )
     override fun incrementItemQuantity(cardId: Long, productId: Long, quantity: Int)
 
+    @Transactional
+    @Modifying
+    @Query(
+        value = "DELETE FROM card_item WHERE fk_card=:cardId AND fk_product=:productId",
+        nativeQuery = true
+    )
+    override fun deleteById(cardId: Long, productId: Long)
+
 }

@@ -1,7 +1,15 @@
 import axios from "axios";
 import {Product} from "../interfaces/Product";
+import {CardItem} from "../interfaces/CardItem";
 
 export class ShoppingCardService {
+
+    async getCardItems() {
+        return await axios.get("/card/products").then(value => {
+            const items: Array<CardItem> = value.data
+            return items;
+        })
+    }
 
     async addShoppingCard() {
         return await axios.post("/card/add", JSON.stringify({cardItems: []}),

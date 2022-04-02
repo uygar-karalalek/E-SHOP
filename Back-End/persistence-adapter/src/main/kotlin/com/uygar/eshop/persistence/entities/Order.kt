@@ -1,5 +1,6 @@
 package com.uygar.eshop.persistence.entities
 
+import java.time.ZonedDateTime
 import javax.persistence.*
 
 @Table(name = "`order`")
@@ -16,6 +17,9 @@ class Order(
     @Column(name = "product_orders")
     @OneToMany
     @JoinColumn(name = "fk_order")
-    val orderProducts: List<OrderProduct>
+    val orderProducts: List<OrderProduct>,
+
+    @Column(name = "dateAdded")
+    val dateAdded: ZonedDateTime
 
 )

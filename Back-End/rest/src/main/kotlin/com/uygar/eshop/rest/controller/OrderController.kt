@@ -28,8 +28,8 @@ class OrderController {
     }
 
     @PostMapping("/add")
-    fun addOrderToUser(@PathVariable userId: String, @RequestBody order: OrderWithItemsDto) {
-        return orderService.insertOrder(OrderMapper.mapWriteToDomain(order))
+    fun addOrderToUser(@PathVariable userId: String, @RequestBody order: OrderDto) {
+        return orderService.insertOrder(OrderMapper.mapToDomain(order))
     }
 
 }

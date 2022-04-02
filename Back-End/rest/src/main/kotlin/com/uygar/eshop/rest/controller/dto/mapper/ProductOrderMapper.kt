@@ -1,24 +1,24 @@
 package com.uygar.eshop.rest.controller.dto.mapper
 
-import com.uygar.eshop.core.ProductOrder
+import com.uygar.eshop.core.OrderProduct
 import com.uygar.eshop.rest.controller.dto.OrderProductDtoRead
 import com.uygar.eshop.rest.controller.dto.OrderProductDtoWrite
 import com.uygar.eshop.rest.controller.dto.ProductDto
 
 object ProductOrderMapper {
 
-    fun mapToDto(productOrder: ProductOrder): OrderProductDtoRead {
+    fun mapToDto(orderProduct: OrderProduct): OrderProductDtoRead {
         return OrderProductDtoRead(
             ProductDto(
-                productOrder.productId,
-                productOrder.productPrice, productOrder.productTitle
+                orderProduct.productId,
+                orderProduct.productPrice, orderProduct.productTitle
             ),
-            productOrder.quantity
+            orderProduct.quantity
         )
     }
 
-    fun mapToDomain(orderProduct: OrderProductDtoWrite): ProductOrder {
-        return ProductOrder(
+    fun mapToDomain(orderProduct: OrderProductDtoWrite): OrderProduct {
+        return OrderProduct(
             orderId = orderProduct.orderId,
             productId = orderProduct.product.id,
             productTitle = orderProduct.product.title!!,

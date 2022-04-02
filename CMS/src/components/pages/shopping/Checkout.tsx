@@ -2,6 +2,7 @@ import * as React from "react";
 import {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {ApplicationServices} from "../../../services/ApplicationServices";
+import {Order} from "../../../interfaces/Order";
 
 interface Props {
     currency: string,
@@ -54,7 +55,13 @@ export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
                         },
                         // @ts-ignore
                         onApprove: function (data, actions) {
-                            props.appServices.orderService
+                            props.appServices.userService.getUserIdByStoredToken().then((id: number) => {
+                                props.appServices.orderService.addOrder(id, {
+                                    id: 0,
+                                    status: 0,
+                                    dateAdded: null
+                                }).then(r => {})
+                            });
                             const navigate = useNavigate()
                             navigate("/")
                         },

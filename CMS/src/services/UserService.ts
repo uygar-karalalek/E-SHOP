@@ -65,4 +65,8 @@ export class UserService {
         })
     }
 
+    async getUserIdByStoredToken() {
+        return await this.getUserByStoredToken().then((value: User) => { return value.id });
+    }
+
 }

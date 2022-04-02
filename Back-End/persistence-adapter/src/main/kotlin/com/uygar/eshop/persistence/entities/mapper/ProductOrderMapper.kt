@@ -3,7 +3,7 @@ package com.uygar.eshop.persistence.entities.mapper
 import com.uygar.eshop.core.Product
 import com.uygar.eshop.persistence.entities.OrderProduct
 import com.uygar.eshop.persistence.keys.OrderProductKey
-import com.uygar.eshop.core.ProductOrder as ProductOrderDomain
+import com.uygar.eshop.core.OrderProduct as ProductOrderDomain
 
 object ProductOrderMapper {
 

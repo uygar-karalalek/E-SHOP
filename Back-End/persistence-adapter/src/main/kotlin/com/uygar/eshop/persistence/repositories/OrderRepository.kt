@@ -6,4 +6,5 @@ interface OrderRepository {
     fun findById(id: Long): Order
     fun findAll(): List<Order>
     fun save(order: Order)
+    fun saveAndFlush(order: Order): Order
 }

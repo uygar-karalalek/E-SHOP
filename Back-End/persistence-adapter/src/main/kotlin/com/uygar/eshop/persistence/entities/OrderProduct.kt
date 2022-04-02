@@ -18,10 +18,7 @@ class OrderProduct(
     val product: Product,
 
     @Column(name = "quantity")
-    val quantity: Int,
-
-    @Column(name = "date_added")
-    val dateAdded: ZonedDateTime,
+    val quantity: Int
 
 ) {
     override fun equals(other: Any?): Boolean {
