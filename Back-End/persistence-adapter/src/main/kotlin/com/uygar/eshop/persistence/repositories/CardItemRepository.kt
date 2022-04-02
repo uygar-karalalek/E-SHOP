@@ -6,7 +6,8 @@ import java.util.*
 
 interface CardItemRepository {
     fun findByCardIdAndProductId(cardId: Long, productId: Long): Optional<CardItem>
+    fun incrementItemQuantity(cardId: Long, productId: Long, quantity: Int)
+    fun deleteById(cardId: Long, productId: Long)
     fun findAll(): List<CardItem>
     fun save(cardItem: CardItem)
-    fun incrementItemQuantity(cardId: Long, productId: Long, quantity: Int)
 }

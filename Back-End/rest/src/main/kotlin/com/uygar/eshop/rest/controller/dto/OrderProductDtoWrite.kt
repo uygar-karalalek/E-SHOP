@@ -3,15 +3,18 @@ package com.uygar.eshop.rest.controller.dto
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.time.ZonedDateTime
 
-class OrderDto (
+class OrderProductDtoWrite(
 
     @JsonProperty("orderId")
-    val id: Long? = null,
+    val orderId: Long,
 
-    @JsonProperty("status")
-    val status: Int? = null,
+    @JsonProperty("product")
+    val product: ProductDto,
+
+    @JsonProperty("quantity")
+    val quantity: Int,
 
     @JsonProperty("dateAdded")
     val dateAdded: ZonedDateTime? = null
 
-    )
+)

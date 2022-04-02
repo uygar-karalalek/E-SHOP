@@ -17,6 +17,10 @@ class CardItemService(private val cardItemRepository: CardItemRepository) {
         else cardItemRepository.save(CardItemMapper.mapToEntity(cardItem))
     }
 
+    fun removeAllItemsById(cardId: Long, productId: Long) {
+        cardItemRepository.deleteById(cardId, productId)
+    }
+
     fun removeItemByIds(cardId: Long, productId: Long) {
         cardItemRepository.incrementItemQuantity(cardId, productId, -1)
     }

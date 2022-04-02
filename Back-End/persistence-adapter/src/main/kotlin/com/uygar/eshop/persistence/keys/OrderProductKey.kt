@@ -5,32 +5,30 @@ import javax.persistence.Column
 import javax.persistence.Embeddable
 
 @Embeddable
-class CardItemKey(
+class OrderProductKey(
 
-    @Column(name = "fk_card")
-    val cardId: Long = 0,
+    @Column(name = "fk_order")
+    val orderId: Long = 0,
 
     @Column(name = "product_id")
     val productId: Long = 0
 
 ) : Serializable {
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as CardItemKey
+        other as OrderProductKey
 
-        if (cardId != other.cardId) return false
+        if (orderId != other.orderId) return false
         if (productId != other.productId) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        var result = cardId.hashCode()
+        var result = orderId.hashCode()
         result = 31 * result + productId.hashCode()
         return result
     }
-
 }
