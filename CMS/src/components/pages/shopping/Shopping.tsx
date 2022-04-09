@@ -24,8 +24,10 @@ export class Shopping extends Component<Props, { totalPrice: number, cardItems: 
     }
 
     componentDidMount() {
-        this.props.appServices.userService.getUserByStoredToken().then((user: User) => {
-            this.setState({cardItems: user.shoppingCard.cardItems})
+        this.props.appServices.userService.getUserIdByStoredToken().then((userId: number) => {
+            this.props.appServices.shoppingCardService.getUserCardItems(userId).then((items: Array<CardItem>) => {
+                this.setState({cardItems: items})
+            })
         })
         this.props.appServices.userService.computeTotalUserPrice().then(price => {
             this.setState({totalPrice: price})
@@ -52,8 +54,9 @@ export class Shopping extends Component<Props, { totalPrice: number, cardItems: 
                 </thead>
                 <tbody>
                 {
-                    this.state.cardItems.filter(item=>item.quantity > 0).map((item) => {
-                        return <CardItemComponent appServices={this.props.appServices} addToPrice={this.addTotalPrice} item={item}/>
+                    this.state.cardItems.filter(item => item.quantity > 0).map((item) => {
+                        return <CardItemComponent appServices={this.props.appServices} addToPrice={this.addTotalPrice}
+                                                  item={item}/>
                     })}
                 </tbody>
             </table>
@@ -66,7 +69,7 @@ export class Shopping extends Component<Props, { totalPrice: number, cardItems: 
                 marginTop: 100
             }}>
                 <span>Totale: {" "}</span> <span style={{color: "red"}}>{
-                    this.state.totalPrice
+                this.state.totalPrice
             } .-</span>
                 <button onClick={this.goToPaymentPage} style={{marginLeft: 50, width: 100}} type="button"
                         className="btn btn-primary">buy

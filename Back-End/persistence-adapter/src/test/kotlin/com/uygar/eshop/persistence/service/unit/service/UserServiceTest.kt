@@ -48,16 +48,7 @@ class UserServiceTest {
                     "karalalek@gmail.com",
                     "password",
                     guest = false,
-                    ShoppingCardEntity(
-                        1, mutableListOf(
-                            CardItemEntity(
-                                CardItemKey(1, 1),
-                                Product(1, "Title", 90.0, "Description"),
-                                quantity = 3,
-                                dateAdded
-                            )
-                        )
-                    )
+                    orders = mutableListOf()
                 )
             )
         )
@@ -76,18 +67,7 @@ class UserServiceTest {
                     "karalalek@gmail.com",
                     "password",
                     guest = false,
-                    ShoppingCard(
-                        1, mutableListOf(
-                            CardItem(
-                                cardId = 1,
-                                productId = 1,
-                                quantity = 3,
-                                productPrice = 90.0,
-                                productTitle = "Title",
-                                dateAdded = dateAdded
-                            )
-                        )
-                    )
+                    mutableListOf()
                 )
             )
         ))

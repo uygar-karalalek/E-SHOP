@@ -2,6 +2,7 @@ package com.uygar.eshop.rest.controller
 
 import com.uygar.eshop.core.CardItem
 import com.uygar.eshop.persistence.service.CardItemService
+import com.uygar.eshop.persistence.service.ShoppingCardService
 import com.uygar.eshop.rest.controller.dto.CardItemDto
 import com.uygar.eshop.rest.controller.dto.mapper.CardItemMapper
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,6 +14,9 @@ class CardItemController {
 
     @Autowired
     private lateinit var cardItemService: CardItemService
+
+    @Autowired
+    private lateinit var shoppingCardService: ShoppingCardService
 
     @GetMapping("/products")
     fun getAllCardProducts(): List<CardItem> {
@@ -33,6 +37,12 @@ class CardItemController {
     fun removeProductFromCard(@PathVariable cardId: Long,
                               @PathVariable productId: Long) {
         cardItemService.removeItemByIds(cardId, productId)
+    }
+
+    @GetMapping("/{userId}/products")
+    fun getUserProducts(@PathVariable userId: Long): List<CardItemDto> {
+        val allCardItems = cardItemService.getAllCardItems()
+        return allCardItems.filter { true } .map(CardItemMapper::mapToDto)
     }
 
 }

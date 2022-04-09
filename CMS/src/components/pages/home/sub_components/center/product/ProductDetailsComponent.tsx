@@ -42,7 +42,8 @@ export class ProductDetailsComponent extends React.Component<Props, {}> {
     addItem(event: React.MouseEvent<HTMLElement>) {
         this.props.appServices.userService.getUserByStoredToken().then((user: User) => {
             return this.props.appServices.shoppingCardService
-                .addProductToCard(user.shoppingCard.id, this.props.product)
+                // USER ID VALUES IS THE SAME AS THE CARD ID VALUE!
+                .addProductToCard(user.id, this.props.product)
         })
     }
 

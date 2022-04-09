@@ -7,16 +7,12 @@ object ShoppingCardMapper {
 
     fun mapToDto(shoppingCard: ShoppingCard): ShoppingCardDto {
         return ShoppingCardDto(
-            shoppingCard.id,
-            shoppingCard.cardItems.map(CardItemMapper::mapToDto)
+            shoppingCard.userId
         )
     }
 
     fun mapToDomain(shoppingCardDto: ShoppingCardDto): ShoppingCard {
-        return ShoppingCard(
-            shoppingCardDto.id,
-            shoppingCardDto.cardItems.map(CardItemMapper::mapToDomain)
-        )
+        return ShoppingCard(shoppingCardDto.userId, listOf())
     }
 
 }

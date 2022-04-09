@@ -1,5 +1,6 @@
 package com.uygar.eshop.persistence.entities.mapper
 
+import com.uygar.eshop.persistence.entities.Order
 import com.uygar.eshop.core.User as UserDomain
 import com.uygar.eshop.persistence.entities.User
 
@@ -14,7 +15,7 @@ object UserMapper {
             user.email,
             user.password,
             user.guest,
-            ShoppingCardMapper.mapToEntity(user.shoppingCard)
+            mutableListOf()
         )
     }
 
@@ -27,7 +28,7 @@ object UserMapper {
             userEntity.email,
             userEntity.password,
             userEntity.guest,
-            ShoppingCardMapper.mapToDomain(userEntity.shoppingCard)
+            userEntity.orders.map(OrderMapper::mapToDomain).toMutableList()
         )
     }
 

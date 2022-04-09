@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 class ShoppingCardDto (
 
-    @JsonProperty("id")
-    var id: Long = -1L,
-
-    @JsonProperty("cardItems")
-    var cardItems: List<CardItemDto>
+    @JsonProperty("user_id")
+    var userId: Long = -1L,
 
 )

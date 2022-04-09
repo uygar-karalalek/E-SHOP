@@ -5,6 +5,7 @@ import java.time.ZonedDateTime
 data class Order(
     val id: Long,
     val status: Int,
+    val userId: Long,
     val orderProducts: List<OrderProduct>,
     val dateAdded: ZonedDateTime
 )

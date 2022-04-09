@@ -1,4 +1,4 @@
-import {ShoppingCard} from "./ShoppingCard";
+import {Order} from "./Order";
 
 export interface User {
     id: number,
@@ -8,5 +8,5 @@ export interface User {
     email: String,
     password: String,
     guest: boolean,
-    shoppingCard: ShoppingCard
+    orders: Array<Order>
 }

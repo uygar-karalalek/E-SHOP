@@ -10,6 +10,8 @@ class ShoppingCardService(private val shoppingCardRepository: ShoppingCardReposi
         return shoppingCardRepository.findAll().map(ShoppingCardMapper::mapToDomain)
     }
 
+
+
     fun getCardById(id: Long): ShoppingCard {
         val shoppingCard = shoppingCardRepository.findById(id)
         if (shoppingCard.isPresent) return ShoppingCardMapper.mapToDomain(shoppingCard.get())
@@ -19,7 +21,7 @@ class ShoppingCardService(private val shoppingCardRepository: ShoppingCardReposi
     fun saveCard(shoppingCard: ShoppingCard): ShoppingCard? {
         shoppingCardRepository.save(ShoppingCardMapper.mapToEntity(shoppingCard))
         return shoppingCardRepository.findAll().map(ShoppingCardMapper::mapToDomain)
-            .maxByOrNull(ShoppingCard::id)
+            .maxByOrNull(ShoppingCard::userId)
     }
 
 }

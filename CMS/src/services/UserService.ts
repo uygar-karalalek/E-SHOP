@@ -2,12 +2,9 @@ import axios from "axios";
 import {ShoppingCard} from "../interfaces/ShoppingCard";
 import {User} from "../interfaces/User";
 import {CardItem} from "../interfaces/CardItem";
-import {fsReadFile} from "ts-loader/dist/utils";
-import {useDebugValue} from "react";
 import {ShoppingCardService} from "./ShoppingCardService";
 import {CookieService} from "./CookieService";
 import {UtilService} from "./UtilService";
-import * as url from "url";
 
 export class UserService {
 
@@ -24,8 +21,10 @@ export class UserService {
     }
 
     async computeTotalUserPrice() {
-        return await this.getUserByStoredToken().then(user => {
-                return this.utilService.arraySum(user.shoppingCard.cardItems)
+        return await this.getUserIdByStoredToken().then((userId: number) => {
+                return this.shoppingCardService.getUserCardItems(userId).then((cardItems: Array<CardItem>) => {
+                    return this.utilService.arraySum(cardItems)
+                })
             }
         )
     }
@@ -44,8 +43,7 @@ export class UserService {
                     password: "",
                     guest: true,
                     shoppingCard: {
-                        id: shopCard.id,
-                        cardItems: shopCard.cardItems
+                        userId: shopCard.userId
                     }
                 }
             ), {headers: {'content-type': "application/json"}})
@@ -66,7 +64,9 @@ export class UserService {
     }
 
     async getUserIdByStoredToken() {
-        return await this.getUserByStoredToken().then((value: User) => { return value.id });
+        return await this.getUserByStoredToken().then((value: User) => {
+            return value.id
+        });
     }
 
 }

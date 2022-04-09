@@ -4,8 +4,8 @@ import {CardItem} from "../interfaces/CardItem";
 
 export class ShoppingCardService {
 
-    async getCardItems() {
-        return await axios.get("/card/products").then(value => {
+    async getUserCardItems(userId: number) {
+        return await axios.get(`/card/${userId}/products`).then(value => {
             const items: Array<CardItem> = value.data
             return items;
         })

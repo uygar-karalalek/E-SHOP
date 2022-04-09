@@ -55,9 +55,10 @@ export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
                         },
                         // @ts-ignore
                         onApprove: function (data, actions) {
-                            props.appServices.userService.getUserIdByStoredToken().then((id: number) => {
-                                props.appServices.orderService.addOrder(id, {
-                                    id: 0,
+                            props.appServices.userService.getUserIdByStoredToken().then((userId: number) => {
+                                props.appServices.orderService.addOrder(userId, {
+                                    id: null,
+                                    userId: userId,
                                     status: 0,
                                     dateAdded: null
                                 }).then(r => {})

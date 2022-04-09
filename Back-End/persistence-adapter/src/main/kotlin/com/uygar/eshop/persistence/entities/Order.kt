@@ -11,6 +11,10 @@ class Order(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
+    @ManyToOne
+    @JoinColumn(name = "fk_user")
+    val user: User,
+
     @Column(name = "status")
     val status: Int,
 
@@ -20,6 +24,6 @@ class Order(
     val orderProducts: List<OrderProduct>,
 
     @Column(name = "dateAdded")
-    val dateAdded: ZonedDateTime
+    val dateAdded: ZonedDateTime,
 
 )

@@ -11,6 +11,9 @@ class OrderDto (
     @JsonProperty("status")
     val status: Int? = null,
 
+    @JsonProperty("userId")
+    val userId: Long? = null,
+
     @JsonProperty("dateAdded")
     val dateAdded: ZonedDateTime? = null
 

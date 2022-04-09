@@ -18,7 +18,8 @@ class CardController {
 
     @PostMapping("/add")
     fun saveCard(@RequestBody shoppingCardDto: ShoppingCardDto): ShoppingCardDto {
-        val shoppingCard = cardService.saveCard(ShoppingCardMapper.mapToDomain(shoppingCardDto)) ?: throw java.lang.Exception("Server error")
+        val shoppingCard = cardService.saveCard(ShoppingCardMapper.mapToDomain(shoppingCardDto))
+            ?: throw java.lang.Exception("Server error")
         return ShoppingCardMapper.mapToDto(shoppingCard)
     }
 

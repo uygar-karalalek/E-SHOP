@@ -11,7 +11,8 @@ object ProductOrderMapper {
         return OrderProductDtoRead(
             ProductDto(
                 orderProduct.productId,
-                orderProduct.productPrice, orderProduct.productTitle
+                orderProduct.productPrice, orderProduct.productTitle,
+                description = "- NOT RELEVANT (FOR ORDER PRODUCTS) -"
             ),
             orderProduct.quantity
         )

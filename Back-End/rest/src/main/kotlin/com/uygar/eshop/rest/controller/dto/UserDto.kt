@@ -25,7 +25,6 @@ class UserDto (
     @JsonProperty("guest")
     val guest: Boolean?,
 
-    @JsonProperty("shoppingCard")
-    val shoppingCard: ShoppingCardDto?
-
+    @JsonProperty("orders")
+    val orders: List<OrderDto>? = listOf()
 )

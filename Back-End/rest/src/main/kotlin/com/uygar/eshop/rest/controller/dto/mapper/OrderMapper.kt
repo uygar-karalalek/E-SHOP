@@ -20,6 +20,7 @@ object OrderMapper {
             orderDto.id ?: 0,
             orderDto.status ?: -1,
             // TODO : INFLATE THE LIST?
+            orderDto.userId!!,
             listOf(),
             ZonedDateTime.now()
         )

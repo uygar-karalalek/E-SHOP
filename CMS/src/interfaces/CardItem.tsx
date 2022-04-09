@@ -12,5 +12,4 @@ export interface CardItem {
 
     dateAdded: Date
 
-
 }

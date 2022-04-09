@@ -3,6 +3,7 @@ import {Card} from "react-bootstrap";
 import {Product} from "../../../../../../interfaces/Product";
 import {ApplicationServices} from "../../../../../../services/ApplicationServices";
 import {User} from "../../../../../../interfaces/User";
+import {CardItem} from "../../../../../../interfaces/CardItem";
 
 export class ProductComponent extends React.Component<{
     product: Product,
@@ -56,11 +57,9 @@ export class ProductComponent extends React.Component<{
         let userService = this.props.appServices.userService;
         let shoppingCardService = this.props.appServices.shoppingCardService;
 
-        userService.getUserByStoredToken().then((user: User) => {
+        userService.getUserIdByStoredToken().then((userId: number) => {
             let productToAdd = this.props.product;
-            let cardId = user.shoppingCard.id;
-            console.log(JSON.stringify(user))
-            shoppingCardService.addProductToCard(cardId, productToAdd).then(product => {
+            shoppingCardService.addProductToCard(userId, productToAdd).then(product => {
                 this.setState({product})
             });
         })

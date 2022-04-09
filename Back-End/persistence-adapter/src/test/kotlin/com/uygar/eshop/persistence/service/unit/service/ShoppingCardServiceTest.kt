@@ -3,6 +3,7 @@ package com.uygar.eshop.persistence.service.unit.service
 import com.uygar.eshop.core.CardItem
 import com.uygar.eshop.core.ShoppingCard
 import com.uygar.eshop.persistence.entities.Product
+import com.uygar.eshop.persistence.entities.User
 import com.uygar.eshop.persistence.keys.CardItemKey
 import com.uygar.eshop.persistence.repositories.ShoppingCardRepository
 import com.uygar.eshop.persistence.service.ShoppingCardService
@@ -40,9 +41,9 @@ class ShoppingCardServiceTest {
         every { shoppingCardRepository.save(any()) } returns Unit
         every { shoppingCardRepository.findAll() } returns listOf()
 
-        underTest.saveCard(ShoppingCard(1, mutableListOf()))
+        underTest.saveCard(ShoppingCard(1, arrayListOf()))
 
-        verify { shoppingCardRepository.save(ShoppingCardEntity(1, arrayListOf())) }
+        verify { shoppingCardRepository.save(ShoppingCardEntity(userId = 1)) }
     }
 
     @Test
@@ -61,7 +62,7 @@ class ShoppingCardServiceTest {
                 )
             ),
             ShoppingCardEntity(
-                2,
+                1,
                 mutableListOf(
                     CardItemEntity(
                         CardItemKey(2, 2),
@@ -69,7 +70,8 @@ class ShoppingCardServiceTest {
                         quantity = 9,
                         dateAdded
                     )
-                )
+                ),
+
             )
         )
 
@@ -91,7 +93,7 @@ class ShoppingCardServiceTest {
                     )
                 ),
                 ShoppingCard(
-                    2,
+                    1,
                     mutableListOf(
                         CardItem(
                             cardId = 2,

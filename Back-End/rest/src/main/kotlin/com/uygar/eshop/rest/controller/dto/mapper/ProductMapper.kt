@@ -10,6 +10,7 @@ object ProductMapper {
             product.id,
             product.price,
             product.title,
+            product.description
         )
     }
 
@@ -17,7 +18,8 @@ object ProductMapper {
         return Product(
             productDto.id,
             productDto.title!!,
-            productDto.price!!
+            productDto.price!!,
+            productDto.description!!
         )
     }
 

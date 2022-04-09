@@ -13,8 +13,7 @@ object UserMapper {
             user.address,
             user.email,
             user.password,
-            user.guest,
-            ShoppingCardMapper.mapToDto(user.shoppingCard)
+            user.guest
         )
     }
 
@@ -27,7 +26,7 @@ object UserMapper {
             userDto.email!!,
             userDto.password!!,
             userDto.guest!!,
-            ShoppingCardMapper.mapToDomain(userDto.shoppingCard!!)
+            userDto.orders!!.map(OrderMapper::mapToDomain).toMutableList()
         )
     }
 
