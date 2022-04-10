@@ -3,8 +3,10 @@ import {UpperBar} from "./sub_components/up/UpperBar";
 import {Center} from "./sub_components/center/Center";
 import {BottomBar} from "./sub_components/bottom/BottomBar";
 import {LeftBarComponent} from "./sub_components/left/LeftBar";
-import {NavigateFunction, useNavigate} from "react-router-dom";
+import {NavigateFunction, Routes, useNavigate} from "react-router-dom";
 import {ApplicationServices} from "../../../services/ApplicationServices";
+import {Route} from "react-router";
+import {UserOrders} from "../orders/UserOrders";
 
 export class Navigation {
     navigation: NavigateFunction
@@ -37,7 +39,11 @@ export class Home extends React.Component<HomeProps, {}> {
                     <LeftBarComponent appServices={this.props.appServices}/>
                 </div>
                 <div className="home-center col-10">
-                    <Center appServices={this.props.appServices}/>
+                    <Routes>
+                        <Route path={"/"} element={<Center appServices={this.props.appServices}/>}/>
+
+                        <Route path={"orders"} element={<UserOrders appServices={this.props.appServices}/>}/>
+                    </Routes>
                 </div>
             </div>
             <div className="row">

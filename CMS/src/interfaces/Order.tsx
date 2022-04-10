@@ -1,6 +1,6 @@
 export interface Order {
 
-    orderId: number
+    id: number
     userId: number
     status: number
     dateAdded: Date

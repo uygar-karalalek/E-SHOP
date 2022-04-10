@@ -20,7 +20,8 @@ export class App extends Component<{}, {}> {
         return (
             <div>
                 <Routes>
-                    <Route path={"/"} element={<HomeComponent appServices={this.applicationServices} />}/>
+                    { /* HERE WE TELL TO REACT-ROUTER-DOM TO ALLOW "/" SUB-PATHS */ }
+                    <Route path={"/*"} element={<HomeComponent appServices={this.applicationServices} />}/>
 
                     <Route path={"/login"}
                            element={<LoginWithRouter appServices={this.applicationServices} />}/>

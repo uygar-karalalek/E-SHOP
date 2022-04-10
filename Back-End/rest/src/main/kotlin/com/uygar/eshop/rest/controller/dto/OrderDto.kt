@@ -16,5 +16,4 @@ class OrderDto (
 
     @JsonProperty("dateAdded")
     val dateAdded: ZonedDateTime? = null
-
-    )
+)

@@ -19,7 +19,9 @@ export class LeftBar extends React.Component<Props, { loginElement: JSX.Element 
     }
 
     componentDidMount() {
-        if (this.props.appServices.cookieService.getToken() == null || this.props.appServices.cookieService.getToken().length == 0) {
+        let token = this.props.appServices.cookieService.getToken();
+        if (token == null || token.length == 0) {
+            console.log(token == null || token.length == 0)
             this.props.appServices.userService.createGuest(this.generateGuestName()).finally(() => {
                 this.setState({loginElement: <Link to={"/login"}>Login</Link>})
             })
@@ -36,6 +38,7 @@ export class LeftBar extends React.Component<Props, { loginElement: JSX.Element 
         return <div className={"container"} style={{height: 600, backgroundColor: "rgb(33, 33, 37)", color: "white"}}>
             {this.state.loginElement}
             <br/>
+            <Link to={"/orders"}>Orders</Link>
             <h4>Web Shop article types</h4><br/>
             <ul>
                 <li>
