@@ -29,13 +29,13 @@ open class PersistenceConfiguration {
     }
 
     @Bean
-    open fun orderItemService(orderItemRepository: OrderProductRepository): OrderItemService {
-        return OrderItemService(orderItemRepository)
+    open fun orderItemService(orderItemRepository: OrderProductJpaRepository): OrderProductService {
+        return OrderProductService(orderItemRepository)
     }
 
     @Bean
     open fun orderService(orderRepository: OrderJpaRepository, cardItemService: CardItemService,
-                          orderItemService: OrderItemService): OrderService {
+                          orderItemService: OrderProductService): OrderService {
         return OrderService(orderRepository, cardItemService, orderItemService)
     }
 

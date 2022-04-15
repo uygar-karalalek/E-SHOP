@@ -41,7 +41,6 @@ export class Home extends React.Component<HomeProps, {}> {
                 <div className="home-center col-10">
                     <Routes>
                         <Route path={"/"} element={<Center appServices={this.props.appServices}/>}/>
-
                         <Route path={"orders"} element={<UserOrders appServices={this.props.appServices}/>}/>
                     </Routes>
                 </div>

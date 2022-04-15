@@ -1,7 +1,7 @@
 import {ApplicationServices} from "../../../services/ApplicationServices";
 import * as React from "react";
 import {Order} from "../../../interfaces/Order";
-import {Outlet} from "react-router";
+import {OrderProduct} from "../../../interfaces/OrderProduct";
 
 export interface Props {
     appServices: ApplicationServices
@@ -20,7 +20,7 @@ export class UserOrders extends React.Component<Props, { orders: Array<Order> }>
         this.props.appServices.userService.getUserIdByStoredToken().then((userId: number) => {
             return this.props.appServices.orderService.getUserOrders(userId)
         }).then((orders: Array<Order>) => {
-            this.setState({orders: orders})
+            this.setState({orders: orders});
         })
     }
 
@@ -29,9 +29,18 @@ export class UserOrders extends React.Component<Props, { orders: Array<Order> }>
             <h1>Your orders</h1>
             {
                 this.state.orders.map(item => {
-                    <h4>{item.id + "<<<"}</h4>
+
+                    return <div>
+                        <h4>ID {item.id}</h4><br />
+
+                        <h5>Articles: </h5>{
+                            item.orderProducts.map((related: OrderProduct) => {
+                                return <>{related.productTitle}</>
+                            })
+                        }
+                    </div>
                 })
-            }            <Outlet />
+            }
 
         </div>
     }

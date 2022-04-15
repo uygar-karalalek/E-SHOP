@@ -8,10 +8,14 @@ import com.uygar.eshop.persistence.repositories.OrderRepository
 import com.uygar.eshop.core.Order as OrderDomain
 
 class OrderService(private val orderRepository: OrderRepository,
-                   private val cardItemService: CardItemService, private val orderItemService: OrderItemService) {
+                   private val cardItemService: CardItemService, private val orderItemService: OrderProductService) {
 
     fun getAllOrders(): List<OrderDomain> {
         return orderRepository.findAll().map(OrderMapper::mapToDomain)
+    }
+
+    fun getOrderByUserId(userId: Long): List<OrderDomain> {
+        return orderRepository.findByUserId(userId).map(OrderMapper::mapToDomain)
     }
 
     fun insertOrder(order: OrderDomain) {

@@ -4,7 +4,6 @@ import {ProductComponent} from "./product/ProductComponent";
 import {Product} from "../../../../../interfaces/Product";
 import {ProductDetailsComponent} from "./product/ProductDetailsComponent";
 import {ApplicationServices} from "../../../../../services/ApplicationServices";
-import {Outlet} from "react-router";
 
 export class Center extends React.Component<{ appServices: ApplicationServices }, { products: Array<Product>, product?: Product }> {
 
@@ -40,7 +39,6 @@ export class Center extends React.Component<{ appServices: ApplicationServices }
         const prodDetails = this.state.product
         return <div className={"container"} style={{backgroundColor: "rgb(33, 33, 37)", padding: 10}}>
             {this.productsOrDetails(prodDetails)}
-            <Outlet />
         </div>;
     }
 

@@ -7,4 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import java.util.*
 
-interface OrderJpaRepository : JpaRepository<Order, Long>, OrderRepository
+interface OrderJpaRepository : JpaRepository<Order, Long>, OrderRepository {
+
+    @Query(value = "SELECT * FROM `order` WHERE fk_user=:userId",
+        nativeQuery = true)
+    override fun findByUserId(userId: Long): List<Order>
+
+}

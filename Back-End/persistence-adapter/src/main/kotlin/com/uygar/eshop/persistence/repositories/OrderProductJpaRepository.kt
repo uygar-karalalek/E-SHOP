@@ -15,6 +15,12 @@ interface OrderProductJpaRepository : JpaRepository<OrderProduct, OrderProductKe
     )
     override fun findByOrderIdAndProductId(orderId: Long, productId: Long): Optional<OrderProduct>
 
+    @Query(
+        value = "SELECT * FROM `e-shop`.order_product WHERE fk_order=:orderId",
+        nativeQuery = true
+    )
+    override fun findByOrderId(orderId: Long): List<OrderProduct>
+
     @Transactional
     @Modifying
     @Query(
@@ -22,5 +28,6 @@ interface OrderProductJpaRepository : JpaRepository<OrderProduct, OrderProductKe
         nativeQuery = true
     )
     override fun incrementProductQuantity(orderId: Long, productId: Long, quantity: Int)
+
 
 }

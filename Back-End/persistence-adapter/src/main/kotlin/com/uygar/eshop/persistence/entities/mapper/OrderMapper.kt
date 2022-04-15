@@ -19,7 +19,7 @@ object OrderMapper {
                 guest = false
             ),
             order.status,
-            order.orderProducts.map(ProductOrderMapper::mapToEntity),
+            order.orderProducts.map(OrderProductMapper::mapToEntity),
             order.dateAdded
         )
     }
@@ -29,7 +29,7 @@ object OrderMapper {
             orderEntity.id,
             orderEntity.status,
             orderEntity.user.id,
-            orderEntity.orderProducts.map(ProductOrderMapper::mapToDomain),
+            orderEntity.orderProducts.map(OrderProductMapper::mapToDomain),
             orderEntity.dateAdded
         )
     }

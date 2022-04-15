@@ -21,4 +21,9 @@ class ProductController {
         return productService.getAllProducts().map(ProductMapper::mapToDto)
     }
 
+    @GetMapping("/{productId}")
+    fun getProduct(@PathVariable productId: Long): ProductDto {
+        return ProductMapper.mapToDto(productService.getAllProducts().first { it.id == productId })
+    }
+
 }

@@ -1,17 +1,19 @@
 package com.uygar.eshop.rest.controller.dto.mapper
 
 import com.uygar.eshop.core.Order
+import com.uygar.eshop.persistence.entities.mapper.OrderProductMapper
 import com.uygar.eshop.rest.controller.dto.OrderDto
-import com.uygar.eshop.rest.controller.dto.OrderWithItemsDto
 import java.time.ZonedDateTime
-import kotlin.streams.toList
 
 object OrderMapper {
 
     fun mapToDto(order: Order): OrderDto {
         return OrderDto(
-            order.id,
-            order.status
+            id = order.id,
+            status = order.status,
+            userId = order.userId,
+            dateAdded = order.dateAdded,
+            orderProducts = order.orderProducts.map(ProductOrderMapper::mapToDto)
         )
     }
 
@@ -19,10 +21,9 @@ object OrderMapper {
         return Order(
             orderDto.id ?: 0,
             orderDto.status ?: -1,
-            // TODO : INFLATE THE LIST?
             orderDto.userId!!,
-            listOf(),
-            ZonedDateTime.now()
+            orderDto.orderProducts!!.map(ProductOrderMapper::mapToDomain),
+            orderDto.dateAdded ?: ZonedDateTime.now().minusMonths(2)
         )
     }
 

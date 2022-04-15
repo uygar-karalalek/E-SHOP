@@ -5,7 +5,7 @@ import java.time.ZonedDateTime
 
 class OrderDto (
 
-    @JsonProperty("orderId")
+    @JsonProperty("id")
     val id: Long? = null,
 
     @JsonProperty("status")
@@ -15,5 +15,9 @@ class OrderDto (
     val userId: Long? = null,
 
     @JsonProperty("dateAdded")
-    val dateAdded: ZonedDateTime? = null
+    val dateAdded: ZonedDateTime? = null,
+
+    @JsonProperty("orderProducts")
+    val orderProducts: List<OrderProductDto>? = listOf()
+
 )
