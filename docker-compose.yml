@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  back-end:
+    image: eshop-back-end
+    build:
+      context: ./Back-End
+      args:
+        jar: rest-1.0-SNAPSHOT.jar
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
+  mysql:
+    restart: unless-stopped
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "*E-Shop123*"
+      MYSQL_PORT: 5000
+      MYSQL_DATABASE: e-shop
+      MYSQL_USER: root
+      MYSQL_PASSWORD: "*E-Shop123*"
+    volumes:
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5000:5000"
