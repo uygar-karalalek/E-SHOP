@@ -35,8 +35,19 @@ do
     npm run classic
   fi
   if [ $v = "s" ]; then
+    gradle -stop
+    sleep 3
+    cd ../Back-End
+    gradle build
+    gradle bootRun
+    sleep 3
+    cd ../CMS
+  fi
+  if [ $v = "l" ]; then
+    cd ../Back-End
+    sleep 3
     gradle build
     sleep 3
-    gradle bootRun &
+    cd ../CMS
   fi
 done
