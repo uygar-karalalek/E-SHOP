@@ -3,7 +3,6 @@ package com.uygar.eshop.persistence.service.unit.service
 import com.uygar.eshop.core.CardItem
 import com.uygar.eshop.core.ShoppingCard
 import com.uygar.eshop.persistence.entities.Product
-import com.uygar.eshop.persistence.entities.User
 import com.uygar.eshop.persistence.keys.CardItemKey
 import com.uygar.eshop.persistence.repositories.ShoppingCardRepository
 import com.uygar.eshop.persistence.service.ShoppingCardService
@@ -43,7 +42,7 @@ class ShoppingCardServiceTest {
 
         underTest.saveCard(ShoppingCard(1, arrayListOf()))
 
-        verify { shoppingCardRepository.save(ShoppingCardEntity(userId = 1)) }
+        verify { shoppingCardRepository.save(ShoppingCardEntity(id = 1)) }
     }
 
     @Test

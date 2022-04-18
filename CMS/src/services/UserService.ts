@@ -30,23 +30,21 @@ export class UserService {
     }
 
     async createGuest(guestName: string) {
-        return await this.shoppingCardService.addShoppingCard().then(value => {
+        return await axios.post("/users/add", JSON.stringify({
+                id: -1,
+                name: "",
+                surname: "",
+                address: "",
+                email: guestName + "@guest.com",
+                password: "",
+                guest: true,
+                shoppingCard: null
+            }
+        ), {headers: {'content-type': "application/json"}}).then((userJson) => {
+            let user: User = JSON.parse(JSON.stringify(userJson.data))
+            console.log(user.id)
+            this.shoppingCardService.addShoppingCard(user.id)
             this.cookieService.setToken(guestName)
-
-            let shopCard: ShoppingCard = JSON.parse(JSON.stringify(value.data))
-            return axios.post("/users/add", JSON.stringify({
-                    id: -1,
-                    name: "",
-                    surname: "",
-                    address: "",
-                    email: guestName + "@guest.com",
-                    password: "",
-                    guest: true,
-                    shoppingCard: {
-                        userId: shopCard.userId
-                    }
-                }
-            ), {headers: {'content-type': "application/json"}})
         })
     }
 

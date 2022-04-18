@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 class ShoppingCardDto (
 
-    @JsonProperty("user_id")
+    @JsonProperty("userId")
     var userId: Long = -1L,
 
 )
