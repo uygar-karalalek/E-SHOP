@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  back-end:
+    image: eshop-back-end
+    build:
+      context: ./Back-End
+      args:
+        jar: rest-1.0-SNAPSHOT.jar
+    ports:
+      - "8081:8080"
+    depends_on:
+      - eshop-database
+  eshop-database:
+    restart: "always"
+    image: mysql-im
+    environment:
+      MYSQL_ROOT_PASSWORD: "*E-Shop123*"
+      MYSQL_DATABASE: e-shop
+      MYSQL_USER: user
+      MYSQL_PASSWORD: "*E-Shop123*"
+    volumes:
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5000:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uuser", "-p*E-Shop123*", "--port=5000"]
+      timeout: 20s
+      retries: 10

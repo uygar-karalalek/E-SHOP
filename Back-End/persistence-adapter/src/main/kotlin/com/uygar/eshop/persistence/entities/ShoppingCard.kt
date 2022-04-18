@@ -6,30 +6,17 @@ import javax.persistence.*
 @Entity
 class ShoppingCard(
 
-    userId: Long = -1L,
+    @Id @Column(name = "user_id") var id: Long = -1L,
 
     @JoinColumn(name = "fk_card")
     @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
-    var cardItems: MutableList<CardItem> = arrayListOf(),
+    var cardItems: MutableList<CardItem> = arrayListOf()
+    ) {
 
-) {
-
-    @Id
-    @Column(name = "user_id")
-    var id: Long = 0
-
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = [CascadeType.ALL])
     @MapsId
     @JoinColumn(name = "user_id")
-    var user: User = User(
-        id = userId,
-        name = "",
-        surname = "",
-        address = "",
-        email = "",
-        password = "",
-        guest = true
-    )
+    var user: User? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

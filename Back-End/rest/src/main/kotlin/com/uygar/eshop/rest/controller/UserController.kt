@@ -31,8 +31,7 @@ class UserController {
 
     @PostMapping("/add")
     fun saveUser(@RequestBody user: UserDto): UserDto {
-        userService.saveUser(UserMapper.mapToDomain(user))
-        return user
+        return UserMapper.mapToDto(userService.saveUser(UserMapper.mapToDomain(user)))
     }
 
 }

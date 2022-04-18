@@ -11,8 +11,8 @@ export class ShoppingCardService {
         })
     }
 
-    async addShoppingCard() {
-        return await axios.post("/card/add", JSON.stringify({cardItems: []}),
+    async addShoppingCard(userId: number) {
+        return await axios.post("/card/add", JSON.stringify({userId: userId}),
             {headers: {'content-type': "application/json"}})
     }
 

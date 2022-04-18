@@ -3,6 +3,7 @@ package com.uygar.eshop.persistence.service
 import com.uygar.eshop.core.ShoppingCard
 import com.uygar.eshop.persistence.entities.mapper.ShoppingCardMapper
 import com.uygar.eshop.persistence.repositories.ShoppingCardRepository
+import com.uygar.eshop.persistence.entities.ShoppingCard as ShoppingCardEntity
 
 class ShoppingCardService(private val shoppingCardRepository: ShoppingCardRepository) {
 
@@ -19,7 +20,8 @@ class ShoppingCardService(private val shoppingCardRepository: ShoppingCardReposi
     }
 
     fun saveCard(shoppingCard: ShoppingCard): ShoppingCard? {
-        shoppingCardRepository.save(ShoppingCardMapper.mapToEntity(shoppingCard))
+        val card: ShoppingCardEntity = ShoppingCardMapper.mapToEntity(shoppingCard)
+        shoppingCardRepository.save(card)
         return shoppingCardRepository.findAll().map(ShoppingCardMapper::mapToDomain)
             .maxByOrNull(ShoppingCard::userId)
     }
