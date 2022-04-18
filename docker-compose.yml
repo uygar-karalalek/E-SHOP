@@ -13,7 +13,7 @@ services:
       - eshop-database
   eshop-database:
     restart: "always"
-    image: mysql-im
+    image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: "*E-Shop123*"
       MYSQL_DATABASE: e-shop

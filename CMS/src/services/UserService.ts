@@ -43,8 +43,7 @@ export class UserService {
         ), {headers: {'content-type': "application/json"}}).then((userJson) => {
             let user: User = JSON.parse(JSON.stringify(userJson.data))
             console.log(user.id)
-            this.shoppingCardService.addShoppingCard(user.id)
-            this.cookieService.setToken(guestName)
+             this.cookieService.setToken(guestName)
         })
     }
 
