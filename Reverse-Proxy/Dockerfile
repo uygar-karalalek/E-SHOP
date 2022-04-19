@@ -1,0 +1,3 @@
+FROM nginx:1.21.6
+
+ADD nginx.conf /etc/nginx/conf.d/nginx.conf

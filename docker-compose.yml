@@ -1,6 +1,10 @@
 version: "3.7"
 
 services:
+  reverse-proxy:
+    image: eshop-reverse-proxy
+    ports:
+      - "9000:9000"
   back-end:
     image: eshop-back-end
     build:
