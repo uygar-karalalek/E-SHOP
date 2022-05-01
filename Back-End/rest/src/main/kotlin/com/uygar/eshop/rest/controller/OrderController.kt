@@ -20,6 +20,10 @@ class OrderController {
 
     @PostMapping("/add")
     fun addOrderToUser(@PathVariable userId: String, @RequestBody order: OrderDto) {
+        println(order.receiverAddress)
+        println(order.id)
+        println(order.dateAdded)
+        println(order.receiverFullName)
         return orderService.insertOrder(OrderMapper.mapToDomain(order))
     }
 

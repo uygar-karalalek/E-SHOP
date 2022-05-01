@@ -1,7 +1,6 @@
 package com.uygar.eshop.rest.controller.dto.mapper
 
 import com.uygar.eshop.core.Order
-import com.uygar.eshop.persistence.entities.mapper.OrderProductMapper
 import com.uygar.eshop.rest.controller.dto.OrderDto
 import java.time.ZonedDateTime
 
@@ -20,10 +19,13 @@ object OrderMapper {
     fun mapToDomain(orderDto: OrderDto): Order {
         return Order(
             orderDto.id ?: 0,
-            orderDto.status ?: -1,
-            orderDto.userId!!,
-            orderDto.orderProducts!!.map(ProductOrderMapper::mapToDomain),
-            orderDto.dateAdded ?: ZonedDateTime.now().minusMonths(2)
+            userId = orderDto.userId!!,
+            totalPrice = orderDto.totalPrice,
+            receiverAddress = orderDto.receiverAddress,
+            receiverFullName = orderDto.receiverFullName,
+            status = orderDto.status ?: -1,
+            orderProducts = orderDto.orderProducts!!.map(ProductOrderMapper::mapToDomain),
+            dateAdded = orderDto.dateAdded ?: ZonedDateTime.now().minusMonths(2)
         )
     }
 

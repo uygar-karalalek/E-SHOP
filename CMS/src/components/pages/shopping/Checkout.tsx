@@ -3,6 +3,9 @@ import {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {ApplicationServices} from "../../../services/ApplicationServices";
 import {Order} from "../../../interfaces/Order";
+import {PayPalOrder} from "../../../interfaces/PayPalOrder";
+import {Simulate} from "react-dom/test-utils";
+import compositionStart = Simulate.compositionStart;
 
 interface Props {
     currency: string,
@@ -12,6 +15,7 @@ interface Props {
 export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
 
     const [priceState, setPrice] = useState({price: 0, priceLoaded: false})
+
 
     function updatePrice(computed: number) {
         setPrice({price: computed, priceLoaded: true})
@@ -34,7 +38,7 @@ export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
             window.paypal
                 .Buttons({        // @ts-ignore
                         createOrder: function (data, actions) {
-
+                            console.log("CREATING")
                             return actions.order.create({
                                 intent: "CAPTURE",
                                 purchase_units: [
@@ -55,24 +59,32 @@ export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
                         },
                         // @ts-ignore
                         onApprove: function (data, actions) {
-                            props.appServices.userService.getUserIdByStoredToken().then((userId: number) => {
-                                props.appServices.orderService.addOrder(userId, {
-                                    id: null,
-                                    userId: userId,
-                                    status: 0,
-                                    dateAdded: null
-                                }).then(r => {})
-                            });
-                            const navigate = useNavigate()
-                            navigate("/")
+                            props.appServices.paymentService.getPaypalOrder(data.orderID, data.facilitatorAccessToken)
+                                .then((paypalOrder: PayPalOrder) => {
+                                    console.log(paypalOrder)
+                                    props.appServices.userService.getUserIdByStoredToken().then((userId: number) => {
+                                        console.log(paypalOrder.amount + " - " + paypalOrder.shippingAddress + " - " + paypalOrder.receiverFullName)
+                                        props.appServices.paymentService.addOrder(userId, {
+                                            id: null,
+                                            status: 0,
+                                            userId: userId,
+                                            receiverAddress: paypalOrder.shippingAddress,
+                                            receiverFullName: paypalOrder.receiverFullName,
+                                            totalPrice: paypalOrder.amount,
+                                            dateAdded: null
+                                        })
+                                    });
+                                })
                         },
                         onError: (err: any) => {
+                            console.log("ERROR")
+                            console.log(err)
                             //   window.location.href = "/";
                         },
                     }
                 ).render(paypal.current);
         }
-    }, [priceState]);
+    }, [priceState, props]);
 
     return <div>
         <div style={{marginTop: 100, display: 'flex', justifyContent: 'center'}}>

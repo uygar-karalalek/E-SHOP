@@ -4,7 +4,7 @@
 cd Back-End
 gradle clean build
 sleep 3
-gradle bootRun &
+gradle bootRun --args='--spring.config.additional-location=../environment/staging/application.yaml' &
 
 function cleanupOnExit() {
   killall -9 node
@@ -39,7 +39,7 @@ do
     sleep 3
     cd ../Back-End
     gradle build
-    gradle bootRun
+    gradle bootRun --args='--spring.config.additional-location=../environment/staging/application.yaml'
     sleep 3
     cd ../CMS
   fi
