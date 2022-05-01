@@ -25,20 +25,21 @@ export class Home extends React.Component<HomeProps, {}> {
 
     constructor(props: HomeProps) {
         super(props);
+        this.setFilterTitle = this.setFilterTitle.bind(this)
     }
 
     render() {
         return <div className={"home-general container-fluid"}>
             <div className="row">
-                <div className="col-12">
-                    <UpperBar/>
+                <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <UpperBar appServices={this.props.appServices} setTitleState={this.setFilterTitle}/>
                 </div>
             </div>
             <div className="row">
-                <div className="col-2">
+                <div className="col-sm-2 col-md-2 col-lg-2 col-xl-2">
                     <LeftBarComponent appServices={this.props.appServices}/>
                 </div>
-                <div className="home-center col-10">
+                <div className="home-center col-sm-10 col-md-10 col-lg-10 col-xl-10">
                     <Routes>
                         <Route path={"/"} element={<Center appServices={this.props.appServices}/>}/>
                         <Route path={"orders"} element={<UserOrders appServices={this.props.appServices}/>}/>
@@ -46,11 +47,15 @@ export class Home extends React.Component<HomeProps, {}> {
                 </div>
             </div>
             <div className="row">
-                <div className="col-12">
+                <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <BottomBar/>
                 </div>
             </div>
         </div>;
+    }
+
+    setFilterTitle() {
+        this.setState({})
     }
 
 }

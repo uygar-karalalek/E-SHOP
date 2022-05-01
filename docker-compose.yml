@@ -2,22 +2,25 @@ version: "3.7"
 
 services:
   reverse-proxy:
+    container_name: eshop-reverse-proxy
     image: eshop-reverse-proxy
     depends_on:
       - back-end
     ports:
       - "9000:9000"
   back-end:
+    container_name: eshop-back-end
     image: eshop-back-end
     build:
       context: ./Back-End
       args:
         jar: rest-1.0-SNAPSHOT.jar
     ports:
-      - "8081:8080"
+      - "8082:8080"
     depends_on:
       - eshop-database
   eshop-database:
+    container_name: eshop-database
     restart: "always"
     image: mysql:8
     environment:

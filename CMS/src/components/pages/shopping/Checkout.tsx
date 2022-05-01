@@ -59,12 +59,12 @@ export const Checkout: (props: Props) => JSX.Element = (props: Props) => {
                         },
                         // @ts-ignore
                         onApprove: function (data, actions) {
-                            props.appServices.paymentService.getPaypalOrder(data.orderID, data.facilitatorAccessToken)
+                            props.appServices.orderPaymentService.getPaypalOrder(data.orderID, data.facilitatorAccessToken)
                                 .then((paypalOrder: PayPalOrder) => {
                                     console.log(paypalOrder)
                                     props.appServices.userService.getUserIdByStoredToken().then((userId: number) => {
                                         console.log(paypalOrder.amount + " - " + paypalOrder.shippingAddress + " - " + paypalOrder.receiverFullName)
-                                        props.appServices.paymentService.addOrder(userId, {
+                                        props.appServices.orderPaymentService.addOrder(userId, {
                                             id: null,
                                             status: 0,
                                             userId: userId,

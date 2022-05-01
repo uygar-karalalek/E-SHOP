@@ -3,11 +3,12 @@ import {Product} from "../interfaces/Product";
 
 export class ProductService {
 
-    async getProductById(productId: number) {
-        return await axios.get(`/products/${productId}`).then(value => {
-            let prod: Product = value.data
-            return prod
-        })
+    async getAllProducts() {
+        return await axios.get('/products')
+            .then(res => {
+                let products : Array<Product> = res.data;
+                return products;
+            })
     }
 
 }
