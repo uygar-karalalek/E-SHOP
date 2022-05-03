@@ -2,10 +2,12 @@ version: "3.7"
 
 services:
   reverse-proxy:
+    container_name: eshop-reverse-proxy
     image: eshop-reverse-proxy
     ports:
-      - "9000:9000"
+      - "80:9000"
   back-end:
+    container_name: eshop-back-end
     image: eshop-back-end
     build:
       context: ./Back-End
@@ -26,7 +28,7 @@ services:
     volumes:
       - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "5000:3306"
+      - "5001:3306"
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uuser", "-p*E-Shop123*", "--port=5000"]
       timeout: 20s
