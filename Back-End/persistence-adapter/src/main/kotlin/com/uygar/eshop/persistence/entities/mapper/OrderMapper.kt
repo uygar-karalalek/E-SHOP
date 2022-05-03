@@ -18,19 +18,25 @@ object OrderMapper {
                 password = "",
                 guest = false
             ),
-            order.status,
-            order.orderProducts.map(OrderProductMapper::mapToEntity),
-            order.dateAdded
+            totalPrice = order.totalPrice!!,
+            receiverAddress = order.receiverAddress!!,
+            receiverFullName = order.receiverFullName!!,
+            status = order.status,
+            orderProducts = order.orderProducts.map(OrderProductMapper::mapToEntity),
+            dateAdded = order.dateAdded
         )
     }
 
     fun mapToDomain(orderEntity: Order): OrderDomain {
         return OrderDomain(
             orderEntity.id,
-            orderEntity.status,
-            orderEntity.user.id,
-            orderEntity.orderProducts.map(OrderProductMapper::mapToDomain),
-            orderEntity.dateAdded
+            status = orderEntity.status,
+            userId = orderEntity.user.id,
+            totalPrice = orderEntity.totalPrice,
+            receiverFullName = orderEntity.receiverFullName,
+            receiverAddress = orderEntity.receiverAddress,
+            orderProducts = orderEntity.orderProducts.map(OrderProductMapper::mapToDomain),
+            dateAdded = orderEntity.dateAdded
         )
     }
 

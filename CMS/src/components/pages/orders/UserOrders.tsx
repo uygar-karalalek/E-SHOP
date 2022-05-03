@@ -18,7 +18,7 @@ export class UserOrders extends React.Component<Props, { orders: Array<Order> }>
 
     componentDidMount() {
         this.props.appServices.userService.getUserIdByStoredToken().then((userId: number) => {
-            return this.props.appServices.orderService.getUserOrders(userId)
+            return this.props.appServices.orderPaymentService.getUserOrders(userId)
         }).then((orders: Array<Order>) => {
             this.setState({orders: orders});
         })

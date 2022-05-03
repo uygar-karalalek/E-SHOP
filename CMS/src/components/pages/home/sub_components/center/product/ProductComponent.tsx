@@ -4,6 +4,7 @@ import {Product} from "../../../../../../interfaces/Product";
 import {ApplicationServices} from "../../../../../../services/ApplicationServices";
 import {User} from "../../../../../../interfaces/User";
 import {CardItem} from "../../../../../../interfaces/CardItem";
+import {appendSuffixesIfMatch} from "ts-loader/dist/utils";
 
 export class ProductComponent extends React.Component<{
     product: Product,
@@ -23,7 +24,8 @@ export class ProductComponent extends React.Component<{
 
     render() {
         return (
-            <Card style={{width: '15rem', marginRight: 10, marginTop: 10, backgroundColor: "#545f6b", color: "white"}}>
+            <Card style={{width: '25%', marginRight: '10px', minWidth: '9rem',
+                backgroundColor: "#545f6b", color: "white"}}>
                 <Card.Body>
                     <div>
                         <Card.Img onClick={this.setProductForViewDetails} style={{
@@ -59,9 +61,7 @@ export class ProductComponent extends React.Component<{
 
         userService.getUserIdByStoredToken().then((userId: number) => {
             let productToAdd = this.props.product;
-            shoppingCardService.addProductToCard(userId, productToAdd).then(product => {
-                this.setState({product})
-            });
+            shoppingCardService.addProductToCard(userId, productToAdd);
         })
     }
 

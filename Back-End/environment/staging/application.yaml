@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: "jdbc:mysql://localhost:3306/e-shop"
+  jpa:
+    hibernate:
+      ddl-auto: validate
+server:
+  port: 8081

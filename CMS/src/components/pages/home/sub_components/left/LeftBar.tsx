@@ -35,7 +35,7 @@ export class LeftBar extends React.Component<Props, { loginElement: JSX.Element 
     }
 
     render() {
-        return <div className={"container"} style={{height: 600, backgroundColor: "rgb(33, 33, 37)", color: "white"}}>
+        return <div className={"container-sm container-lg container-xl container-md"} style={{height: 600, backgroundColor: "rgb(33, 33, 37)", color: "white"}}>
             {this.state.loginElement}
             <br/>
             <Link to={"/orders"}>Orders</Link>

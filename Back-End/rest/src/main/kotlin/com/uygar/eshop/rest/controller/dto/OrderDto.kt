@@ -14,6 +14,15 @@ class OrderDto (
     @JsonProperty("userId")
     val userId: Long? = null,
 
+    @JsonProperty("receiverAddress")
+    val receiverAddress: String? = null,
+
+    @JsonProperty("receiverFullName")
+    val receiverFullName: String? = null,
+
+    @JsonProperty("totalPrice")
+    val totalPrice: Double? = null,
+
     @JsonProperty("dateAdded")
     val dateAdded: ZonedDateTime? = null,
 
