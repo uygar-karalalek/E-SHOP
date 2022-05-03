@@ -1,6 +1,7 @@
 import axios from "axios";
 import {Product} from "../interfaces/Product";
 import {CardItem} from "../interfaces/CardItem";
+import {CardItemAddOperationTypeResult} from "../interfaces/CardItemAddOperationTypeResult";
 
 export class ShoppingCardService {
 
@@ -9,11 +10,6 @@ export class ShoppingCardService {
             const items: Array<CardItem> = value.data
             return items;
         })
-    }
-
-    async addShoppingCard(userId: number) {
-        return await axios.post("/card/add", JSON.stringify({userId: userId}),
-            {headers: {'content-type': "application/json"}})
     }
 
     async addProductToCard(cardId: number, product: Product) {
@@ -26,7 +22,9 @@ export class ShoppingCardService {
             quantity: 1,
             dateAdded: null
         }).then(response => {
-            return response.data
+            console.log(response.data)
+            let data: CardItemAddOperationTypeResult = response.data;
+            return data
         })
     }
 

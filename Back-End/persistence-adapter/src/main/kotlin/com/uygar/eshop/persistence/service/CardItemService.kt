@@ -1,6 +1,7 @@
 package com.uygar.eshop.persistence.service
 
 import com.uygar.eshop.core.CardItem
+import com.uygar.eshop.core.CardItemAddOperationTypeResult
 import com.uygar.eshop.persistence.entities.mapper.CardItemMapper
 import com.uygar.eshop.persistence.repositories.CardItemRepository
 import java.util.*
@@ -11,10 +12,15 @@ class CardItemService(private val cardItemRepository: CardItemRepository) {
         return cardItemRepository.findAll().map(CardItemMapper::mapToDomain)
     }
 
-    fun addItem(cardItem: CardItem) {
+    fun addItem(cardItem: CardItem): CardItemAddOperationTypeResult {
         val searchedCardItem = cardItemRepository.findByCardIdAndProductId(cardItem.cardId, cardItem.productId)
-        if (searchedCardItem.isPresent) cardItemRepository.incrementItemQuantity(cardItem.cardId, cardItem.productId, 1)
-        else cardItemRepository.save(CardItemMapper.mapToEntity(cardItem))
+        if (searchedCardItem.isPresent) {
+            cardItemRepository.incrementItemQuantity(cardItem.cardId, cardItem.productId, 1)
+            return CardItemAddOperationTypeResult(operationIsQuantityIncrement = true)
+        }
+
+        cardItemRepository.save(CardItemMapper.mapToEntity(cardItem))
+        return CardItemAddOperationTypeResult(operationIsQuantityIncrement = false)
     }
 
     fun removeAllItemsById(cardId: Long, productId: Long) {

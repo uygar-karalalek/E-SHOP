@@ -5,11 +5,14 @@ import {ApplicationServices} from "../../../../../../services/ApplicationService
 import {User} from "../../../../../../interfaces/User";
 import {CardItem} from "../../../../../../interfaces/CardItem";
 import {appendSuffixesIfMatch} from "ts-loader/dist/utils";
+import {CardItemAddOperationTypeResult} from "../../../../../../interfaces/CardItemAddOperationTypeResult";
 
 export class ProductComponent extends React.Component<{
     product: Product,
     setViewProductDetails: (det: Product) => void,
     appServices: ApplicationServices
+    cartUpdate: any
+    numOfItems: number
 }, {}> {
 
     constructor(props: any) {
@@ -55,13 +58,18 @@ export class ProductComponent extends React.Component<{
         );
     }
 
-    addProductToCard(event: React.MouseEvent<HTMLElement>) {
+    addProductToCard(_: React.MouseEvent<HTMLElement>) {
+
         let userService = this.props.appServices.userService;
         let shoppingCardService = this.props.appServices.shoppingCardService;
 
         userService.getUserIdByStoredToken().then((userId: number) => {
             let productToAdd = this.props.product;
-            shoppingCardService.addProductToCard(userId, productToAdd);
+            shoppingCardService.addProductToCard(userId, productToAdd).then((operationResult: CardItemAddOperationTypeResult) => {
+                console.log(operationResult.operationIsQuantityIncrement)
+                if (!operationResult.operationIsQuantityIncrement)
+                    this.props.cartUpdate(this.props.numOfItems+1)
+            });
         })
     }
 
