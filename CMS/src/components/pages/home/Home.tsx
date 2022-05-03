@@ -7,6 +7,9 @@ import {NavigateFunction, Routes, useNavigate} from "react-router-dom";
 import {ApplicationServices} from "../../../services/ApplicationServices";
 import {Route} from "react-router";
 import {UserOrders} from "../orders/UserOrders";
+import {Simulate} from "react-dom/test-utils";
+import canPlayThrough = Simulate.canPlayThrough;
+import {CardItem} from "../../../interfaces/CardItem";
 
 export class Navigation {
     navigation: NavigateFunction
@@ -21,18 +24,37 @@ interface HomeProps {
     appServices: ApplicationServices
 }
 
-export class Home extends React.Component<HomeProps, {}> {
+/* TODO : THIS AWFUL MANAGEMENT OF APPLICATION STATE
+    ACROSS UPPER BAR AND CENTER COMPONENTS WOULD BE REPLACED BY A BETTER ONE
+    USING INSTEAD A CACHING SYSTEM SYSTEM LIKE REDUX OR REDIS
+*/
+
+export class Home extends React.Component<HomeProps, { cardItems: number }> {
 
     constructor(props: HomeProps) {
         super(props);
-        this.setFilterTitle = this.setFilterTitle.bind(this)
+        this.filterTitleUpdate = this.filterTitleUpdate.bind(this)
+        this.cartItemUpdate = this.cartItemUpdate.bind(this)
+        this.updateHome = this.updateHome.bind(this)
+
+        this.state = {
+            cardItems: 0
+        }
+    }
+
+    componentDidMount() {
+        this.props.appServices.userService.getUserIdByStoredToken().then(userId => {
+            this.props.appServices.shoppingCardService.getUserCardItems(userId).then((items: Array<CardItem>) =>
+                this.setState({cardItems: items.length}))
+        })
     }
 
     render() {
         return <div className={"home-general container-fluid"}>
             <div className="row">
                 <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <UpperBar appServices={this.props.appServices} setTitleState={this.setFilterTitle}/>
+                    <UpperBar numOfItems={this.state.cardItems == null ? 0 : this.state.cardItems} appServices={this.props.appServices}
+                              setTitleState={this.filterTitleUpdate}/>
                 </div>
             </div>
             <div className="row">
@@ -41,7 +63,9 @@ export class Home extends React.Component<HomeProps, {}> {
                 </div>
                 <div className="home-center col-sm-10 col-md-10 col-lg-10 col-xl-10">
                     <Routes>
-                        <Route path={"/"} element={<Center appServices={this.props.appServices}/>}/>
+                        <Route path={"/"} element={<Center numOfItems={this.state.cardItems == null ? 0 : this.state.cardItems}
+                                                           cartUpdate={this.cartItemUpdate}
+                                                           appServices={this.props.appServices}/>}/>
                         <Route path={"orders"} element={<UserOrders appServices={this.props.appServices}/>}/>
                     </Routes>
                 </div>
@@ -54,10 +78,21 @@ export class Home extends React.Component<HomeProps, {}> {
         </div>;
     }
 
-    setFilterTitle() {
-        this.setState({})
+    cartItemUpdate(cardItems: number) {
+        this.updateHomeCardItems(cardItems)
     }
 
+    filterTitleUpdate() {
+        this.updateHome();
+    }
+
+    private updateHomeCardItems(cardItems: number) {
+        this.setState({cardItems: cardItems})
+    }
+
+    private updateHome() {
+        this.setState({})
+    }
 }
 
 export function HomeComponent(props: { appServices: ApplicationServices }) {

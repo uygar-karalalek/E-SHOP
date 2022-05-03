@@ -4,7 +4,8 @@ import {ApplicationServices} from "../../../../../services/ApplicationServices";
 
 export class UpperBar extends React.Component<{
     appServices: ApplicationServices,
-    setTitleState: any
+    setTitleState: any,
+    numOfItems: number
 }> {
 
     filterTitle: string
@@ -23,6 +24,7 @@ export class UpperBar extends React.Component<{
             <input className={"upper-ok-button"} type={"button"} value={"OK"} onClick={this.changeFiltering}/>
             <Link to={"/shopping"}><img className={"upper-shopping-link"} width={50} src={"shopping_card.png"}
                                         alt={"not_found"}/></Link>
+            <span style={{ color: "white" }}>{ this.props.numOfItems }</span>
         </div>;
     }
 
